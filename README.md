@@ -1,32 +1,74 @@
-# React + TypeScript + Vite
+# Muhammad Jawad Fareed — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> Full Stack AI Engineer & Founder of IVOO · Based in Lahore, Pakistan
 
-Currently, two official plugins are available:
+An award-level personal portfolio featuring a cinematic editorial aesthetic, interactive 3D hero showcase, interactive SaaS product demo for IVOO, dark/light theme switching, and smooth Framer Motion choreographies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⚡ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Tailwind CSS + Custom CSS Variables Design Tokens
+- **Animations**: Framer Motion
+- **Visualizations**: Recharts (Radar Chart & Circular Match Gauges)
+- **Icons**: Lucide React + Custom Brand SVGs
+- **Effects**: Canvas Confetti, Custom Cursor, Noise Overlay, Adaptive Blur Glassmorphism
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🚀 Getting Started
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Prerequisites
+
+Node.js 18+ and npm.
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/muarijshakeel5/jawads-portfolio.git
+cd jawads-portfolio
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The application will be running locally at `http://localhost:5173`.
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## 📂 Architecture & Key Sections
+
+- **Single Content Source**: All profile details, statistics, project case studies, and IVOO metrics live in `src/data.ts`.
+- **Chapter Storyline**:
+  - `CH. 00` — Hero with 3D tilt phone mockup, live Lahore PKT time, and dynamic role cycler
+  - `CH. 01` — Story & live animated counter cards
+  - `CH. 02` — IVOO Flagship showcase with macOS window chrome, CV match gauge, AI Interview feed with live audio waveform, Recharts radar scorecard, and recruiter pipeline
+  - `CH. 03` — Interactive career journey timeline
+  - `CH. 04` — Selected work case studies with category filtering and modal details
+  - `CH. 05` — Engineering service offerings
+  - `CH. 06` — Categorized skills matrix
+  - `CH. 07` — Building in public & 15K+ follower metrics
+  - `CH. 08` — Education & certifications
+  - `CH. 09` — Contact section with 1-click email copy & form
+- **Theme Support**: Dark mode by default, switchable to light mode with high-contrast color tokens and `localStorage` persistence.
+- **Shortcuts & Easter Eggs**:
+  - `⌘K` or `Ctrl+K` to open the Command Palette.
+  - Type `hire` anywhere on the page for a confetti celebration.
+
+---
+
+## 📄 License
+
+MIT © Muhammad Jawad Fareed

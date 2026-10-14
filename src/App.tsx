@@ -94,11 +94,11 @@ function useEasterEgg() {
   }, [])
 }
 
-// Theme
+// Theme & Intro
 import { ThemeProvider } from './context/ThemeContext'
+import { IntroProvider } from './context/IntroContext'
 
 export default function App() {
-  const [introVisible, setIntroVisible] = useState(true)
   const [cmdOpen, setCmdOpen] = useState(false)
 
   useEasterEgg()
@@ -117,10 +117,11 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <SEO />
+      <IntroProvider>
+        <SEO />
 
-      {/* Intro overlay */}
-      <Intro visible={introVisible} onComplete={() => setIntroVisible(false)} />
+        {/* Intro overlay */}
+        <Intro />
 
       {/* Custom cursor (desktop only) */}
       <Cursor />
@@ -163,6 +164,7 @@ export default function App() {
         <Education />
         <Contact />
       </main>
+      </IntroProvider>
     </ThemeProvider>
   )
 }

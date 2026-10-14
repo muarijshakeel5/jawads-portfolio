@@ -1,33 +1,46 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { personal } from '../data'
+import { useIntro } from '../context/IntroContext'
 
-interface IntroProps {
-  onComplete: () => void
-  visible: boolean
-}
+export default function Intro() {
+  const { introAlreadySeen, setIntroDone } = useIntro()
+  const [visible, setVisible] = useState(!introAlreadySeen)
 
-export default function Intro({ onComplete, visible }: IntroProps) {
   useEffect(() => {
-    if (!visible) return
+    if (introAlreadySeen) {
+      setIntroDone(true)
+      return
+    }
+
     const timer = setTimeout(() => {
-      onComplete()
+      setVisible(false)
+      setIntroDone(true)
     }, 1100)
+
     return () => clearTimeout(timer)
-  }, [visible, onComplete])
+  }, [introAlreadySeen, setIntroDone])
+
+  if (introAlreadySeen) return null
+
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[99999] flex items-center justify-center"
+          className="fixed inset-0 z-[99999] flex items-center justify-center pointer-events-none"
           style={{ background: 'var(--bg-primary)' }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           onAnimationComplete={(definition: unknown) => {
-            if (typeof definition === 'object' && definition !== null && 'opacity' in definition && (definition as { opacity: number }).opacity === 0) {
-              onComplete()
+            if (
+              typeof definition === 'object' &&
+              definition !== null &&
+              'opacity' in definition &&
+              (definition as { opacity: number }).opacity === 0
+            ) {
+              setIntroDone(true)
             }
           }}
         >
@@ -38,9 +51,6 @@ export default function Intro({ onComplete, visible }: IntroProps) {
             transition={{ duration: 0.5 }}
             className="text-6xl md:text-8xl font-extrabold tracking-tighter"
             style={{ fontFamily: 'Syne, sans-serif' }}
-            onAnimationComplete={() => {
-              setTimeout(onComplete, 800)
-            }}
           >
             <span style={{ color: 'var(--text-primary)' }}>{personal.shortName}</span>
             <span style={{ color: 'var(--accent-lime)' }}>.</span>

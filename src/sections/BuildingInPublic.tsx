@@ -45,7 +45,7 @@ export default function BuildingInPublic() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-extrabold tracking-tight"
-            style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
           >
             The conversation
             <br />
@@ -91,7 +91,7 @@ export default function BuildingInPublic() {
                   <Icon size={18} style={{ color: 'var(--accent-lime)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold mb-2" style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}>{theme.title}</h3>
+                  <h3 className="text-base font-bold mb-2" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>{theme.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{theme.description}</p>
                 </div>
               </motion.div>

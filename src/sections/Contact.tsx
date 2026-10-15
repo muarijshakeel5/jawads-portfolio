@@ -80,7 +80,7 @@ function ContactForm() {
           style={{ background: 'rgba(212,255,58,0.12)', border: '1px solid var(--border-active)' }}>
           <Check size={24} style={{ color: 'var(--accent-lime)' }} />
         </div>
-        <h3 className="text-xl font-bold" style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}>Message received!</h3>
+        <h3 className="text-xl font-bold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>Message received!</h3>
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>I'll be in touch within 24 hours. Can't wait to build something.</p>
       </motion.div>
     )
@@ -168,7 +168,7 @@ export default function Contact() {
         >
           <h2
             className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-none mb-6"
-            style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
           >
             Let's build<br />
             <span style={{ color: 'var(--accent-lime)' }}>something</span><br />

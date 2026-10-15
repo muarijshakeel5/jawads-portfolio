@@ -388,7 +388,7 @@ function ScorecardTab() {
             <PolarGrid stroke="var(--border-subtle)" />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: 'var(--text-secondary)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
+              tick={{ fill: 'var(--text-secondary)', fontSize: 10, fontFamily: "'Clash Grotesk', sans-serif" }}
             />
             <Radar
               name="Muhammad Jawad Fareed"
@@ -618,7 +618,7 @@ export default function IVOO() {
           transition={{ delay: 0.1 }}
           className="mb-4"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight" style={{ fontFamily: 'Clash Grotesk, sans-serif' }}>
             {ivoo.title} —
             <span
               className="block bg-gradient-to-r from-violet-400 via-indigo-300 to-lime-300 bg-clip-text text-transparent"
@@ -781,7 +781,7 @@ export default function IVOO() {
                 >
                   <div
                     className="text-3xl font-extrabold tracking-tight"
-                    style={{ fontFamily: 'Syne, sans-serif', color: 'var(--accent-lime)' }}
+                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
                   >
                     {s.value}
                   </div>

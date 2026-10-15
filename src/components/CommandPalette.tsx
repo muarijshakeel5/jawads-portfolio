@@ -140,7 +140,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
                 onChange={e => { setQuery(e.target.value); setSelected(0) }}
                 placeholder="Search chapters, theme, actions…"
                 className="flex-1 bg-transparent outline-none text-sm"
-                style={{ color: 'var(--text-primary)', fontFamily: 'JetBrains Mono, monospace' }}
+                style={{ color: 'var(--text-primary)', fontFamily: "'Clash Grotesk', sans-serif" }}
               />
               <kbd className="text-xs px-2 py-0.5 rounded font-mono opacity-50"
                 style={{ background: 'var(--border-subtle)', border: '1px solid var(--border-subtle)' }}>

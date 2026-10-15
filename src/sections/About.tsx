@@ -39,7 +39,7 @@ function Counter({
     <div ref={ref} className="flex flex-col gap-1.5 p-4 rounded-2xl glass border" style={{ borderColor: 'var(--border-subtle)' }}>
       <div
         className="text-3xl sm:text-4xl font-extrabold tracking-tight"
-        style={{ fontFamily: 'Syne, sans-serif', color: 'var(--accent-lime)' }}
+        style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
       >
         <span ref={displayRef}>{decimal ? value.toFixed(decimal) : '0'}</span>
         <span>{suffix}</span>
@@ -85,9 +85,9 @@ export default function About() {
           >
             <blockquote
               className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight"
-              style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+              style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
             >
-              <span style={{ color: 'var(--accent-lime)', fontSize: '3.5rem', lineHeight: 0.5, fontFamily: 'Georgia, serif' }}>
+              <span style={{ color: 'var(--accent-lime)', fontSize: '3.5rem', lineHeight: 0.5, fontFamily: "'Clash Grotesk', sans-serif" }}>
                 &ldquo;
               </span>
               <br />

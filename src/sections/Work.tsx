@@ -82,7 +82,7 @@ function ProjectCard({ project, onClick }: { project: typeof projects[number]; o
 
           <h3
             className="text-lg sm:text-xl font-bold tracking-tight mb-1.5"
-            style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
           >
             {project.title}
           </h3>
@@ -184,7 +184,7 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
 
         <h2
           className="text-3xl sm:text-4xl font-extrabold tracking-tight"
-          style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+          style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
         >
           {project.title}
         </h2>
@@ -295,7 +295,7 @@ export default function Work() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight"
-            style={{ fontFamily: 'Syne, sans-serif' }}
+            style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
           >
             Featured Projects
           </motion.h2>

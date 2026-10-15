@@ -13,32 +13,10 @@ const IntroContext = createContext<IntroContextType>({
 })
 
 export function IntroProvider({ children }: { children: ReactNode }) {
-  const [introAlreadySeen] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        return sessionStorage.getItem('mjf_intro_seen') === 'true'
-      } catch {
-        return false
-      }
-    }
-    return false
-  })
-
-  const [introDone, setIntroDoneState] = useState(introAlreadySeen)
-
-  const setIntroDone = (done: boolean) => {
-    setIntroDoneState(done)
-    if (done && typeof window !== 'undefined') {
-      try {
-        sessionStorage.setItem('mjf_intro_seen', 'true')
-      } catch {
-        // Ignore storage errors in private browsing modes
-      }
-    }
-  }
+  const [introDone, setIntroDone] = useState(false)
 
   return (
-    <IntroContext.Provider value={{ introDone, setIntroDone, introAlreadySeen }}>
+    <IntroContext.Provider value={{ introDone, setIntroDone, introAlreadySeen: false }}>
       {children}
     </IntroContext.Provider>
   )

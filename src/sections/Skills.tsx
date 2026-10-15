@@ -34,7 +34,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-16 tracking-tight"
-          style={{ fontFamily: 'Syne, sans-serif' }}
+          style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
         >
           Technical Arsenal
         </motion.h2>

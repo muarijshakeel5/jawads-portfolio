@@ -42,7 +42,7 @@ export default function Navbar() {
           <a
             href="#hero"
             className="text-xl font-extrabold tracking-tight transition-colors"
-            style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent-lime)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
           >
@@ -148,7 +148,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
                 className="text-3xl sm:text-4xl font-extrabold tracking-tight transition-colors"
-                style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+                style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent-lime)')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
               >

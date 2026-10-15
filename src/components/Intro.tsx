@@ -4,24 +4,26 @@ import { personal } from '../data'
 import { useIntro } from '../context/IntroContext'
 
 export default function Intro() {
-  const { introAlreadySeen, setIntroDone } = useIntro()
-  const [visible, setVisible] = useState(!introAlreadySeen)
+  const { setIntroDone } = useIntro()
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    if (introAlreadySeen) {
-      setIntroDone(true)
-      return
-    }
-
-    const timer = setTimeout(() => {
+    // 1. Hold intro logo on screen for 1100ms, then trigger exit fade
+    const fadeTimer = setTimeout(() => {
       setVisible(false)
-      setIntroDone(true)
     }, 1100)
 
-    return () => clearTimeout(timer)
-  }, [introAlreadySeen, setIntroDone])
+    // 2. Exactly when exit fade completes (1100ms + 200ms delay + 600ms duration = 1900ms),
+    // mark introDone as true so the hero reveals only after the intro overlay is 100% gone
+    const completionTimer = setTimeout(() => {
+      setIntroDone(true)
+    }, 1900)
 
-  if (introAlreadySeen) return null
+    return () => {
+      clearTimeout(fadeTimer)
+      clearTimeout(completionTimer)
+    }
+  }, [setIntroDone])
 
   return (
     <AnimatePresence>
@@ -50,7 +52,7 @@ export default function Intro() {
             exit={{ opacity: 0, scale: 1.1 }}
             transition={{ duration: 0.5 }}
             className="text-6xl md:text-8xl font-extrabold tracking-tighter"
-            style={{ fontFamily: 'Syne, sans-serif' }}
+            style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
           >
             <span style={{ color: 'var(--text-primary)' }}>{personal.shortName}</span>
             <span style={{ color: 'var(--accent-lime)' }}>.</span>

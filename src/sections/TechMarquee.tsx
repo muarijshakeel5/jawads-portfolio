@@ -10,7 +10,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
             key={i}
             className="shrink-0 text-2xl md:text-4xl font-extrabold tracking-tighter uppercase select-none transition-colors duration-200 whitespace-nowrap group"
             style={{
-              fontFamily: 'Syne, sans-serif',
+              fontFamily: 'Clash Grotesk, sans-serif',
               color: 'transparent',
               WebkitTextStroke: '1.5px var(--text-muted)' as any,
               cursor: 'default',

@@ -19,7 +19,7 @@ export default function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl md:text-6xl font-extrabold mb-16 tracking-tight"
-          style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+          style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
         >
           Education &<br />Certifications
         </motion.h2>
@@ -42,7 +42,7 @@ export default function Education() {
               <div className="text-xs font-mono uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Degree</div>
             </div>
 
-            <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}>{education.degree}</h3>
+            <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>{education.degree}</h3>
             <div className="text-base font-medium mb-1" style={{ color: 'var(--accent-lime)' }}>{education.university}</div>
             <div className="text-sm mb-1 font-mono" style={{ color: 'var(--text-secondary)' }}>{education.location} · {education.period}</div>
             <div className="text-sm font-mono mb-6" style={{ color: 'var(--accent-lime)' }}>GPA: {education.gpa}</div>

@@ -43,7 +43,7 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
             <div className="text-xs sm:text-sm font-mono uppercase tracking-wider mb-1 font-semibold" style={{ color }}>
               {item.company}
             </div>
-            <div className="text-base sm:text-lg font-bold" style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}>
+            <div className="text-base sm:text-lg font-bold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>
               {item.role}
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function Journey() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-16 tracking-tight"
-          style={{ fontFamily: 'Syne, sans-serif' }}
+          style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
         >
           Experience &amp; Career
         </motion.h2>

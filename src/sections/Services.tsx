@@ -32,7 +32,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-16 tracking-tight"
-          style={{ fontFamily: 'Syne, sans-serif' }}
+          style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
         >
           Engineering Services
         </motion.h2>
@@ -70,7 +70,7 @@ export default function Services() {
                 <div>
                   <h3
                     className="text-xl font-bold mb-2 tracking-tight"
-                    style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
                   >
                     {s.title}
                   </h3>
@@ -119,7 +119,7 @@ export default function Services() {
                 </div>
                 <div
                   className="text-lg font-bold"
-                  style={{ fontFamily: 'Syne, sans-serif', color: 'var(--text-primary)' }}
+                  style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
                 >
                   {step.label}
                 </div>

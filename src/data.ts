@@ -269,7 +269,7 @@ export const projects = [
     built: "Comprehensive school management portal handling student records, attendance, grading and SMS notifications.",
     stack: ["React", "PHP", "MySQL", "SMS Gateway"],
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/core-montessori.webp",
+    image: "/projects/core-montessori.png",
     live: "",
     github: "",
   },

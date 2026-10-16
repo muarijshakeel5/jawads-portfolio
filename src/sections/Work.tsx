@@ -315,8 +315,8 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
       >
         {/* Close Button & Category Pills */}
         <div className="flex items-center justify-between">
-          <div className="flex gap-2">
-            {project.category.map(c => (
+          <div className="flex gap-2 flex-wrap">
+            {(project.drawerTags || project.category).map(c => (
               <span
                 key={c}
                 className="text-xs px-3 py-1 rounded-full font-mono font-medium"

@@ -274,16 +274,22 @@ export const projects = [
     github: "",
   },
   {
-    id: "service-company",
-    title: "Service Company Web App",
-    category: ["Web"],
+    id: "ghost-sdr",
+    title: "Ghost SDR",
+    category: ["AI", "Automation", "Sales"],
+    drawerTags: ["Python", "Node.js", "Playwright", "n8n", "Supabase"],
     size: "small",
-    short: "Custom service management platform.",
-    built: "Full-stack service management web app with booking, scheduling and admin portal.",
-    stack: ["React", "Django", "PostgreSQL"],
+    short: "Automated B2B lead discovery & outbound sales enrichment engine.",
+    problem:
+      "Manual B2B outbound prospecting and lead qualification are slow, prone to data decay, and lack deep technical stack insights before cold outreach.",
+    built:
+      "Engineered an asynchronous Python and Node.js backend utilizing Playwright for automated web scraping and directory extraction. Integrated multi-tiered verification waterfalls and automated tech-stack detection to streamline lead routing for outbound campaigns.",
+    stack: ["Python", "Node.js", "Playwright", "n8n", "Supabase", "REST APIs"],
+    outcome:
+      "Significantly reduced lead research time and optimized outbound conversion metrics through automated multi-source data enrichment.",
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/service-company.webp",
-    live: "",
+    image: "/projects/ghost-sdr.png",
+    live: "https://ghostsdr.ai",
     github: "",
   },
   {

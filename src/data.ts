@@ -225,7 +225,7 @@ export const projects = [
     stack: ["Next.js", "React Native", "Expo", "FastAPI", "Stripe", "Redis", "Docker", "Nginx"],
     outcome: "Fully production-ready platform with real-time order tracking and seamless payments.",
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/moons-burger.webp",
+    image: "/projects/moons-burger.png",
     live: "",
     github: "",
   },

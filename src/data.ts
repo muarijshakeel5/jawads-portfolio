@@ -248,7 +248,7 @@ export const projects = [
   },
   {
     id: "dnt-network",
-    title: "DNT Network",
+    title: "D & T Network",
     category: ["Web"],
     size: "small",
     short: "Premium B2B FMCG distribution site.",
@@ -258,7 +258,7 @@ export const projects = [
     liveLink: "https://www.dnt-network.com",
     github: "",
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/dnt-network.webp",
+    image: "/projects/dnt-network.png",
   },
   {
     id: "core-montessori",

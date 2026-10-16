@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jawadfareed.dev/sitemap.xml
+Sitemap: https://muhammadjawadfareed.netlify.app/sitemap.xml

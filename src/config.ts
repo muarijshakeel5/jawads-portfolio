@@ -4,5 +4,5 @@
  * to update the canonical site address.
  */
 export const SITE_URL: string = (
-  import.meta.env.VITE_SITE_URL || 'https://jawadfareed.dev'
+  import.meta.env.VITE_SITE_URL || 'https://muhammadjawadfareed.netlify.app'
 ).replace(/\/+$/, '')

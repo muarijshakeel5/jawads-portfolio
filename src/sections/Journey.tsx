@@ -12,9 +12,9 @@ const typeIcon = {
 
 const typeColor = {
   freelance: '#D4FF3A',
-  founder: '#7C5CFF',
-  fulltime: '#22c55e',
-  intern: '#38BDF8',
+  founder: '#D4FF3A',
+  fulltime: '#D4FF3A',
+  intern: '#D4FF3A',
 }
 
 function TimelineCard({ item, index }: { item: typeof timeline[number]; index: number }) {
@@ -40,8 +40,9 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
         {/* Header */}
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
-            <div className="text-xs sm:text-sm uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color }}>
-              {item.company}
+            <div className="flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color: 'rgba(242, 241, 236, 0.6)' }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3A] shrink-0" />
+              <span>{item.company}</span>
             </div>
             <div className="text-base sm:text-lg font-semibold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
               {item.role}
@@ -57,8 +58,12 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
 
         {/* Meta */}
         <div className="flex flex-wrap items-center gap-2.5 mb-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
-          <span>{item.period}</span>
-          <span>·</span>
+          {item.period && (
+            <>
+              <span>{item.period}</span>
+              <span>·</span>
+            </>
+          )}
           <span className="flex items-center gap-1">
             <MapPin size={11} /> {item.location}
           </span>
@@ -133,7 +138,7 @@ export default function Journey() {
   const inView = useInView(lineRef, { once: true })
 
   return (
-    <section id="journey" className="py-24 md:py-36">
+    <section id="journey" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div
@@ -158,8 +163,8 @@ export default function Journey() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
-          style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
+          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-12"
+          style={{ fontFamily: 'Clash Grotesk, sans-serif', letterSpacing: 0 }}
         >
           Experience &amp; Career
         </motion.h2>
@@ -174,7 +179,7 @@ export default function Journey() {
             <motion.div
               ref={lineRef}
               className="w-full origin-top"
-              style={{ background: 'linear-gradient(to bottom, #D4FF3A, #7C5CFF)', height: '100%' }}
+              style={{ background: 'linear-gradient(to bottom, #D4FF3A, rgba(255,255,255,0.2))', height: '100%' }}
               initial={{ scaleY: 0 }}
               animate={inView ? { scaleY: 1 } : {}}
               transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}

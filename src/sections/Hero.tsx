@@ -100,10 +100,11 @@ function RotatingBadge({ isMobile }: { isMobile?: boolean }) {
       className="cursor-pointer group select-none"
       style={
         isMobile
-          ? { position: 'absolute', top: '-16px', right: '-12px', transform: 'scale(0.8)', transformOrigin: 'top right' }
+          ? { position: 'absolute', top: '16px', right: '16px', zIndex: 20, transform: 'scale(0.85)', transformOrigin: 'top right' }
           : {}
       }
       title="Click to hire Jawad"
+      aria-label="Available for work — hire Muhammad Jawad Fareed"
       role="button"
       tabIndex={0}
     >
@@ -181,7 +182,7 @@ function PrimaryMagneticCTA() {
       className="group relative inline-flex items-center justify-center gap-3 h-[56px] px-7 rounded-full font-semibold text-sm select-none transition-shadow shadow-lg hover:shadow-[0_0_24px_rgba(212,255,58,0.3)] cursor-pointer w-full sm:w-auto"
     >
       <span style={{ letterSpacing: 0, wordSpacing: 'normal' }}>Explore Selected Work</span>
-      <div className="w-6 h-6 rounded-full bg-[#0A0A0F] flex items-center justify-center shrink-0">
+      <div className="w-6 h-6 rounded-full bg-[#0B0B0C] flex items-center justify-center shrink-0">
         <ArrowUpRight
           size={14}
           className="text-[#D4FF3A] transition-transform duration-300 group-hover:translate-x-1"
@@ -195,6 +196,7 @@ function SecondaryCTA() {
   return (
     <a
       href={personal.cvLink}
+      download="Muhammad_Jawad_Fareed_Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
       className="group inline-flex items-center justify-center gap-2.5 h-[56px] px-7 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer w-full sm:w-auto"
@@ -312,16 +314,20 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
       <div
         className="absolute inset-0 overflow-hidden"
         style={{
-          WebkitMaskImage: [
-            'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
-            'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
-          ].join(', '),
+          WebkitMaskImage: isMobile
+            ? 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)'
+            : [
+                'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
+                'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
+              ].join(', '),
           WebkitMaskComposite: 'source-in',
-          maskImage: [
-            'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
-            'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
-          ].join(', '),
-          maskComposite: 'intersect',
+          maskImage: isMobile
+            ? 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)'
+            : [
+                'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
+                'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
+              ].join(', '),
+          maskComposite: isMobile ? 'add' : 'intersect',
         }}
       >
         <video
@@ -329,6 +335,7 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
           muted
           playsInline
           preload="auto"
+          poster="/hero/hero-last-frame.png"
           onEnded={handleVideoEnded}
           onError={handleVideoError}
           className="absolute inset-0 w-full h-full"
@@ -341,19 +348,17 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
         {/* Crossfade still — identical filter + position so crossfade is seamless */}
         <img
           src="/hero/hero-last-frame.png"
-          alt="Muhammad Jawad Fareed"
+          alt="Muhammad Jawad Fareed — Full Stack AI Engineer portrait"
           aria-hidden="true"
           className={`absolute inset-0 w-full h-full transition-opacity duration-[400ms] ease-in-out ${showStill ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           style={{ objectFit: 'cover', objectPosition: '50% 10%', filter: 'contrast(1.05) brightness(1.0) saturate(1.0)' }}
         />
 
-        {/* Violet-tinted soft-light overlay blending portrait into ink-violet background */}
+        {/* Neutral dark overlay melting portrait into graphite background */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(160deg, rgba(124,92,255,0.18) 0%, rgba(26,21,48,0.25) 50%, transparent 80%)',
-            mixBlendMode: 'soft-light',
-            opacity: 0.35,
+            background: 'linear-gradient(to right, rgba(11,11,12,0.35) 0%, transparent 45%)',
           }}
         />
       </div>
@@ -381,11 +386,12 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
 // ─────────────────────────────────────────────────────────────────────────────
 // Name line reveal — masked slide-up (y 105% → 0) with optical stem alignment
 // ─────────────────────────────────────────────────────────────────────────────
-function NameLine({ children, delay, className, style }: {
+function NameLine({ children, delay, className, style, trigger = true }: {
   children: React.ReactNode
   delay: number
   className?: string
   style?: React.CSSProperties
+  trigger?: boolean
 }) {
   return (
     <div
@@ -399,7 +405,7 @@ function NameLine({ children, delay, className, style }: {
         className={`block ${className ?? ''}`}
         style={style}
         initial={{ y: '105%' }}
-        animate={{ y: 0 }}
+        animate={{ y: trigger ? 0 : '105%' }}
         transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
@@ -451,9 +457,9 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative overflow-hidden grid-pattern min-h-[100svh] lg:h-[100svh]"
+      className="relative overflow-hidden grid-pattern lg:h-[100svh]"
       style={{
-        background: '#0A0A0F',
+        background: '#0B0B0C',
       }}
     >
       {/* ── Scoped grain & animation keyframes ───────────────────────── */}
@@ -517,20 +523,20 @@ export default function Hero() {
         }
       `}</style>
 
-      {/* ── Background layer 1: violet spotlight ─────────────────────── */}
+      {/* ── Background layer 1: warm neutral spotlight behind head ───── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(55% 65% at 70% 38%, rgba(124,92,255,0.22) 0%, rgba(26,21,48,0.5) 45%, transparent 75%)',
+          background: 'radial-gradient(55% 65% at 70% 38%, rgba(255,240,222,0.09) 0%, rgba(255,240,222,0.03) 45%, transparent 75%)',
           zIndex: 0,
         }}
       />
 
-      {/* ── Background layer 2: lime bloom bottom-left ────────────────── */}
+      {/* ── Background layer 2: faint lime bloom bottom-left ─────────── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(40% 40% at 8% 100%, rgba(212,255,58,0.06), transparent 70%)',
+          background: 'radial-gradient(40% 40% at 8% 100%, rgba(212,255,58,0.03), transparent 70%)',
           zIndex: 0,
         }}
       />
@@ -565,8 +571,8 @@ export default function Hero() {
       </motion.div>
 
       {/* ── MAIN CONTAINER (Exact container match to navbar: max-w-7xl mx-auto px-4 sm:px-6) ── */}
-      <div className="relative z-20 w-full min-h-[100svh] lg:h-[100svh]">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full h-full min-h-[100svh] lg:h-[100svh]">
+      <div className="relative z-20 w-full lg:h-[100svh]">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full lg:h-[100svh]">
           {/* Rotating badge (Desktop) — sitting INSIDE container at top-[10%], right edge matching Hire Me button */}
           <div className="hidden lg:block absolute top-[10%] right-4 sm:right-6 z-30 pointer-events-auto">
             <RotatingBadge />
@@ -588,7 +594,7 @@ export default function Hero() {
           </div>
 
           {/* Left text block: vertically centered on eye line (~47% of hero height) on desktop */}
-          <div className="w-full pt-20 pb-16 lg:py-0 lg:absolute lg:top-[47%] lg:-translate-y-1/2 lg:left-4 sm:lg:left-6 lg:max-w-[50vw] xl:max-w-[48vw] pointer-events-auto">
+          <div className="w-full pt-20 sm:pt-24 pb-0 lg:py-0 lg:absolute lg:top-[47%] lg:-translate-y-1/2 lg:left-4 sm:lg:left-6 lg:max-w-[50vw] xl:max-w-[48vw] pointer-events-auto">
             <motion.div
               className="flex flex-col"
               style={{ y: leftColY }}
@@ -599,56 +605,57 @@ export default function Hero() {
                 variants={textVariants}
                 initial="hidden"
                 animate={timelineStarted ? 'visible' : 'hidden'}
-                className="flex items-center gap-3 flex-wrap"
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3 px-0.5 sm:px-0"
                 style={{ marginBottom: '28px' }}
               >
                 <div
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border glass"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs border glass max-w-full"
                   style={{ borderColor: 'var(--border-subtle)', letterSpacing: 0, wordSpacing: 'normal' }}
                 >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block shrink-0" />
                   <span className="text-emerald-400 font-semibold" style={{ letterSpacing: 0, wordSpacing: 'normal' }}>
                     Available for Work &amp; AI Freelance
                   </span>
                 </div>
-                <LahoreClock />
+                <div className="pl-1 sm:pl-0">
+                  <LahoreClock />
+                </div>
               </motion.div>
 
               {/* Headline — masked slide-up per line with optical alignment */}
-              {timelineStarted && (
-                <h1 className="m-0 p-0 flex flex-col" style={{ gap: '4px', marginBottom: '24px' }}>
-                  <NameLine
-                    delay={nameBaseDelay}
-                    className="font-semibold whitespace-nowrap"
-                    style={{
-                      fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
-                      lineHeight: 0.95,
-                      letterSpacing: '-0.02em',
-                      color: 'var(--text-primary)',
-                    }}
-                  >
-                    Muhammad
-                  </NameLine>
+              <h1 className="m-0 p-0 flex flex-col" style={{ gap: '4px', marginBottom: '24px' }}>
+                <NameLine
+                  delay={nameBaseDelay}
+                  trigger={timelineStarted}
+                  className="whitespace-nowrap"
+                  style={{
+                    fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
+                    lineHeight: 0.95,
+                    letterSpacing: '-0.02em',
+                    fontWeight: 300,
+                    color: '#F2F1EC',
+                    opacity: 0.9,
+                  }}
+                >
+                  Muhammad
+                </NameLine>
 
-                  <NameLine
-                    delay={nameBaseDelay + 0.16}
-                    className="font-semibold whitespace-normal lg:whitespace-nowrap"
-                    style={{
-                      fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
-                      lineHeight: 0.95,
-                      letterSpacing: '-0.02em',
-                      wordSpacing: 'normal',
-                    }}
-                  >
-                    <span className="bg-gradient-to-r from-violet-400 to-lime-300 bg-clip-text text-transparent">
-                      Jawad
-                    </span>{' '}
-                    <span style={{ color: 'var(--text-primary)' }}>
-                      Fareed
-                    </span>
-                  </NameLine>
-                </h1>
-              )}
+                <NameLine
+                  delay={nameBaseDelay + 0.16}
+                  trigger={timelineStarted}
+                  className="whitespace-normal lg:whitespace-nowrap"
+                  style={{
+                    fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
+                    lineHeight: 0.95,
+                    letterSpacing: '-0.02em',
+                    wordSpacing: 'normal',
+                    fontWeight: 600,
+                    color: '#F2F1EC',
+                  }}
+                >
+                  Jawad Fareed
+                </NameLine>
+              </h1>
 
               {/* Rotating line in lime with caret & blur-and-fade */}
               <motion.div
@@ -692,15 +699,21 @@ export default function Hero() {
                 <PrimaryMagneticCTA />
                 <SecondaryCTA />
               </motion.div>
+
+              {/* Mobile portrait: full-width, 4/5, anchored directly under CTAs */}
+              <div className="lg:hidden relative -mx-4 sm:-mx-6 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] aspect-[4/5] mt-8 overflow-hidden">
+                <PortraitMedia startTrigger={timelineStarted} isMobile={true} />
+                {/* Bottom 12% fade so it flows into the marquee with no gap */}
+                <div
+                  className="absolute bottom-0 inset-x-0 pointer-events-none z-10"
+                  style={{
+                    height: '12%',
+                    background: 'linear-gradient(to bottom, transparent 0%, #0B0B0C 100%)',
+                  }}
+                />
+              </div>
             </motion.div>
           </div>
-        </div>
-      </div>
-
-      {/* ── Mobile portrait (below 1024px, in-flow) ─── */}
-      <div className="lg:hidden px-4 sm:px-6 pb-16 z-10 relative flex flex-col gap-6 pt-4">
-        <div className="relative w-full aspect-[4/5] mx-auto max-w-sm">
-          <PortraitMedia startTrigger={timelineStarted} isMobile={true} />
         </div>
       </div>
     </section>

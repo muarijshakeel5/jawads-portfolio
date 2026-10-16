@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
-import { services, processSteps, personal } from '../data'
+import { services, processSteps, personal, UPWORK_URL } from '../data'
 import { Globe, Smartphone, Brain } from 'lucide-react'
 
 const iconMap = { Globe, Smartphone, Brain }
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 md:py-36 relative overflow-hidden">
+    <section id="services" className="py-24 md:py-32 relative overflow-hidden">
       <div
         className="orb w-[420px] h-[420px] -bottom-20 right-0 opacity-20 pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(212,255,58,0.3) 0%, transparent 70%)' }}
@@ -31,8 +31,8 @@ export default function Services() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
-          style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
+          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-12"
+          style={{ fontFamily: 'Clash Grotesk, sans-serif', letterSpacing: 0 }}
         >
           Engineering Services
         </motion.h2>
@@ -48,7 +48,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-6 sm:p-7 flex flex-col gap-4 group transition-all border"
+                className="glass rounded-2xl p-6 sm:p-7 flex flex-col group transition-all border h-full"
                 style={{ borderColor: 'var(--border-subtle)' }}
                 onMouseEnter={e => {
                   e.currentTarget.style.borderColor = 'var(--accent-lime)'
@@ -58,7 +58,7 @@ export default function Services() {
                 }}
               >
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-colors"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-colors mb-4"
                   style={{
                     background: 'rgba(212,255,58,0.1)',
                     border: '1px solid rgba(212,255,58,0.25)',
@@ -67,9 +67,9 @@ export default function Services() {
                 >
                   <Icon size={22} />
                 </div>
-                <div>
+                <div className="flex-1 mb-6">
                   <h3
-                    className="text-xl font-semibold mb-2 tracking-[-0.01em]"
+                    className="text-xl font-semibold mb-2"
                     style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}
                   >
                     {s.title}
@@ -78,7 +78,7 @@ export default function Services() {
                     {s.description}
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+                <div className="flex flex-wrap gap-1.5 mt-auto pt-4 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
                   {s.highlights.map(h => (
                     <span
                       key={h}
@@ -113,7 +113,7 @@ export default function Services() {
               <div key={step.step} className="flex flex-col gap-2 relative">
                 <div
                   className="text-3xl font-semibold"
-                  style={{ color: 'var(--accent-lime)', opacity: 0.7, letterSpacing: '-0.01em' }}
+                  style={{ color: 'var(--accent-lime)', opacity: 0.7, letterSpacing: 0 }}
                 >
                   {step.step}
                 </div>
@@ -151,7 +151,7 @@ export default function Services() {
             Start a project with me
           </a>
           <a
-            href={personal.upwork}
+            href={personal.upwork && personal.upwork !== '#' ? personal.upwork : UPWORK_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold border glass transition-all hover:scale-105 active:scale-95"

@@ -38,8 +38,8 @@ function Counter({
   return (
     <div ref={ref} className="flex flex-col gap-1.5 p-4 rounded-2xl glass border" style={{ borderColor: 'var(--border-subtle)' }}>
       <div
-        className="text-3xl sm:text-4xl font-semibold tracking-[-0.01em]"
-        style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
+        className="text-3xl sm:text-4xl font-semibold"
+        style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)', letterSpacing: 0 }}
       >
         <span ref={displayRef}>{decimal ? value.toFixed(decimal) : '0'}</span>
         <span>{suffix}</span>
@@ -53,7 +53,7 @@ function Counter({
 
 export default function About() {
   return (
-    <section id="story" className="py-24 md:py-36 relative">
+    <section id="story" className="py-24 md:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div
@@ -84,8 +84,8 @@ export default function About() {
             className="lg:col-span-5"
           >
             <blockquote
-              className="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight tracking-[-0.01em]"
-              style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight"
+              style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
             >
               <span style={{ color: 'var(--accent-lime)', fontSize: '3.5rem', lineHeight: 0.5, fontFamily: "'Clash Grotesk', sans-serif" }}>
                 &ldquo;

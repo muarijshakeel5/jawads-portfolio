@@ -11,33 +11,18 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('mjf-theme') as Theme | null
-      if (saved === 'light' || saved === 'dark') return saved
-    }
-    return 'dark'
-  })
+  const theme: Theme = 'dark'
 
   useEffect(() => {
     const root = document.documentElement
-    if (theme === 'light') {
-      root.classList.remove('dark')
-      root.classList.add('light')
-    } else {
-      root.classList.remove('light')
-      root.classList.add('dark')
-    }
-    localStorage.setItem('mjf-theme', theme)
-  }, [theme])
+    root.classList.remove('light')
+    root.classList.add('dark')
+    root.style.colorScheme = 'dark'
+    localStorage.setItem('mjf-theme', 'dark')
+  }, [])
 
-  const toggleTheme = () => {
-    setThemeState(prev => (prev === 'dark' ? 'light' : 'dark'))
-  }
-
-  const setTheme = (t: Theme) => {
-    setThemeState(t)
-  }
+  const toggleTheme = () => {}
+  const setTheme = () => {}
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

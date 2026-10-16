@@ -107,8 +107,8 @@ export default function PhoneMockup() {
           <div className="space-y-1.5">
             {[
               { name: 'M. Jawad Fareed', score: '88%', col: '#D4FF3A' },
-              { name: 'Aisha Khan', score: '74%', col: '#7C5CFF' },
-              { name: 'Omar Malik', score: '62%', col: '#38BDF8' },
+              { name: 'Aisha Khan', score: '74%', col: '#94A3B8' },
+              { name: 'Omar Malik', score: '62%', col: '#64748B' },
             ].map((c, i) => (
               <div
                 key={c.name}

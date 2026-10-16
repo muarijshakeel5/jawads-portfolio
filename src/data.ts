@@ -3,6 +3,16 @@
 // Edit here; the site auto-reflects your changes.
 // ============================================================
 
+import { SITE_URL } from "./config";
+
+// ============================================================
+// Single source of truth constants
+// ============================================================
+export const GPA = "3.49";
+export const UPWORK_URL = "https://www.upwork.com/freelancers/~011a5ff370c01f799b?mp_source=share";
+export const CV_URL = "/resume.pdf";
+export const CV_FILENAME = "Muhammad_Jawad_Fareed_Resume.pdf";
+
 export const personal = {
   name: "Muhammad Jawad Fareed",
   shortName: "MJF",
@@ -13,10 +23,10 @@ export const personal = {
   phone: "", // intentionally hidden from UI
   github: "https://github.com/jawadfareed",
   linkedin: "https://linkedin.com/in/muhammadjawadfareed",
-  upwork: "#", // replace with real Upwork profile URL
-  cvLink: "#", // replace with real CV PDF link
+  upwork: UPWORK_URL,
+  cvLink: CV_URL,
   linkedinFollowers: 15000,
-  gpa: "3.49",
+  gpa: GPA,
   openToWork: true,
 };
 
@@ -41,7 +51,7 @@ export const about = {
     { value: 3, suffix: "+", label: "Production platforms shipped" },
     { value: 8, suffix: "+", label: "Projects delivered" },
     { value: 15, suffix: "K+", label: "LinkedIn followers" },
-    { value: 3.49, suffix: "", label: "University GPA", decimal: 2 },
+    { value: parseFloat(GPA), suffix: "", label: "University GPA", decimal: 2 },
     { value: 5, suffix: "", label: "Certifications" },
   ],
 };
@@ -154,9 +164,9 @@ export const timeline = [
   },
   {
     id: "codesoft",
-    role: "C++ Developer Intern",
+    role: "C++ Development Intern",
     company: "CodeSoft",
-    period: "TBD", // replace with real dates
+    period: "",
     location: "Lahore, PK",
     type: "intern",
     description:
@@ -179,7 +189,10 @@ export const projects = [
       "Built a full AI-powered pairing platform using React.js, Ruby on Rails, and an LLM backend. The system understands flavor profiles, dietary preferences and context to generate intelligent pairing suggestions.",
     stack: ["React.js", "Ruby on Rails", "OpenAI API", "PostgreSQL", "TypeScript"],
     outcome: "Currently in active development at Arkhitech for the Foodnerd ecosystem.",
-    color: "from-lime-400/20 to-emerald-600/10",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/perfect-pairing.webp",
+    live: "",
+    github: "",
   },
   {
     id: "foodnerd-ecosystem",
@@ -194,7 +207,10 @@ export const projects = [
     stack: ["Electron", "React Native", "Expo", "React.js", "Ruby on Rails", "OpenAI", "TypeScript"],
     outcome:
       "Featured in news: Foodnerd POS × aik by BankIslami — aikpay dynamic QR across the POS ecosystem.",
-    color: "from-violet-500/20 to-purple-800/10",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/foodnerd-ecosystem.webp",
+    live: "",
+    github: "",
   },
   {
     id: "moons-burger",
@@ -208,7 +224,10 @@ export const projects = [
       "Next.js 14 web app + React Native (Expo) mobile app with Maps integration; FastAPI backend, Stripe payments, Redis + Celery for async tasks, admin portal, Docker Compose + Nginx for production.",
     stack: ["Next.js", "React Native", "Expo", "FastAPI", "Stripe", "Redis", "Docker", "Nginx"],
     outcome: "Fully production-ready platform with real-time order tracking and seamless payments.",
-    color: "from-orange-500/20 to-red-900/10",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/moons-burger.webp",
+    live: "",
+    github: "",
   },
   {
     id: "ivoo-project",
@@ -221,8 +240,11 @@ export const projects = [
       "Full AI hiring platform with semantic CV parsing, video interviews with AI avatar, real-time match scoring, facial emotion detection and role-based dashboards.",
     stack: ["React", "TypeScript", "Django REST", "Python", "LLM APIs", "Recharts"],
     outcome: "40% less hiring bias · 30% less HR screening workload (internal testing).",
-    color: "from-violet-600/25 to-indigo-900/15",
+    color: "from-white/[0.04] to-transparent",
     isIvoo: true,
+    image: "/projects/ivoo.webp",
+    live: "",
+    github: "",
   },
   {
     id: "dnt-network",
@@ -232,8 +254,11 @@ export const projects = [
     short: "Premium B2B FMCG distribution site.",
     built: "Built with Next.js, TypeScript, Tailwind CSS and Framer Motion — fast, SEO-optimised and visually sharp.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    live: "https://www.dnt-network.com",
     liveLink: "https://www.dnt-network.com",
-    color: "from-sky-500/20 to-blue-900/10",
+    github: "",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/dnt-network.webp",
   },
   {
     id: "core-montessori",
@@ -243,7 +268,10 @@ export const projects = [
     short: "School management system with SMS gateway.",
     built: "Comprehensive school management portal handling student records, attendance, grading and SMS notifications.",
     stack: ["React", "PHP", "MySQL", "SMS Gateway"],
-    color: "from-green-500/15 to-teal-900/10",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/core-montessori.webp",
+    live: "",
+    github: "",
   },
   {
     id: "service-company",
@@ -253,7 +281,10 @@ export const projects = [
     short: "Custom service management platform.",
     built: "Full-stack service management web app with booking, scheduling and admin portal.",
     stack: ["React", "Django", "PostgreSQL"],
-    color: "from-amber-500/15 to-yellow-900/10",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/service-company.webp",
+    live: "",
+    github: "",
   },
   {
     id: "music-sharing",
@@ -263,7 +294,10 @@ export const projects = [
     short: "Android music sharing application.",
     built: "Native Android app for sharing and discovering music, with social features and audio streaming.",
     stack: ["Kotlin", "Android"],
-    color: "from-pink-500/15 to-rose-900/10",
+    color: "from-white/[0.04] to-transparent",
+    image: "/projects/music-sharing.webp",
+    live: "",
+    github: "",
   },
 ];
 
@@ -397,7 +431,7 @@ export const education = {
   university: "University of Central Punjab",
   location: "Lahore, PK",
   period: "Nov 2021 – Jul 2025",
-  gpa: "3.49 / 4.0",
+  gpa: `${GPA} / 4.0`,
   courses: [
     "Data Structures & Algorithms",
     "Database Systems",
@@ -416,39 +450,39 @@ export const certifications = [
     title: "Introduction to Generative AI",
     issuer: "Google",
     year: "2026",
-    color: "from-blue-500/20 to-blue-900/5",
+    color: "from-white/[0.04] to-transparent",
   },
   {
     title: "Agents and Workflows",
     issuer: "OpenAI",
     year: "2026",
-    color: "from-green-500/20 to-green-900/5",
+    color: "from-white/[0.04] to-transparent",
   },
   {
     title: "Applied AI Foundations",
     issuer: "OpenAI",
     year: "2026",
-    color: "from-green-500/20 to-green-900/5",
+    color: "from-white/[0.04] to-transparent",
   },
   {
     title: "AI Foundations",
     issuer: "OpenAI",
     year: "2026",
-    color: "from-green-500/20 to-green-900/5",
+    color: "from-white/[0.04] to-transparent",
   },
   {
     title: "Certified Cloud Applied Generative AI Engineer",
     issuer: "PIAIC",
     year: "2025",
-    color: "from-purple-500/20 to-purple-900/5",
+    color: "from-white/[0.04] to-transparent",
   },
 ];
 
 export const seo = {
-  title: "Muhammad Jawad Fareed — Full Stack AI Engineer & Founder of IVOO",
+  title: "Muhammad Jawad Fareed | Full Stack AI Engineer & Founder of IVOO, Lahore",
   description:
-    "Full Stack AI Engineer and Founder of IVOO from Lahore, Pakistan. I build AI-powered products with React, React Native, Django and Rails. Available for freelance and full-time opportunities.",
-  ogImage: "/og-image.png",
+    "Portfolio of Muhammad Jawad Fareed, Full Stack AI Engineer and founder of IVOO. React, React Native, Django and AI products. Based in Lahore, Pakistan.",
+  ogImage: `${SITE_URL}/og-image.png`,
   twitterHandle: "@jawadfareed",
-  canonicalUrl: "https://jawadfareed.dev",
+  canonicalUrl: SITE_URL,
 };

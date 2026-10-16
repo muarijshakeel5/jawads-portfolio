@@ -4,7 +4,7 @@ import { GraduationCap, Award } from 'lucide-react'
 
 export default function Education() {
   return (
-    <section id="learning" className="py-24 md:py-36">
+    <section id="learning" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
@@ -18,8 +18,8 @@ export default function Education() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
-          style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+          className="text-4xl md:text-6xl font-semibold mb-12"
+          style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
         >
           Education &<br />Certifications
         </motion.h2>

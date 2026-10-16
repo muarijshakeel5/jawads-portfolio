@@ -4,7 +4,7 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis,
   ResponsiveContainer,
 } from 'recharts'
-import { ivoo } from '../data'
+import { ivoo, GPA } from '../data'
 import {
   ExternalLink, CheckCircle2, AlertTriangle, Mic, ShieldCheck,
   Video, FileCheck, Activity, Users, Play, Pause, Sparkles, Check
@@ -127,7 +127,7 @@ function CVMatchTab() {
               <div className="text-[10px] opacity-50 font-mono">1.2 MB · Semantic Parsed</div>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border" style={{ background: 'rgba(212,255,58,0.1)', color: 'var(--accent-lime)', borderColor: 'rgba(212,255,58,0.25)' }}>
             Validated
           </span>
         </div>
@@ -152,7 +152,7 @@ function CVMatchTab() {
           <div className="p-2.5 rounded-xl bg-white/[0.02] border" style={{ borderColor: 'var(--border-subtle)' }}>
             <span className="text-[10px] uppercase opacity-40 block mb-1">Education & GPA</span>
             <div className="text-[11px] text-lime-400 font-semibold">
-              BS CS (UCP Lahore) · 3.49 GPA
+              BS CS (UCP Lahore) · {GPA} GPA
             </div>
           </div>
         </div>
@@ -181,9 +181,9 @@ function CVMatchTab() {
           <div className="text-[11px] font-medium uppercase tracking-[0.12em] opacity-50">Competency Breakdown</div>
           {[
             { pillar: 'AI & LLM Integration (OpenAI, Gemini, RAG)', pct: 94, color: '#D4FF3A' },
-            { pillar: 'Frontend Architecture (React, TypeScript, Tailwind)', pct: 92, color: '#7C5CFF' },
-            { pillar: 'Backend Services (Django, Rails, FastAPI, SQL)', pct: 88, color: '#38BDF8' },
-            { pillar: 'Mobile & Desktop (React Native, Expo, Electron)', pct: 85, color: '#F472B6' },
+            { pillar: 'Frontend Architecture (React, TypeScript, Tailwind)', pct: 92, color: 'rgba(242, 241, 236, 0.6)' },
+            { pillar: 'Backend Services (Django, Rails, FastAPI, SQL)', pct: 88, color: 'rgba(242, 241, 236, 0.45)' },
+            { pillar: 'Mobile & Desktop (React Native, Expo, Electron)', pct: 85, color: 'rgba(242, 241, 236, 0.4)' },
           ].map(c => (
             <div key={c.pillar} className="space-y-1">
               <div className="flex justify-between text-xs font-mono">
@@ -205,26 +205,26 @@ function CVMatchTab() {
 
         {/* Matched vs Missing Chips */}
         <div className="grid sm:grid-cols-2 gap-3 pt-1">
-          <div className="p-3 rounded-xl border glass" style={{ borderColor: 'rgba(34,197,94,0.2)' }}>
-            <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1 mb-2 font-semibold">
+          <div className="p-3 rounded-xl border glass" style={{ borderColor: 'var(--border-subtle)' }}>
+            <span className="text-[11px] font-mono flex items-center gap-1.5 mb-2 font-semibold" style={{ color: 'var(--accent-lime)' }}>
               <CheckCircle2 size={12} /> Matched Skills (12)
             </span>
             <div className="flex flex-wrap gap-1.5">
               {['React', 'TypeScript', 'Django', 'Rails', 'OpenAI', 'Expo'].map(s => (
-                <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-md border" style={{ background: 'rgba(212,255,58,0.06)', color: 'var(--accent-lime)', borderColor: 'rgba(212,255,58,0.2)' }}>
                   {s}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="p-3 rounded-xl border glass" style={{ borderColor: 'rgba(234,179,8,0.2)' }}>
-            <span className="text-[11px] font-mono text-amber-400 flex items-center gap-1 mb-2 font-semibold">
+          <div className="p-3 rounded-xl border glass" style={{ borderColor: 'var(--border-subtle)' }}>
+            <span className="text-[11px] font-mono flex items-center gap-1.5 mb-2 font-semibold" style={{ color: 'var(--text-secondary)' }}>
               <AlertTriangle size={12} /> Secondary Learning Tags
             </span>
             <div className="flex flex-wrap gap-1.5">
               {['Kubernetes', 'Go'].map(s => (
-                <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                <span key={s} className="text-[10px] font-mono px-2 py-0.5 rounded-md border" style={{ background: 'rgba(255,255,255,0.04)', color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' }}>
                   {s} (Cert verified)
                 </span>
               ))}
@@ -246,14 +246,14 @@ function AIInterviewTab() {
         <div
           className="relative rounded-2xl overflow-hidden aspect-video border flex flex-col justify-between p-4 glass"
           style={{
-            background: 'radial-gradient(circle at 30% 30%, rgba(124,92,255,0.18), rgba(17,19,26,0.95))',
-            borderColor: 'rgba(124,92,255,0.3)',
+            background: 'radial-gradient(circle at 30% 30%, rgba(255,240,222,0.04), #111113)',
+            borderColor: 'var(--border-subtle)',
           }}
         >
           {/* Top Status */}
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 pulse-dot" />
+            <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-white/[0.06] text-white/80 border border-white/10 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-lime-400 pulse-dot" />
               IVOO NEURAL INTERVIEWER
             </span>
             <span className="text-[10px] font-mono opacity-50">STT Model: Whisper-v3</span>
@@ -263,15 +263,15 @@ function AIInterviewTab() {
           <div className="flex flex-col items-center justify-center my-auto">
             <div className="relative">
               <motion.div
-                className="w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-xl"
-                style={{ background: 'linear-gradient(135deg, #7C5CFF, #4F46E5)' }}
+                className="w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-xl border border-white/10"
+                style={{ background: 'linear-gradient(135deg, #27272A, #18181B)' }}
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               >
                 🤖
               </motion.div>
               <motion.div
-                className="absolute -inset-2 rounded-full border-2 border-violet-400/40 pointer-events-none"
+                className="absolute -inset-2 rounded-full border-2 border-white/20 pointer-events-none"
                 animate={{ scale: [1, 1.3, 1], opacity: [0.7, 0, 0.7] }}
                 transition={{ duration: 1.8, repeat: Infinity }}
               />
@@ -280,7 +280,7 @@ function AIInterviewTab() {
 
           {/* AI Question Prompt Ticker */}
           <div className="p-3 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-xs leading-relaxed font-mono">
-            <span className="text-violet-400 font-semibold block mb-0.5 text-[10px] uppercase">
+            <span className="text-lime-400 font-semibold block mb-0.5 text-[10px] uppercase">
               Current Interview Question #3:
             </span>
             “How did you architect the real-time scoring telemetry for IVOO to keep pipeline latency under 200ms?”
@@ -301,7 +301,7 @@ function AIInterviewTab() {
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 pulse-dot" />
               LIVE PROCTORED REC [03:44]
             </span>
-            <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+            <span className="text-[10px] font-mono flex items-center gap-1" style={{ color: 'var(--accent-lime)' }}>
               <ShieldCheck size={12} /> Integrity: 99.4%
             </span>
           </div>
@@ -345,7 +345,7 @@ function AIInterviewTab() {
               key={i}
               className="w-1 rounded-full"
               style={{
-                background: i % 2 === 0 ? 'var(--accent-lime)' : 'var(--accent-violet)',
+                background: i % 2 === 0 ? 'var(--accent-lime)' : 'rgba(242, 241, 236, 0.4)',
               }}
               animate={{ height: [`${Math.max(4, h * 0.25)}px`, `${h}px`, `${Math.max(4, h * 0.3)}px`] }}
               transition={{
@@ -423,7 +423,7 @@ function ScorecardTab() {
               sublabel="Top 5% Category"
               size={85}
               strokeWidth={7}
-              accentColor="#7C5CFF"
+              accentColor="#E2E8F0"
             />
           </div>
         </div>
@@ -432,8 +432,8 @@ function ScorecardTab() {
         <div className="space-y-2 p-4 rounded-2xl glass border" style={{ borderColor: 'var(--border-subtle)' }}>
           {[
             { label: 'Technical Accuracy & Problem Solving', val: 96, color: '#D4FF3A' },
-            { label: 'Speech Fluency & Articulation', val: 90, color: '#7C5CFF' },
-            { label: 'System Design & Architectural Vision', val: 94, color: '#38BDF8' },
+            { label: 'Speech Fluency & Articulation', val: 90, color: 'rgba(242, 241, 236, 0.6)' },
+            { label: 'System Design & Architectural Vision', val: 94, color: 'rgba(242, 241, 236, 0.45)' },
           ].map(m => (
             <div key={m.label} className="space-y-1">
               <div className="flex justify-between text-xs font-mono">
@@ -510,8 +510,8 @@ function RecruiterViewTab() {
               <div
                 className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-[11px] shrink-0"
                 style={{
-                  background: isTop ? '#D4FF3A' : 'rgba(124,92,255,0.15)',
-                  color: isTop ? '#08090C' : '#7C5CFF',
+                  background: isTop ? '#D4FF3A' : 'rgba(255,255,255,0.06)',
+                  color: isTop ? '#08090C' : 'var(--text-secondary)',
                 }}
               >
                 {c.avatar}
@@ -531,7 +531,7 @@ function RecruiterViewTab() {
                   className="h-full rounded-full"
                   style={{
                     width: `${c.match}%`,
-                    background: isTop ? '#D4FF3A' : '#7C5CFF',
+                    background: isTop ? '#D4FF3A' : 'rgba(255,255,255,0.25)',
                   }}
                 />
               </div>
@@ -563,7 +563,7 @@ function RecruiterViewTab() {
                   onClick={() => setActionDone(true)}
                   className="px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-all"
                   style={{
-                    background: actionDone ? '#22C55E' : '#D4FF3A',
+                    background: '#D4FF3A',
                     color: '#08090C',
                   }}
                 >
@@ -583,11 +583,11 @@ export default function IVOO() {
   const [activeTab, setActiveTab] = useState<TabId>('CV Match')
 
   return (
-    <section id="ivoo" className="py-24 md:py-36 relative overflow-hidden">
-      {/* Violet ambient aura */}
+    <section id="ivoo" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Warm white ambient aura */}
       <div
         className="orb w-[650px] h-[650px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(124,92,255,0.4) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(255,240,222,0.06) 0%, transparent 70%)' }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
@@ -601,9 +601,9 @@ export default function IVOO() {
           <span
             className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{
-              color: 'var(--accent-violet)',
-              borderColor: 'rgba(124,92,255,0.25)',
-              background: 'rgba(124,92,255,0.08)',
+              color: 'var(--accent-lime)',
+              borderColor: 'rgba(212,255,58,0.25)',
+              background: 'rgba(212,255,58,0.06)',
             }}
           >
             CH. 02 / FOUNDER SPOTLIGHT
@@ -618,10 +618,11 @@ export default function IVOO() {
           transition={{ delay: 0.1 }}
           className="mb-4"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.02em]" style={{ fontFamily: 'Clash Grotesk, sans-serif' }}>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold" style={{ fontFamily: 'Clash Grotesk, sans-serif', letterSpacing: 0 }}>
             {ivoo.title} —
             <span
-              className="block bg-gradient-to-r from-violet-400 via-indigo-300 to-lime-300 bg-clip-text text-transparent"
+              className="block"
+              style={{ color: 'var(--accent-lime)' }}
             >
               {ivoo.subtitle}
             </span>
@@ -633,7 +634,7 @@ export default function IVOO() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-base sm:text-lg mb-12 max-w-2xl leading-relaxed"
+          className="text-base sm:text-lg mb-8 max-w-2xl leading-relaxed"
           style={{ color: 'var(--text-secondary)' }}
         >
           {ivoo.tagline} · Founded {ivoo.founded}
@@ -649,7 +650,7 @@ export default function IVOO() {
             transition={{ delay: 0.25 }}
             className="lg:col-span-8 rounded-3xl overflow-hidden glass border shadow-2xl"
             style={{
-              borderColor: 'rgba(124,92,255,0.25)',
+              borderColor: 'var(--border-subtle)',
               background: 'var(--bg-surface)',
             }}
           >
@@ -681,49 +682,57 @@ export default function IVOO() {
               </div>
 
               {/* Live Badge */}
-              <div className="flex items-center gap-2 text-[10px] font-mono text-emerald-400">
+              <div className="flex items-center gap-2 text-[10px] font-mono" style={{ color: 'var(--accent-lime)' }}>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-dot" />
                 <span className="hidden sm:inline">AI RUNTIME ACTIVE</span>
               </div>
             </div>
 
             {/* Tab Navigation with Animated Sliding Pill */}
-            <div
-              className="flex border-b overflow-x-auto scrollbar-none p-1.5 gap-1.5"
-              style={{
-                borderColor: 'var(--border-subtle)',
-                background: 'rgba(0,0,0,0.08)',
-              }}
-            >
-              {TABS.map(tab => {
-                const Icon = tab.icon
-                const isActive = activeTab === tab.id
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className="flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-mono flex items-center justify-center gap-2 transition-all relative z-10"
-                    style={{
-                      color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
-                      fontWeight: isActive ? 600 : 400,
-                    }}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="ivoo-tab-pill"
-                        className="absolute inset-0 rounded-xl"
-                        style={{
-                          background: 'rgba(124,92,255,0.18)',
-                          border: '1px solid rgba(124,92,255,0.3)',
-                        }}
-                        transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
-                      />
-                    )}
-                    <Icon size={14} style={{ color: isActive ? '#D4FF3A' : 'inherit' }} />
-                    <span className="relative z-10">{tab.label}</span>
-                  </button>
-                )
-              })}
+            <div className="relative border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+              <div
+                className="flex overflow-x-auto snap-x snap-mandatory flex-nowrap scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden p-1.5 gap-1.5"
+                style={{
+                  background: 'rgba(0,0,0,0.08)',
+                }}
+              >
+                {TABS.map(tab => {
+                  const Icon = tab.icon
+                  const isActive = activeTab === tab.id
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className="shrink-0 snap-start whitespace-nowrap min-w-[125px] sm:flex-1 py-2.5 px-3.5 rounded-xl text-xs font-mono flex items-center justify-center gap-2 transition-all relative z-10"
+                      style={{
+                        color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
+                        fontWeight: isActive ? 600 : 400,
+                      }}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="ivoo-tab-pill"
+                          className="absolute inset-0 rounded-xl"
+                          style={{
+                            background: 'rgba(255,255,255,0.08)',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                          }}
+                          transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
+                        />
+                      )}
+                      <Icon size={14} style={{ color: isActive ? '#D4FF3A' : 'inherit' }} />
+                      <span className="relative z-10">{tab.label}</span>
+                    </button>
+                  )
+                })}
+              </div>
+              {/* Subtle edge fade indicator for horizontal scroll */}
+              <div
+                className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:hidden z-20"
+                style={{
+                  background: 'linear-gradient(to right, transparent, rgba(17, 17, 19, 0.95))',
+                }}
+              />
             </div>
 
             {/* Tab Content with Smoother Transitions */}
@@ -756,7 +765,7 @@ export default function IVOO() {
             {/* Highlights Card */}
             <div
               className="glass rounded-2xl p-6 border"
-              style={{ borderColor: 'rgba(124,92,255,0.2)' }}
+              style={{ borderColor: 'var(--border-subtle)' }}
             >
               <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-4 opacity-50">
                 Core Capabilities
@@ -780,8 +789,8 @@ export default function IVOO() {
                   style={{ borderColor: 'var(--border-subtle)' }}
                 >
                   <div
-                    className="text-3xl font-semibold tracking-[-0.01em]"
-                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
+                    className="text-3xl font-semibold"
+                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)', letterSpacing: 0 }}
                   >
                     {s.value}
                   </div>
@@ -804,9 +813,9 @@ export default function IVOO() {
                     key={s}
                     className="text-xs px-3 py-1 rounded-full font-medium"
                     style={{
-                      background: 'rgba(124,92,255,0.12)',
-                      color: '#A78BFA',
-                      border: '1px solid rgba(124,92,255,0.25)',
+                      background: 'rgba(255,255,255,0.04)',
+                      color: 'var(--text-secondary)',
+                      border: '1px solid var(--border-subtle)',
                       letterSpacing: 0,
                       wordSpacing: 'normal',
                     }}
@@ -824,12 +833,18 @@ export default function IVOO() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs font-semibold font-mono transition-all group"
               style={{
-                background: 'rgba(124,92,255,0.18)',
-                color: '#C4B5FD',
-                border: '1px solid rgba(124,92,255,0.3)',
+                background: 'rgba(255,255,255,0.06)',
+                color: '#F2F1EC',
+                border: '1px solid var(--border-subtle)',
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(124,92,255,0.3)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'rgba(124,92,255,0.18)')}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
+                e.currentTarget.style.borderColor = 'var(--border-subtle)'
+              }}
             >
               Explore IVOO Architecture on LinkedIn <ExternalLink size={13} className="group-hover:translate-x-0.5 transition-transform" />
             </a>

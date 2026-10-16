@@ -46,10 +46,18 @@ function SEO() {
     setMeta('og:description', seo.description, true)
     setMeta('og:type', 'website', true)
     setMeta('og:url', seo.canonicalUrl, true)
+    setMeta('og:image', seo.ogImage, true)
     setMeta('twitter:card', 'summary_large_image')
     setMeta('twitter:site', seo.twitterHandle)
+    setMeta('twitter:creator', seo.twitterHandle)
     setMeta('twitter:title', seo.title)
     setMeta('twitter:description', seo.description)
+    setMeta('twitter:image', seo.ogImage)
+
+    const canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null
+    if (canonical) {
+      canonical.href = seo.canonicalUrl
+    }
   }, [])
   return null
 }
@@ -66,7 +74,7 @@ function useEasterEgg() {
         // Confetti burst
         const duration = 2000
         const end = Date.now() + duration
-        const colors = ['#D4FF3A', '#7C5CFF', '#F2F1EC']
+        const colors = ['#D4FF3A', '#FFFFFF', '#F2F1EC']
         ;(function frame() {
           confetti({
             particleCount: 5,

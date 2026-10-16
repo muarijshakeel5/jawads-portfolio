@@ -29,7 +29,7 @@ function AnimatedCounter({ target }: { target: number }) {
 
 export default function BuildingInPublic() {
   return (
-    <section id="public" className="py-24 md:py-36">
+    <section id="public" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
@@ -39,13 +39,13 @@ export default function BuildingInPublic() {
           </span>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-semibold tracking-[-0.02em]"
-            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+            className="text-4xl md:text-6xl font-semibold"
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
           >
             The conversation
             <br />
@@ -61,12 +61,12 @@ export default function BuildingInPublic() {
             className="flex flex-col items-center justify-center glass rounded-2xl px-8 py-5 text-center shrink-0 border"
             style={{ borderColor: 'var(--border-active)' }}
           >
-            <div className="text-4xl font-semibold mb-1" style={{ color: 'var(--accent-lime)', letterSpacing: '-0.01em' }}>
+            <div className="text-4xl font-semibold mb-1" style={{ color: 'var(--accent-lime)', letterSpacing: 0 }}>
               <AnimatedCounter target={personal.linkedinFollowers} />K
             </div>
             <div className="text-xs font-medium" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>LinkedIn followers</div>
             <div className="flex items-center gap-1.5 mt-2">
-              <LinkedinIcon size={13} style={{ color: '#0077B5' }} />
+              <LinkedinIcon size={13} style={{ color: 'var(--accent-lime)' }} />
               <span className="text-xs" style={{ color: 'var(--text-muted)', letterSpacing: 0 }}>and counting</span>
             </div>
           </motion.div>
@@ -91,8 +91,8 @@ export default function BuildingInPublic() {
                   <Icon size={18} style={{ color: 'var(--accent-lime)' }} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold mb-2" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>{theme.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{theme.description}</p>
+                  <h3 className="text-base font-bold mb-2" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}>{theme.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>{theme.description}</p>
                 </div>
               </motion.div>
             )
@@ -110,11 +110,22 @@ export default function BuildingInPublic() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-semibold transition-all shadow-sm"
-            style={{ background: 'rgba(0,119,181,0.12)', color: '#0ea5e9', border: '1px solid rgba(0,119,181,0.25)' }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,119,181,0.2)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(0,119,181,0.12)')}
+            style={{
+              background: 'rgba(255, 255, 255, 0.06)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-subtle)',
+              letterSpacing: 0,
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'
+              e.currentTarget.style.borderColor = 'var(--border-subtle)'
+            }}
           >
-            <LinkedinIcon size={15} /> Follow on LinkedIn
+            <LinkedinIcon size={15} style={{ color: 'var(--accent-lime)' }} /> Follow on LinkedIn
           </a>
         </motion.div>
       </div>

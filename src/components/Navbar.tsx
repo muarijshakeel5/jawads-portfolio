@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { personal } from '../data'
-import { Menu, X, Sun, Moon } from 'lucide-react'
-import { useTheme } from '../context/ThemeContext'
+import { Menu, X } from 'lucide-react'
 
 const navLinks = [
   { label: 'Story', href: '#story' },
@@ -16,7 +15,6 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -42,8 +40,9 @@ export default function Navbar() {
           {/* Logo */}
           <a
             href="#hero"
-            className="text-xl font-extrabold tracking-tight transition-colors"
-            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+            aria-label="Home — Muhammad Jawad Fareed"
+            className="text-xl font-extrabold transition-colors"
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent-lime)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
           >
@@ -67,35 +66,8 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Controls: Theme toggle + CTA + mobile hamburger */}
+          {/* Controls: CTA + mobile hamburger */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="w-9 h-9 rounded-xl flex items-center justify-center glass transition-all"
-              style={{
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-subtle)',
-              }}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={theme}
-                  initial={{ y: -12, opacity: 0, rotate: -90 }}
-                  animate={{ y: 0, opacity: 1, rotate: 0 }}
-                  exit={{ y: 12, opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {theme === 'dark' ? (
-                    <Sun size={16} className="text-amber-400" />
-                  ) : (
-                    <Moon size={16} className="text-violet-600" />
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </button>
 
             {/* Hire me CTA */}
             <a
@@ -150,8 +122,8 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="text-3xl sm:text-4xl font-semibold tracking-[-0.01em] transition-colors"
-                style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+                className="text-3xl sm:text-4xl font-semibold transition-colors"
+                style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent-lime)')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
               >
@@ -160,14 +132,6 @@ export default function Navbar() {
             ))}
 
             <div className="flex items-center gap-4 mt-6">
-              <button
-                onClick={toggleTheme}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-xs font-medium"
-                style={{ border: '1px solid var(--border-subtle)', letterSpacing: 0 }}
-              >
-                {theme === 'dark' ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-violet-600" />}
-                <span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
-              </button>
 
               <a
                 href="#contact"

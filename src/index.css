@@ -10,10 +10,11 @@
 }
 
 :root {
+  color-scheme: dark;
   --bg-primary: #08090C;
-  --bg-surface: #11131A;
-  --bg-surface-elevated: #161922;
-  --bg-glass: rgba(17, 19, 26, 0.75);
+  --bg-surface: #111113;
+  --bg-surface-elevated: #161618;
+  --bg-glass: rgba(17, 17, 19, 0.75);
   --bg-nav: rgba(8, 9, 12, 0.85);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-active: rgba(212, 255, 58, 0.35);
@@ -22,29 +23,10 @@
   --text-muted: rgba(242, 241, 236, 0.4);
   --accent-lime: #D4FF3A;
   --accent-lime-contrast: #08090C;
-  --accent-violet: #7C5CFF;
+  --accent-violet: rgba(242, 241, 236, 0.6);
   --grid-line: rgba(255, 255, 255, 0.025);
   --orb-opacity: 0.35;
   --noise-opacity: 0.035;
-}
-
-html.light {
-  --bg-primary: #F7F8F9;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #F0F2F5;
-  --bg-glass: rgba(255, 255, 255, 0.85);
-  --bg-nav: rgba(247, 248, 249, 0.88);
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-active: rgba(100, 150, 10, 0.45);
-  --text-primary: #0C0E14;
-  --text-secondary: #484E5E;
-  --text-muted: #7E8696;
-  --accent-lime: #7DB500;
-  --accent-lime-contrast: #FFFFFF;
-  --accent-violet: #6366F1;
-  --grid-line: rgba(0, 0, 0, 0.04);
-  --orb-opacity: 0.15;
-  --noise-opacity: 0.015;
 }
 
 * {
@@ -52,10 +34,12 @@ html.light {
 }
 
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  letter-spacing: 0;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -122,8 +106,8 @@ button, input, textarea, select, code, kbd, samp, pre {
   box-shadow: 0 0 30px rgba(212, 255, 58, 0.2), 0 0 60px rgba(212, 255, 58, 0.08);
 }
 
-.violet-glow {
-  box-shadow: 0 0 30px rgba(124, 92, 255, 0.25), 0 0 80px rgba(124, 92, 255, 0.1);
+.violet-glow, .warm-glow {
+  box-shadow: 0 0 30px rgba(255, 240, 222, 0.06), 0 0 80px rgba(255, 240, 222, 0.03);
 }
 
 /* Glass card */
@@ -184,7 +168,7 @@ html.light .glass {
   top: 0;
   left: 0;
   height: 2.5px;
-  background: linear-gradient(90deg, #D4FF3A, #7C5CFF);
+  background: var(--accent-lime);
   z-index: 9999;
   transform-origin: left;
 }

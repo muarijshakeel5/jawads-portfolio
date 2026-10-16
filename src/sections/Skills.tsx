@@ -1,19 +1,9 @@
 import { motion } from 'framer-motion'
 import { skillGroups } from '../data'
 
-const groupColors: Record<string, string> = {
-  'AI & LLMs': '#D4FF3A',
-  'Mobile': '#7C5CFF',
-  'Frontend': '#22c55e',
-  'Backend': '#f59e0b',
-  'Desktop': '#ec4899',
-  'Tools': '#06b6d4',
-  'Concepts': '#8B5CF6',
-}
-
 export default function Skills() {
   return (
-    <section id="arsenal" className="py-24 md:py-36">
+    <section id="arsenal" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
@@ -33,15 +23,14 @@ export default function Skills() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
-          style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
+          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-12"
+          style={{ fontFamily: 'Clash Grotesk, sans-serif', letterSpacing: 0 }}
         >
           Technical Arsenal
         </motion.h2>
 
         <div className="flex flex-col gap-10">
           {skillGroups.map((group, gi) => {
-            const color = groupColors[group.label] || 'var(--accent-lime)'
             return (
               <motion.div
                 key={group.label}
@@ -50,11 +39,12 @@ export default function Skills() {
                 viewport={{ once: true }}
                 transition={{ delay: gi * 0.05 }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color }}>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3A] shrink-0" />
+                  <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'rgba(242, 241, 236, 0.6)' }}>
                     {group.label}
                   </span>
-                  <div className="flex-1 h-px" style={{ background: 'var(--border-subtle)' }} />
+                  <div className="flex-1 h-px ml-2" style={{ background: 'var(--border-subtle)' }} />
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {group.skills.map(skill => (
@@ -69,7 +59,7 @@ export default function Skills() {
                         wordSpacing: 'normal',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.borderColor = color
+                        e.currentTarget.style.borderColor = 'var(--accent-lime)'
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.borderColor = 'var(--border-subtle)'

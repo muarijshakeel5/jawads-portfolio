@@ -8,9 +8,10 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
         {doubled.map((item, i) => (
           <div
             key={i}
-            className="shrink-0 text-2xl md:text-4xl font-semibold tracking-[-0.01em] uppercase select-none transition-colors duration-200 whitespace-nowrap group"
+            className="shrink-0 text-2xl md:text-4xl font-semibold uppercase select-none transition-colors duration-200 whitespace-nowrap group"
             style={{
               fontFamily: 'Clash Grotesk, sans-serif',
+              letterSpacing: 0,
               color: 'transparent',
               WebkitTextStroke: '1.5px var(--text-muted)' as any,
               cursor: 'default',

@@ -134,7 +134,7 @@ export const timeline = [
       "Shipped Caller ID and PayLater Electron desktop apps for the Foodnerd and Howmuch POS systems.",
       "Built AI chat features in React Native + Expo for the Foodnerd and HowMuch mobile apps.",
       "Delivered fixes and UI upgrades across OrderTaker and Customer apps; redesigned Foodnerd.pk in React.js.",
-      "Since Apr 2026: building 'Perfect Pairing' AI platform, rebuilt Rider Delivery App, new Caller ID React Native app.",
+      "Since Apr 2026: building 'AI Wine Inventory & Pairing Platform', rebuilt Rider Delivery App, new Caller ID React Native app.",
       "Full-stack: React.js + Ruby on Rails, REST API design, Agile sprints, code reviews, RSpec, CI/CD.",
     ],
     news: "Foodnerd POS × aik by BankIslami: aikpay dynamic QR across the POS ecosystem",
@@ -178,7 +178,7 @@ export const timeline = [
 export const projects = [
   {
     id: "perfect-pairing",
-    title: "Perfect Pairing",
+    title: "AI Wine Inventory & Pairing Platform",
     category: ["AI", "Web"],
     size: "large",
     status: "In Progress",
@@ -190,7 +190,7 @@ export const projects = [
     stack: ["React.js", "Ruby on Rails", "OpenAI API", "PostgreSQL", "TypeScript"],
     outcome: "Currently in active development at Arkhitech for the Foodnerd ecosystem.",
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/perfect-pairing.webp",
+    image: "/projects/perfect-pairing.png",
     live: "",
     github: "",
   },

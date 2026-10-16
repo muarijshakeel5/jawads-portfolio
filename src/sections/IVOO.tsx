@@ -87,17 +87,17 @@ function AnimatedRadialGauge({
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-xl font-extrabold font-mono" style={{ color: 'var(--text-primary)' }}>
+          <span className="text-xl font-semibold" style={{ color: 'var(--text-primary)', letterSpacing: 0 }}>
             {displayScore}%
           </span>
         </div>
       </div>
       <div>
-        <div className="text-sm font-bold font-mono tracking-tight" style={{ color: 'var(--text-primary)' }}>
+        <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
           {label}
         </div>
         {sublabel && (
-          <div className="text-xs font-mono opacity-60 mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+          <div className="text-xs opacity-60 mt-0.5" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>
             {sublabel}
           </div>
         )}
@@ -178,7 +178,7 @@ function CVMatchTab() {
 
         {/* Competency Pillar Bars */}
         <div className="space-y-2.5">
-          <div className="text-xs font-mono uppercase tracking-wider opacity-50">Competency Breakdown</div>
+          <div className="text-[11px] font-medium uppercase tracking-[0.12em] opacity-50">Competency Breakdown</div>
           {[
             { pillar: 'AI & LLM Integration (OpenAI, Gemini, RAG)', pct: 94, color: '#D4FF3A' },
             { pillar: 'Frontend Architecture (React, TypeScript, Tailwind)', pct: 92, color: '#7C5CFF' },
@@ -483,7 +483,7 @@ function RecruiterViewTab() {
   return (
     <div className="space-y-3 font-mono">
       {/* Table Header */}
-      <div className="grid grid-cols-12 text-[10px] uppercase tracking-wider opacity-40 px-3 py-1">
+      <div className="grid grid-cols-12 text-[11px] font-medium uppercase tracking-[0.12em] opacity-40 px-3 py-1">
         <span className="col-span-5 sm:col-span-4">Candidate</span>
         <span className="col-span-3 sm:col-span-3">AI Score</span>
         <span className="hidden sm:block sm:col-span-3">Status</span>
@@ -599,7 +599,7 @@ export default function IVOO() {
           className="mb-6"
         >
           <span
-            className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+            className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{
               color: 'var(--accent-violet)',
               borderColor: 'rgba(124,92,255,0.25)',
@@ -618,7 +618,7 @@ export default function IVOO() {
           transition={{ delay: 0.1 }}
           className="mb-4"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight" style={{ fontFamily: 'Clash Grotesk, sans-serif' }}>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.02em]" style={{ fontFamily: 'Clash Grotesk, sans-serif' }}>
             {ivoo.title} —
             <span
               className="block bg-gradient-to-r from-violet-400 via-indigo-300 to-lime-300 bg-clip-text text-transparent"
@@ -758,12 +758,12 @@ export default function IVOO() {
               className="glass rounded-2xl p-6 border"
               style={{ borderColor: 'rgba(124,92,255,0.2)' }}
             >
-              <div className="text-xs font-mono uppercase tracking-wider mb-4 opacity-50">
+              <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-4 opacity-50">
                 Core Capabilities
               </div>
               <ul className="flex flex-col gap-3">
                 {ivoo.highlights.map(h => (
-                  <li key={h} className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <li key={h} className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
                     <span style={{ color: 'var(--accent-lime)', marginTop: 2 }}>◆</span>
                     <span>{h}</span>
                   </li>
@@ -780,33 +780,35 @@ export default function IVOO() {
                   style={{ borderColor: 'var(--border-subtle)' }}
                 >
                   <div
-                    className="text-3xl font-extrabold tracking-tight"
+                    className="text-3xl font-semibold tracking-[-0.01em]"
                     style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
                   >
                     {s.value}
                   </div>
-                  <div className="text-xs font-medium mt-1 leading-snug" style={{ color: 'var(--text-primary)' }}>
+                  <div className="text-xs font-medium mt-1 leading-snug" style={{ color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
                     {s.label}
                   </div>
-                  <div className="text-[10px] opacity-40 font-mono mt-1">{s.footnote}</div>
+                  <div className="text-[10px] opacity-40 mt-1" style={{ letterSpacing: 0 }}>{s.footnote}</div>
                 </div>
               ))}
             </div>
 
             {/* Stack Tags */}
             <div className="glass rounded-2xl p-5 border" style={{ borderColor: 'var(--border-subtle)' }}>
-              <div className="text-xs font-mono uppercase tracking-wider mb-3 opacity-50">
+              <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3 opacity-50">
                 Technology Architecture
               </div>
               <div className="flex flex-wrap gap-2">
                 {ivoo.stack.map(s => (
                   <span
                     key={s}
-                    className="text-xs px-3 py-1 rounded-full font-mono"
+                    className="text-xs px-3 py-1 rounded-full font-medium"
                     style={{
                       background: 'rgba(124,92,255,0.12)',
                       color: '#A78BFA',
                       border: '1px solid rgba(124,92,255,0.25)',
+                      letterSpacing: 0,
+                      wordSpacing: 'normal',
                     }}
                   >
                     {s}

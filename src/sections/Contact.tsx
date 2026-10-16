@@ -94,7 +94,7 @@ function ContactForm() {
         { key: 'email', label: 'Your email', type: 'email', placeholder: 'you@company.com' },
       ].map(({ key, label, type, placeholder }) => (
         <div key={key}>
-          <label className="block text-xs font-mono uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>{label}</label>
+          <label className="block text-[11px] font-medium uppercase tracking-[0.12em] mb-2" style={{ color: 'var(--text-muted)' }}>{label}</label>
           <input
             type={type}
             placeholder={placeholder}
@@ -116,7 +116,7 @@ function ContactForm() {
       ))}
 
       <div>
-        <label className="block text-xs font-mono uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>Message</label>
+        <label className="block text-[11px] font-medium uppercase tracking-[0.12em] mb-2" style={{ color: 'var(--text-muted)' }}>Message</label>
         <textarea
           placeholder="Tell me about your project or opportunity…"
           rows={4}
@@ -139,7 +139,12 @@ function ContactForm() {
       <button
         type="submit"
         className="w-full py-3.5 rounded-xl text-sm font-semibold transition-all mt-2 cursor-pointer shadow-md"
-        style={{ background: 'var(--accent-lime)', color: 'var(--accent-lime-contrast)' }}
+        style={{
+          background: 'var(--accent-lime)',
+          color: 'var(--accent-lime-contrast)',
+          letterSpacing: 0,
+          wordSpacing: 'normal',
+        }}
         onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.01)')}
         onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
       >
@@ -167,7 +172,7 @@ export default function Contact() {
           className="mb-16"
         >
           <h2
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-none mb-6"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-[-0.02em] leading-none mb-6"
             style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
           >
             Let's build<br />
@@ -237,13 +242,13 @@ export default function Contact() {
           className="mt-24 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4"
           style={{ borderColor: 'var(--border-subtle)' }}
         >
-          <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
-            © 2026 Muhammad Jawad Fareed · Designed & built in Lahore
+          <span className="text-xs" style={{ color: 'var(--text-muted)', letterSpacing: 0 }}>
+            © 2026 Muhammad Jawad Fareed · Designed &amp; built in Lahore
           </span>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 text-xs font-mono hover:opacity-100 transition-opacity cursor-pointer"
-            style={{ color: 'var(--text-secondary)' }}
+            className="flex items-center gap-2 text-xs font-medium hover:opacity-100 transition-opacity cursor-pointer"
+            style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}
           >
             <ArrowUp size={12} /> Back to top
           </button>

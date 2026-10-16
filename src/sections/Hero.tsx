@@ -42,7 +42,7 @@ function RotatingLine() {
   }, [])
 
   return (
-    <div className="relative min-h-[40px] flex items-center">
+    <div className="relative min-h-[36px] sm:min-h-[40px] flex items-center">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -53,8 +53,14 @@ function RotatingLine() {
           className="flex items-center"
         >
           <span
-            className="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight"
-            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
+            className="font-semibold"
+            style={{
+              fontSize: 'clamp(1.5rem, 2.4vw, 2.25rem)',
+              lineHeight: 1.15,
+              letterSpacing: '-0.01em',
+              wordSpacing: 'normal',
+              color: 'var(--accent-lime)',
+            }}
           >
             {rotatingLines[index]}
           </span>
@@ -145,19 +151,19 @@ function MatchCard({ parallaxX, parallaxY, isMobile }: { parallaxX: number; para
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[9px] font-extrabold font-mono leading-none tracking-tight" style={{ color: '#D4FF3A' }}>87.5%</span>
+          <span className="text-[10px] font-semibold leading-none" style={{ color: '#D4FF3A', letterSpacing: 0 }}>87.5%</span>
         </div>
       </div>
       {/* Labels */}
       <div className="flex flex-col pr-1 min-w-0">
-        <div className="flex items-center gap-1">
-          <span className="text-[8.5px] font-mono uppercase tracking-wider font-bold" style={{ color: '#D4FF3A' }}>87.5% MATCH</span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: '#D4FF3A' }}>87.5% MATCH</span>
           <span className="w-1.5 h-1.5 rounded-full pulse-dot inline-block" style={{ background: '#D4FF3A' }} />
         </div>
-        <span className="text-[10.5px] font-semibold tracking-tight whitespace-nowrap truncate" style={{ color: 'var(--text-primary)' }}>
+        <span className="text-[11px] sm:text-[12px] font-semibold whitespace-nowrap truncate" style={{ color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
           Semantic Fit: Exceptional
         </span>
-        <span className="text-[8px] font-mono opacity-60 whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
+        <span className="text-[11px] opacity-60 whitespace-nowrap" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>
           IVOO.AI Evaluation
         </span>
       </div>
@@ -176,8 +182,8 @@ function NowBuildingCard({ parallaxX, parallaxY, isMobile }: { parallaxX: number
         x: { type: 'spring', stiffness: 90, damping: 18 },
         y: { duration: 5, repeat: Infinity, ease: 'easeInOut' },
       }}
-      className={`absolute z-[22] glass rounded-2xl p-2 sm:p-2.5 border shadow-2xl backdrop-blur-xl flex items-center gap-2 select-none ${
-        isMobile ? 'scale-[0.82] origin-top-left max-w-[200px]' : 'w-[220px]'
+      className={`absolute z-[22] glass rounded-2xl p-2 sm:p-2.5 border shadow-2xl backdrop-blur-xl flex items-center gap-2.5 select-none ${
+        isMobile ? 'scale-[0.82] origin-top-left max-w-[200px]' : 'w-[230px]'
       }`}
       style={{
         left: isMobile ? '2%' : 'calc(-14% + 40px)',
@@ -192,13 +198,13 @@ function NowBuildingCard({ parallaxX, parallaxY, isMobile }: { parallaxX: number
         <span className="w-2 h-2 rounded-full pulse-dot inline-block" style={{ background: '#D4FF3A' }} />
       </div>
       <div className="flex flex-col pr-0.5 min-w-0">
-        <span className="text-[8px] font-mono uppercase tracking-widest font-bold" style={{ color: '#D4FF3A' }}>
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: '#D4FF3A' }}>
           NOW BUILDING
         </span>
-        <span className="text-[10.5px] font-semibold tracking-tight whitespace-nowrap truncate" style={{ color: 'var(--text-primary)' }}>
+        <span className="text-[11px] sm:text-[12px] font-semibold whitespace-nowrap truncate" style={{ color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
           Perfect Pairing
         </span>
-        <span className="text-[8px] font-mono opacity-60 whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
+        <span className="text-[11px] opacity-60 whitespace-nowrap" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>
           AI food &amp; drink pairing app
         </span>
       </div>
@@ -226,11 +232,11 @@ function AnimatedStatInline({ value, suffix, label }: { value: number | string; 
   }, [value])
 
   return (
-    <div className="flex items-baseline gap-2 px-3 py-1.5">
-      <span className="text-sm sm:text-base font-extrabold font-mono" style={{ color: 'var(--accent-lime)' }}>
+    <div className="flex items-baseline gap-2.5 px-3 py-1.5">
+      <span className="text-[1.5rem] font-semibold tracking-[-0.01em]" style={{ color: 'var(--accent-lime)', lineHeight: 1 }}>
         {displayVal}{suffix}
       </span>
-      <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+      <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>
         {label}
       </span>
     </div>
@@ -278,11 +284,11 @@ function HeroStatsStrip({ revealed }: { revealed: boolean }) {
                 className="absolute left-0 top-[20%] bottom-[20%] w-[1px] pointer-events-none"
                 style={{ background: 'rgba(255, 255, 255, 0.08)' }}
               />
-              <div className="flex items-baseline gap-2 px-3 py-1.5">
-                <span className="text-sm sm:text-base font-extrabold font-mono" style={{ color: 'var(--accent-lime)' }}>
+              <div className="flex items-baseline gap-2.5 px-3 py-1.5">
+                <span className="text-[1.5rem] font-semibold tracking-[-0.01em]" style={{ color: 'var(--accent-lime)', lineHeight: 1 }}>
                   Founder
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>
                   @ IVOO
                 </span>
               </div>
@@ -310,21 +316,21 @@ function MobileStatsGrid({ revealed }: { revealed: boolean }) {
           background: 'rgba(10, 11, 18, 0.88)',
         }}
       >
-        <div className="flex flex-col gap-0.5 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-          <span className="text-base font-extrabold font-mono" style={{ color: 'var(--accent-lime)' }}>15K+</span>
-          <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>LinkedIn Followers</span>
+        <div className="flex flex-col gap-1 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+          <span className="text-[1.4rem] font-semibold tracking-[-0.01em]" style={{ color: 'var(--accent-lime)', lineHeight: 1 }}>15K+</span>
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>LinkedIn Followers</span>
         </div>
-        <div className="flex flex-col gap-0.5 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-          <span className="text-base font-extrabold font-mono" style={{ color: 'var(--accent-lime)' }}>3+</span>
-          <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Platforms Shipped</span>
+        <div className="flex flex-col gap-1 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+          <span className="text-[1.4rem] font-semibold tracking-[-0.01em]" style={{ color: 'var(--accent-lime)', lineHeight: 1 }}>3+</span>
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>Platforms Shipped</span>
         </div>
-        <div className="flex flex-col gap-0.5 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-          <span className="text-base font-extrabold font-mono" style={{ color: 'var(--accent-lime)' }}>8+</span>
-          <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Production Projects</span>
+        <div className="flex flex-col gap-1 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+          <span className="text-[1.4rem] font-semibold tracking-[-0.01em]" style={{ color: 'var(--accent-lime)', lineHeight: 1 }}>8+</span>
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>Production Projects</span>
         </div>
-        <div className="flex flex-col gap-0.5 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-          <span className="text-base font-extrabold font-mono" style={{ color: 'var(--accent-lime)' }}>Founder</span>
-          <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>@ IVOO</span>
+        <div className="flex flex-col gap-1 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+          <span className="text-[1.4rem] font-semibold tracking-[-0.01em]" style={{ color: 'var(--accent-lime)', lineHeight: 1 }}>Founder</span>
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>@ IVOO</span>
         </div>
       </div>
     </motion.div>
@@ -650,7 +656,7 @@ export default function Hero() {
 
           {/* Coordinates label (right edge aligned with 'Hire me' button grid, spaced before the corner '+' mark) */}
           <div
-            className="absolute items-center gap-1 text-[11px] font-mono tracking-wider select-none right-10 sm:right-12"
+            className="absolute items-center gap-1 text-[11px] font-medium uppercase tracking-[0.12em] select-none right-10 sm:right-12"
             style={{ color: 'rgba(255,255,255,0.35)', top: '78px' }}
           >
             31.55° N · 74.34° E / LAHORE, PK
@@ -660,7 +666,7 @@ export default function Hero() {
 
       {/* ── Vertical "PORTFOLIO / 2026" label (outer left gutter, hidden below 1340px so it never overlaps content) ───── */}
       <div
-        className="hidden min-[1340px]:flex absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-center text-[10px] font-mono tracking-[0.25em] uppercase select-none pointer-events-none z-30"
+        className="hidden min-[1340px]:flex absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-center text-[11px] font-medium tracking-[0.12em] uppercase select-none pointer-events-none z-30"
         style={{ color: 'var(--text-muted)' }}
       >
         PORTFOLIO / 2026
@@ -684,9 +690,9 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT (left column) ─────────────────────────── */}
       <div className="relative z-20 w-full min-h-[100svh] flex flex-col justify-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full h-full flex flex-col justify-center pt-20 pb-24 min-h-[100svh]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full h-full flex flex-col justify-center pt-14 pb-14 sm:pt-16 sm:pb-16 lg:pt-8 lg:pb-20 xl:pt-10 xl:pb-22 min-h-[100svh]">
           <motion.div
-            className="flex flex-col gap-2.5 sm:gap-3 xl:gap-3.5 lg:max-w-[46vw] xl:max-w-[48vw]"
+            className="flex flex-col gap-1.5 sm:gap-2 lg:gap-1.5 xl:gap-2 lg:max-w-[50vw] xl:max-w-[50vw]"
             style={{ y: leftColY }}
           >
             {/* Status pill + clock (index 0) */}
@@ -698,54 +704,63 @@ export default function Hero() {
               className="flex items-center gap-3 flex-wrap"
             >
               <div
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border glass"
-                style={{ borderColor: 'var(--border-subtle)' }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border glass"
+                style={{ borderColor: 'var(--border-subtle)', letterSpacing: 0, wordSpacing: 'normal' }}
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block" />
-                <span className="text-emerald-400 font-semibold">Available for Work &amp; AI Freelance</span>
+                <span className="text-emerald-400 font-semibold" style={{ letterSpacing: 0, wordSpacing: 'normal' }}>Available for Work &amp; AI Freelance</span>
               </div>
               <LahoreClock />
             </motion.div>
 
             {/* Headline — masked slide-up per line */}
             {timelineStarted && (
-              <h1 className="m-0 p-0 flex flex-col" style={{ gap: '2px' }}>
+              <h1 className="m-0 p-0 flex flex-col" style={{ gap: '4px' }}>
                 <NameLine
                   delay={nameBaseDelay}
-                  className="text-[clamp(2.1rem,7.5vw,3.6rem)] lg:text-[clamp(1.85rem,3.4vw,3.2rem)] xl:text-[clamp(2.2rem,4vw,4.2rem)] font-extrabold leading-[1.01] tracking-tight"
-                  style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+                  className="font-semibold whitespace-nowrap"
+                  style={{
+                    fontSize: 'clamp(3rem, 6.8vw, 6.25rem)',
+                    lineHeight: 0.95,
+                    letterSpacing: '-0.02em',
+                    color: 'var(--text-primary)',
+                  }}
                 >
                   Muhammad
                 </NameLine>
 
-                <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap lg:flex-nowrap">
-                  <NameLine
-                    delay={nameBaseDelay + 0.12}
-                    className="text-[clamp(2.1rem,7.5vw,3.6rem)] lg:text-[clamp(1.85rem,3.4vw,3.2rem)] xl:text-[clamp(2.2rem,4vw,4.2rem)] font-extrabold leading-[1.01] tracking-tight bg-gradient-to-r from-violet-400 to-lime-300 bg-clip-text text-transparent"
-                    style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
-                  >
+                <NameLine
+                  delay={nameBaseDelay + 0.16}
+                  className="font-semibold whitespace-normal lg:whitespace-nowrap"
+                  style={{
+                    fontSize: 'clamp(3rem, 6.8vw, 6.25rem)',
+                    lineHeight: 0.95,
+                    letterSpacing: '-0.02em',
+                    wordSpacing: 'normal',
+                  }}
+                >
+                  <span className="bg-gradient-to-r from-violet-400 to-lime-300 bg-clip-text text-transparent">
                     Jawad
-                  </NameLine>
-                  <NameLine
-                    delay={nameBaseDelay + 0.24}
-                    className="text-[clamp(2.1rem,7.5vw,3.6rem)] lg:text-[clamp(1.85rem,3.4vw,3.2rem)] xl:text-[clamp(2.2rem,4vw,4.2rem)] font-extrabold leading-[1.01] tracking-tight"
-                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
-                  >
+                  </span>{' '}
+                  <span style={{ color: 'var(--text-primary)' }}>
                     Fareed
-                  </NameLine>
-                </div>
+                  </span>
+                </NameLine>
               </h1>
             )}
 
-            {/* Subhead + rotating line (index 2, no overflow-hidden on wrapper, 12px gap) */}
+            {/* Subhead + rotating line (index 2, no overflow-hidden on wrapper) */}
             <motion.div
               custom={2}
               variants={textVariants}
               initial="hidden"
               animate={timelineStarted ? 'visible' : 'hidden'}
-              className="flex flex-col gap-3"
+              className="flex flex-col gap-2 sm:gap-2.5"
             >
-              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest opacity-60">
+              <span
+                className="text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.12em] opacity-60"
+                style={{ color: 'var(--text-secondary)' }}
+              >
                 Founder @ IVOO · Full Stack AI Engineer
               </span>
               <RotatingLine />
@@ -757,8 +772,15 @@ export default function Hero() {
               variants={textVariants}
               initial="hidden"
               animate={timelineStarted ? 'visible' : 'hidden'}
-              className="text-xs sm:text-sm xl:text-base leading-relaxed"
-              style={{ color: 'var(--text-secondary)', maxWidth: '34rem' }}
+              className="leading-[1.65]"
+              style={{
+                fontSize: 'clamp(1.125rem, 1.2vw, 1.25rem)',
+                fontWeight: 400,
+                letterSpacing: '0',
+                lineHeight: 1.65,
+                color: 'rgba(242, 241, 236, 0.72)',
+                maxWidth: '32rem',
+              }}
             >
               {pitch}
             </motion.p>
@@ -773,8 +795,13 @@ export default function Hero() {
             >
               <a
                 href="#work"
-                className="w-full sm:w-auto text-center px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl text-xs font-bold font-mono tracking-wide transition-all shadow-lg hover:scale-105 active:scale-95"
-                style={{ background: 'var(--accent-lime)', color: 'var(--accent-lime-contrast)' }}
+                className="w-full sm:w-auto text-center px-6 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all shadow-lg hover:scale-105 active:scale-95"
+                style={{
+                  background: 'var(--accent-lime)',
+                  color: 'var(--accent-lime-contrast)',
+                  letterSpacing: '0',
+                  wordSpacing: 'normal',
+                }}
               >
                 Explore Selected Work
               </a>
@@ -782,8 +809,13 @@ export default function Hero() {
                 href={personal.cvLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto text-center px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl text-xs font-bold font-mono tracking-wide border glass transition-all hover:scale-105 active:scale-95"
-                style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
+                className="w-full sm:w-auto text-center px-6 py-3 rounded-2xl text-xs sm:text-sm font-semibold border glass transition-all hover:scale-105 active:scale-95"
+                style={{
+                  borderColor: 'var(--border-subtle)',
+                  color: 'var(--text-primary)',
+                  letterSpacing: '0',
+                  wordSpacing: 'normal',
+                }}
               >
                 Download Resume (CV)
               </a>
@@ -830,17 +862,19 @@ export default function Hero() {
               variants={textVariants}
               initial="hidden"
               animate={timelineStarted ? 'visible' : 'hidden'}
-              className="flex items-center gap-2 flex-wrap overflow-hidden pt-0.5"
+              className="flex items-center gap-2.5 flex-wrap overflow-hidden pt-0.5"
               style={{ maxWidth: '480px' }}
             >
-              <span className="text-[10px] font-mono uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>
+              <span className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-muted)' }}>
                 STACK
               </span>
               {['React', 'React Native', 'Django', 'Rails', 'OpenAI', 'Gemini'].map((tech, i, arr) => (
                 <span key={tech} className="flex items-center gap-2">
                   <span
-                    className="text-[11px] font-mono"
+                    className="text-[11px] sm:text-[12px] font-medium"
                     style={{
+                      letterSpacing: 0,
+                      wordSpacing: 'normal',
                       color: 'var(--text-secondary)',
                       background: 'linear-gradient(90deg, var(--text-secondary) 0%, rgba(212,255,58,0.7) 50%, var(--text-secondary) 100%)',
                       backgroundSize: '200% 100%',
@@ -871,10 +905,10 @@ export default function Hero() {
               variants={textVariants}
               initial="hidden"
               animate={timelineStarted ? 'visible' : 'hidden'}
-              className="flex items-center gap-2 pt-1 text-xs font-mono opacity-50 hover:opacity-80 transition-opacity select-none self-start"
+              className="flex items-center gap-2 pt-1 text-xs opacity-50 hover:opacity-80 transition-opacity select-none self-start"
               style={{ color: 'var(--text-secondary)' }}
             >
-              <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+              <span className="text-[11px] font-medium uppercase tracking-[0.12em]">Scroll</span>
               <ArrowDown size={12} className="animate-bounce" />
             </motion.div>
           </motion.div>

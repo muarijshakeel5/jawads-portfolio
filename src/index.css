@@ -3,10 +3,10 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Clash Grotesk', monospace;
-  --font-display: 'Clash Grotesk', sans-serif;
-  --font-heading: 'Clash Grotesk', sans-serif;
+  --font-sans: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-heading: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 :root {
@@ -55,12 +55,12 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
-  font-family: 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
@@ -69,7 +69,7 @@ body {
 }
 
 button, input, textarea, select, code, kbd, samp, pre {
-  font-family: 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 /* Custom scrollbar */

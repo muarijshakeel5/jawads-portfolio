@@ -16,7 +16,7 @@ export default function Services() {
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
           <span
-            className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+            className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{
               color: 'var(--accent-lime)',
               borderColor: 'rgba(212,255,58,0.25)',
@@ -31,7 +31,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-16 tracking-tight"
+          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
           style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
         >
           Engineering Services
@@ -69,12 +69,12 @@ export default function Services() {
                 </div>
                 <div>
                   <h3
-                    className="text-xl font-bold mb-2 tracking-tight"
-                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+                    className="text-xl font-semibold mb-2 tracking-[-0.01em]"
+                    style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}
                   >
                     {s.title}
                   </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
                     {s.description}
                   </p>
                 </div>
@@ -105,25 +105,25 @@ export default function Services() {
           className="relative mb-16 p-6 sm:p-8 rounded-3xl glass border"
           style={{ borderColor: 'var(--border-subtle)' }}
         >
-          <div className="text-xs font-mono uppercase tracking-widest mb-8 opacity-50">
+          <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-8 opacity-50">
             How I Build &amp; Ship
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {processSteps.map((step, i) => (
               <div key={step.step} className="flex flex-col gap-2 relative">
                 <div
-                  className="text-3xl font-extrabold font-mono"
-                  style={{ color: 'var(--accent-lime)', opacity: 0.7 }}
+                  className="text-3xl font-semibold"
+                  style={{ color: 'var(--accent-lime)', opacity: 0.7, letterSpacing: '-0.01em' }}
                 >
                   {step.step}
                 </div>
                 <div
-                  className="text-lg font-bold"
-                  style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+                  className="text-lg font-semibold"
+                  style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}
                 >
                   {step.label}
                 </div>
-                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
                   {step.desc}
                 </p>
               </div>
@@ -140,10 +140,12 @@ export default function Services() {
         >
           <a
             href="#contact"
-            className="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl text-xs font-bold font-mono tracking-wide transition-all shadow-lg hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all shadow-lg hover:scale-105 active:scale-95"
             style={{
               background: 'var(--accent-lime)',
               color: 'var(--accent-lime-contrast)',
+              letterSpacing: 0,
+              wordSpacing: 'normal',
             }}
           >
             Start a project with me
@@ -152,10 +154,12 @@ export default function Services() {
             href={personal.upwork}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl text-xs font-bold font-mono tracking-wide border glass transition-all hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto text-center px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold border glass transition-all hover:scale-105 active:scale-95"
             style={{
               borderColor: 'var(--border-subtle)',
               color: 'var(--text-primary)',
+              letterSpacing: 0,
+              wordSpacing: 'normal',
             }}
           >
             View Upwork Profile

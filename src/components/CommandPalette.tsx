@@ -140,10 +140,10 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
                 onChange={e => { setQuery(e.target.value); setSelected(0) }}
                 placeholder="Search chapters, theme, actions…"
                 className="flex-1 bg-transparent outline-none text-sm"
-                style={{ color: 'var(--text-primary)', fontFamily: "'Clash Grotesk', sans-serif" }}
+                style={{ color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}
               />
-              <kbd className="text-xs px-2 py-0.5 rounded font-mono opacity-50"
-                style={{ background: 'var(--border-subtle)', border: '1px solid var(--border-subtle)' }}>
+              <kbd className="text-xs px-2 py-0.5 rounded font-medium opacity-50"
+                style={{ background: 'var(--border-subtle)', border: '1px solid var(--border-subtle)', letterSpacing: 0 }}>
                 ESC
               </kbd>
             </div>
@@ -151,7 +151,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
             {/* Results */}
             <div className="max-h-80 overflow-y-auto py-2">
               {filtered.length === 0 && (
-                <div className="px-4 py-6 text-center text-sm opacity-50 font-mono">No matching results</div>
+                <div className="px-4 py-6 text-center text-sm opacity-50" style={{ letterSpacing: 0 }}>No matching results</div>
               )}
               {filtered.map((item, i) => {
                 const Icon = item.icon
@@ -168,15 +168,15 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
                     onMouseEnter={() => setSelected(i)}
                   >
                     <Icon size={14} style={{ color: isSel ? 'var(--accent-lime)' : 'var(--text-muted)' }} />
-                    <span className="flex-1 font-mono text-xs">{item.label}</span>
+                    <span className="flex-1 text-xs font-medium" style={{ letterSpacing: 0, wordSpacing: 'normal' }}>{item.label}</span>
                   </button>
                 )
               })}
             </div>
 
             {/* Footer hint */}
-            <div className="px-4 py-2.5 border-t flex items-center justify-between text-xs font-mono opacity-40"
-              style={{ borderColor: 'var(--border-subtle)' }}>
+            <div className="px-4 py-2.5 border-t flex items-center justify-between text-xs opacity-40"
+              style={{ borderColor: 'var(--border-subtle)', letterSpacing: 0 }}>
               <div className="flex items-center gap-3">
                 <span>↑↓ navigate</span>
                 <span>↵ select</span>

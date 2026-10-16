@@ -33,7 +33,7 @@ export default function BuildingInPublic() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
-          <span className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+          <span className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{ color: 'var(--accent-lime)', borderColor: 'var(--border-active)', background: 'rgba(212,255,58,0.06)' }}>
             CH. 07 / BUILDING IN PUBLIC
           </span>
@@ -44,7 +44,7 @@ export default function BuildingInPublic() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-extrabold tracking-tight"
+            className="text-4xl md:text-6xl font-semibold tracking-[-0.02em]"
             style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
           >
             The conversation
@@ -61,13 +61,13 @@ export default function BuildingInPublic() {
             className="flex flex-col items-center justify-center glass rounded-2xl px-8 py-5 text-center shrink-0 border"
             style={{ borderColor: 'var(--border-active)' }}
           >
-            <div className="text-4xl font-extrabold font-mono mb-1" style={{ color: 'var(--accent-lime)' }}>
+            <div className="text-4xl font-semibold mb-1" style={{ color: 'var(--accent-lime)', letterSpacing: '-0.01em' }}>
               <AnimatedCounter target={personal.linkedinFollowers} />K
             </div>
-            <div className="text-xs font-mono" style={{ color: 'var(--text-secondary)' }}>LinkedIn followers</div>
+            <div className="text-xs font-medium" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>LinkedIn followers</div>
             <div className="flex items-center gap-1.5 mt-2">
               <LinkedinIcon size={13} style={{ color: '#0077B5' }} />
-              <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>and counting</span>
+              <span className="text-xs" style={{ color: 'var(--text-muted)', letterSpacing: 0 }}>and counting</span>
             </div>
           </motion.div>
         </div>

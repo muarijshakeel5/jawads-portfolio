@@ -81,8 +81,8 @@ function ProjectCard({ project, onClick }: { project: typeof projects[number]; o
           </div>
 
           <h3
-            className="text-lg sm:text-xl font-bold tracking-tight mb-1.5"
-            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
+            className="text-lg sm:text-xl font-semibold mb-1.5"
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}
           >
             {project.title}
           </h3>
@@ -183,7 +183,7 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
         </div>
 
         <h2
-          className="text-3xl sm:text-4xl font-extrabold tracking-tight"
+          className="text-3xl sm:text-4xl font-semibold tracking-[-0.01em]"
           style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
         >
           {project.title}
@@ -191,8 +191,8 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
 
         {project.problem && (
           <div>
-            <div className="text-xs font-mono uppercase tracking-wider mb-2 opacity-50">Problem &amp; Context</div>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-2 opacity-50">Problem &amp; Context</div>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
               {project.problem}
             </p>
           </div>
@@ -200,8 +200,8 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
 
         {project.built && (
           <div>
-            <div className="text-xs font-mono uppercase tracking-wider mb-2 opacity-50">Architecture &amp; Implementation</div>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-2 opacity-50">Architecture &amp; Implementation</div>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
               {project.built}
             </p>
           </div>
@@ -209,7 +209,7 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
 
         {project.stack && (
           <div>
-            <div className="text-xs font-mono uppercase tracking-wider mb-3 opacity-50">Tech Stack</div>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3 opacity-50">Tech Stack</div>
             <div className="flex flex-wrap gap-2">
               {project.stack.map(s => (
                 <span
@@ -236,10 +236,10 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
               borderColor: 'rgba(212,255,58,0.2)',
             }}
           >
-            <div className="text-xs font-mono uppercase tracking-wider mb-1 font-semibold" style={{ color: 'var(--accent-lime)' }}>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color: 'var(--accent-lime)' }}>
               Outcome &amp; Traction
             </div>
-            <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
               {project.outcome}
             </p>
           </div>
@@ -250,10 +250,12 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
             href={project.liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs font-bold font-mono tracking-wide mt-auto"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold mt-auto transition-transform hover:scale-105 active:scale-95"
             style={{
               background: 'var(--accent-lime)',
               color: 'var(--accent-lime-contrast)',
+              letterSpacing: 0,
+              wordSpacing: 'normal',
             }}
           >
             Launch Live Website <ExternalLink size={14} />
@@ -278,7 +280,7 @@ export default function Work() {
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
           <span
-            className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+            className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{
               color: 'var(--accent-lime)',
               borderColor: 'rgba(212,255,58,0.25)',
@@ -294,7 +296,7 @@ export default function Work() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.02em]"
             style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
           >
             Featured Projects
@@ -313,11 +315,12 @@ export default function Work() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className="px-4 py-2 rounded-full text-xs font-mono transition-all"
+                  className="px-4 py-2 rounded-full text-xs font-semibold transition-all"
                   style={{
                     background: isSelected ? 'var(--accent-lime)' : 'var(--border-subtle)',
                     color: isSelected ? 'var(--accent-lime-contrast)' : 'var(--text-secondary)',
-                    fontWeight: isSelected ? 600 : 400,
+                    letterSpacing: 0,
+                    wordSpacing: 'normal',
                   }}
                 >
                   {f}

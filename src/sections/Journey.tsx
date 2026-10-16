@@ -40,10 +40,10 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
         {/* Header */}
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
-            <div className="text-xs sm:text-sm font-mono uppercase tracking-wider mb-1 font-semibold" style={{ color }}>
+            <div className="text-xs sm:text-sm uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color }}>
               {item.company}
             </div>
-            <div className="text-base sm:text-lg font-bold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>
+            <div className="text-base sm:text-lg font-semibold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
               {item.role}
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function Journey() {
           className="mb-6"
         >
           <span
-            className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+            className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{
               color: 'var(--accent-lime)',
               borderColor: 'rgba(212,255,58,0.25)',
@@ -158,7 +158,7 @@ export default function Journey() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-16 tracking-tight"
+          className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
           style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
         >
           Experience &amp; Career

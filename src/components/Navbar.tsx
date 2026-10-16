@@ -56,7 +56,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-xs font-mono uppercase tracking-widest transition-colors"
+                className="text-xs font-medium uppercase tracking-[0.1em] transition-colors"
                 style={{ color: 'var(--text-muted)' }}
                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
@@ -99,10 +99,12 @@ export default function Navbar() {
             {/* Hire me CTA */}
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center px-4 py-2 rounded-xl text-xs font-semibold font-mono transition-all"
+              className="hidden sm:inline-flex items-center px-4 py-2 rounded-xl text-xs font-semibold transition-all"
               style={{
                 background: 'var(--accent-lime)',
                 color: 'var(--accent-lime-contrast)',
+                letterSpacing: 0,
+                wordSpacing: 'normal',
               }}
               onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')}
               onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
@@ -147,7 +149,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="text-3xl sm:text-4xl font-extrabold tracking-tight transition-colors"
+                className="text-3xl sm:text-4xl font-semibold tracking-[-0.01em] transition-colors"
                 style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent-lime)')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
@@ -159,8 +161,8 @@ export default function Navbar() {
             <div className="flex items-center gap-4 mt-6">
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-xs font-mono"
-                style={{ border: '1px solid var(--border-subtle)' }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-xs font-medium"
+                style={{ border: '1px solid var(--border-subtle)', letterSpacing: 0 }}
               >
                 {theme === 'dark' ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-violet-600" />}
                 <span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
@@ -169,10 +171,12 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setMenuOpen(false)}
-                className="px-6 py-2.5 rounded-xl text-xs font-semibold font-mono"
+                className="px-6 py-2.5 rounded-xl text-xs font-semibold"
                 style={{
                   background: 'var(--accent-lime)',
                   color: 'var(--accent-lime-contrast)',
+                  letterSpacing: 0,
+                  wordSpacing: 'normal',
                 }}
               >
                 Hire me

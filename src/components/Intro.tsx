@@ -51,7 +51,7 @@ export default function Intro() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
             transition={{ duration: 0.5 }}
-            className="text-6xl md:text-8xl font-extrabold tracking-tighter"
+            className="text-6xl md:text-8xl font-semibold tracking-[-0.02em]"
             style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
           >
             <span style={{ color: 'var(--text-primary)' }}>{personal.shortName}</span>

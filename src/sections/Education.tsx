@@ -8,7 +8,7 @@ export default function Education() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Chapter label */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6">
-          <span className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+          <span className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{ color: 'var(--accent-lime)', borderColor: 'var(--border-active)', background: 'rgba(212,255,58,0.06)' }}>
             CH. 08 / LEARNING
           </span>
@@ -18,7 +18,7 @@ export default function Education() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-extrabold mb-16 tracking-tight"
+          className="text-4xl md:text-6xl font-semibold mb-16 tracking-[-0.02em]"
           style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
         >
           Education &<br />Certifications
@@ -39,19 +39,19 @@ export default function Education() {
                 style={{ background: 'rgba(212,255,58,0.08)', border: '1px solid var(--border-active)' }}>
                 <GraduationCap size={18} style={{ color: 'var(--accent-lime)' }} />
               </div>
-              <div className="text-xs font-mono uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Degree</div>
+              <div className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-muted)' }}>Degree</div>
             </div>
 
-            <h3 className="text-xl font-bold mb-1" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}>{education.degree}</h3>
-            <div className="text-base font-medium mb-1" style={{ color: 'var(--accent-lime)' }}>{education.university}</div>
-            <div className="text-sm mb-1 font-mono" style={{ color: 'var(--text-secondary)' }}>{education.location} · {education.period}</div>
-            <div className="text-sm font-mono mb-6" style={{ color: 'var(--accent-lime)' }}>GPA: {education.gpa}</div>
+            <h3 className="text-xl font-semibold mb-1" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>{education.degree}</h3>
+            <div className="text-base font-medium mb-1" style={{ color: 'var(--accent-lime)', letterSpacing: 0 }}>{education.university}</div>
+            <div className="text-sm mb-1" style={{ color: 'var(--text-secondary)', letterSpacing: 0 }}>{education.location} · {education.period}</div>
+            <div className="text-sm font-semibold mb-6" style={{ color: 'var(--accent-lime)', letterSpacing: 0 }}>GPA: {education.gpa}</div>
 
-            <div className="text-xs font-mono uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>Relevant Courses</div>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3" style={{ color: 'var(--text-muted)' }}>Relevant Courses</div>
             <div className="flex flex-wrap gap-2">
               {education.courses.map(c => (
-                <span key={c} className="text-xs px-2.5 py-1 rounded-lg font-mono border"
-                  style={{ background: 'var(--bg-surface-elevated)', color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' }}>
+                <span key={c} className="text-xs px-2.5 py-1 rounded-lg font-medium border"
+                  style={{ background: 'var(--bg-surface-elevated)', color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)', letterSpacing: 0, wordSpacing: 'normal' }}>
                   {c}
                 </span>
               ))}
@@ -66,7 +66,7 @@ export default function Education() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col gap-4"
           >
-            <div className="text-xs font-mono uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>Certifications</div>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-2" style={{ color: 'var(--text-muted)' }}>Certifications</div>
             {certifications.map((cert, i) => (
               <motion.div
                 key={cert.title}

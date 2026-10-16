@@ -38,13 +38,13 @@ function Counter({
   return (
     <div ref={ref} className="flex flex-col gap-1.5 p-4 rounded-2xl glass border" style={{ borderColor: 'var(--border-subtle)' }}>
       <div
-        className="text-3xl sm:text-4xl font-extrabold tracking-tight"
+        className="text-3xl sm:text-4xl font-semibold tracking-[-0.01em]"
         style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--accent-lime)' }}
       >
         <span ref={displayRef}>{decimal ? value.toFixed(decimal) : '0'}</span>
         <span>{suffix}</span>
       </div>
-      <div className="text-xs font-mono uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+      <div className="text-[11px] font-medium uppercase tracking-[0.12em]" style={{ color: 'var(--text-secondary)' }}>
         {label}
       </div>
     </div>
@@ -63,7 +63,7 @@ export default function About() {
           className="mb-8"
         >
           <span
-            className="text-xs font-mono tracking-widest uppercase px-3 py-1.5 rounded-full border"
+            className="text-[11px] font-medium tracking-[0.12em] uppercase px-3 py-1.5 rounded-full border"
             style={{
               color: 'var(--accent-lime)',
               borderColor: 'rgba(212,255,58,0.25)',
@@ -84,7 +84,7 @@ export default function About() {
             className="lg:col-span-5"
           >
             <blockquote
-              className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight tracking-[-0.01em]"
               style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)' }}
             >
               <span style={{ color: 'var(--accent-lime)', fontSize: '3.5rem', lineHeight: 0.5, fontFamily: "'Clash Grotesk', sans-serif" }}>
@@ -107,7 +107,7 @@ export default function About() {
               <p
                 key={i}
                 className="text-base sm:text-lg leading-relaxed"
-                style={{ color: 'var(--text-secondary)' }}
+                style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}
               >
                 {p}
               </p>

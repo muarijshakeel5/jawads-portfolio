@@ -139,13 +139,13 @@ function CVMatchTab() {
             <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
               Senior Full Stack AI Engineer
             </div>
-            <div className="text-[11px] opacity-60">IVOO Core Platform Architecture</div>
+            <div className="text-[11px] opacity-60">AIVIS Core Platform Architecture</div>
           </div>
 
           <div className="p-2.5 rounded-xl bg-white/[0.02] border" style={{ borderColor: 'var(--border-subtle)' }}>
             <span className="text-[10px] uppercase opacity-40 block mb-1">Extracted Experience</span>
             <div className="text-[11px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              4+ years engineering scalable web & mobile apps. Founder @ IVOO, Software Engineer @ Arkhitech.
+              4+ years engineering scalable web & mobile apps. Founder @ AIVIS, Software Engineer @ Arkhitech.
             </div>
           </div>
 
@@ -254,7 +254,7 @@ function AIInterviewTab() {
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-white/[0.06] text-white/80 border border-white/10 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-lime-400 pulse-dot" />
-              IVOO NEURAL INTERVIEWER
+              AIVIS NEURAL INTERVIEWER
             </span>
             <span className="text-[10px] font-mono opacity-50">STT Model: Whisper-v3</span>
           </div>
@@ -283,7 +283,7 @@ function AIInterviewTab() {
             <span className="text-lime-400 font-semibold block mb-0.5 text-[10px] uppercase">
               Current Interview Question #3:
             </span>
-            “How did you architect the real-time scoring telemetry for IVOO to keep pipeline latency under 200ms?”
+            “How did you architect the real-time scoring telemetry for AIVIS to keep pipeline latency under 200ms?”
           </div>
         </div>
 
@@ -583,7 +583,8 @@ export default function IVOO() {
   const [activeTab, setActiveTab] = useState<TabId>('CV Match')
 
   return (
-    <section id="ivoo" className="py-24 md:py-32 relative overflow-hidden">
+    <section id="aivis" className="py-24 md:py-32 relative overflow-hidden">
+      <span id="ivoo" className="sr-only" />
       {/* Warm white ambient aura */}
       <div
         className="orb w-[650px] h-[650px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"
@@ -678,7 +679,7 @@ export default function IVOO() {
                 }}
               >
                 <span className="text-emerald-400 text-[10px]">🔒</span>
-                <span className="truncate">app.ivoo.ai/interview/session-live-jawad-882</span>
+                <span className="truncate">app.aivis.com/interview/session-live-jawad-882</span>
               </div>
 
               {/* Live Badge */}
@@ -711,7 +712,7 @@ export default function IVOO() {
                     >
                       {isActive && (
                         <motion.div
-                          layoutId="ivoo-tab-pill"
+                          layoutId="aivis-tab-pill"
                           className="absolute inset-0 rounded-xl"
                           style={{
                             background: 'rgba(255,255,255,0.08)',
@@ -846,7 +847,7 @@ export default function IVOO() {
                 e.currentTarget.style.borderColor = 'var(--border-subtle)'
               }}
             >
-              Explore IVOO Architecture on LinkedIn <ExternalLink size={13} className="group-hover:translate-x-0.5 transition-transform" />
+              Explore AIVIS Architecture on LinkedIn <ExternalLink size={13} className="group-hover:translate-x-0.5 transition-transform" />
             </a>
           </motion.div>
         </div>

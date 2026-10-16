@@ -1,8 +1,8 @@
 # Muhammad Jawad Fareed — Portfolio
 
-> Full Stack AI Engineer & Founder of IVOO · Based in Lahore, Pakistan
+> Full Stack AI Engineer & Founder of AIVIS · Based in Lahore, Pakistan
 
-An award-level personal portfolio featuring a cinematic editorial aesthetic, interactive 3D hero showcase, interactive SaaS product demo for IVOO, dark/light theme switching, and smooth Framer Motion choreographies.
+An award-level personal portfolio featuring a cinematic editorial aesthetic, interactive 3D hero showcase, interactive SaaS product demo for AIVIS, dark/light theme switching, and smooth Framer Motion choreographies.
 
 ---
 
@@ -50,11 +50,11 @@ npm run preview
 
 ## 📂 Architecture & Key Sections
 
-- **Single Content Source**: All profile details, statistics, project case studies, and IVOO metrics live in `src/data.ts`.
+- **Single Content Source**: All profile details, statistics, project case studies, and AIVIS metrics live in `src/data.ts`.
 - **Chapter Storyline**:
   - `CH. 00` — Hero with 3D tilt phone mockup, live Lahore PKT time, and dynamic role cycler
   - `CH. 01` — Story & live animated counter cards
-  - `CH. 02` — IVOO Flagship showcase with macOS window chrome, CV match gauge, AI Interview feed with live audio waveform, Recharts radar scorecard, and recruiter pipeline
+  - `CH. 02` — AIVIS Flagship showcase with macOS window chrome, CV match gauge, AI Interview feed with live audio waveform, Recharts radar scorecard, and recruiter pipeline
   - `CH. 03` — Interactive career journey timeline
   - `CH. 04` — Selected work case studies with category filtering and modal details
   - `CH. 05` — Engineering service offerings

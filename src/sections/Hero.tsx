@@ -685,7 +685,7 @@ export default function Hero() {
                   marginBottom: '36px',
                 }}
               >
-                Founder of IVOO. I turn ideas into scalable AI, mobile and web products.
+                Founder of AIVIS. I turn ideas into scalable AI, mobile and web products.
               </motion.p>
 
               {/* Two CTAs: 56px rounded-full with magnetic pull & download */}

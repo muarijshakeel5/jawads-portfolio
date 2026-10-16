@@ -47,7 +47,7 @@ cat << 'SVGEOF' > "$SVG_FILE"
 
   <!-- Role and Title -->
   <text x="90" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="500" fill="#F2F1EC" opacity="0.9">
-    Full Stack AI Engineer &amp; Founder of IVOO
+    Full Stack AI Engineer &amp; Founder of AIVIS
   </text>
 
   <text x="90" y="388" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="400" fill="#F2F1EC" opacity="0.6">

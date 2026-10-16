@@ -66,7 +66,7 @@ export default function PhoneMockup() {
           {/* App Header */}
           <div className="flex items-center justify-between pt-1">
             <span className="text-xs font-mono font-bold tracking-wider" style={{ color: '#D4FF3A' }}>
-              IVOO.AI
+              AIVIS.AI
             </span>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-lime-400/10 text-lime-400 border border-lime-400/20">
               Live Evaluation

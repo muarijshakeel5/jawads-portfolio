@@ -7,7 +7,7 @@ import { GithubIcon, LinkedinIcon } from './Icons'
 const sections = [
   { id: 'hero', label: 'Jump to Hero' },
   { id: 'story', label: 'Jump to Story (CH. 01)' },
-  { id: 'ivoo', label: 'Jump to IVOO (CH. 02)' },
+  { id: 'aivis', label: 'Jump to AIVIS (CH. 02)' },
   { id: 'journey', label: 'Jump to Journey (CH. 03)' },
   { id: 'work', label: 'Jump to Work (CH. 04)' },
   { id: 'services', label: 'Jump to Services (CH. 05)' },

@@ -16,7 +16,7 @@ export const CV_FILENAME = "Muhammad_Jawad_Fareed_Resume.pdf";
 export const personal = {
   name: "Muhammad Jawad Fareed",
   shortName: "MJF",
-  tagline: "Full Stack AI Engineer · Founder of IVOO",
+  tagline: "Full Stack AI Engineer · Founder of AIVIS",
   location: "Lahore, PK",
   timezone: "Asia/Karachi",
   email: "jawadfarid383@gmail.com",
@@ -34,18 +34,18 @@ export const rotatingLines = [
   "I build AI-powered products.",
   "I build mobile apps.",
   "I build full-stack platforms.",
-  "I founded IVOO.",
+  "I founded AIVIS.",
 ];
 
 export const pitch =
-  "Full Stack AI Engineer and founder of IVOO. I turn ideas into scalable AI, mobile and web products with React, React Native, Django and Rails.";
+  "Full Stack AI Engineer and founder of AIVIS. I turn ideas into scalable AI, mobile and web products with React, React Native, Django and Rails.";
 
 export const about = {
   pullQuote:
     "I learn fast, own what I ship, and build AI products that solve real problems.",
   paragraphs: [
     "I'm a Computer Science graduate from the University of Central Punjab who builds AI-powered products end to end: React and React Native on the front, Django, Rails and FastAPI behind them, and LLMs (OpenAI, Gemini, multimodal systems) in the middle.",
-    "I've shipped Electron desktop apps, native mobile apps and full web platforms, and I'm the founder of IVOO, an AI hiring platform. Currently exploring cloud engineering, big data, ML and ethical data automation.",
+    "I've shipped Electron desktop apps, native mobile apps and full web platforms, and I'm the founder of AIVIS, an AI hiring platform. Currently exploring cloud engineering, big data, ML and ethical data automation.",
   ],
   counters: [
     { value: 3, suffix: "+", label: "Production platforms shipped" },
@@ -76,7 +76,7 @@ export const techMarquee = [
 ];
 
 export const ivoo = {
-  title: "IVOO",
+  title: "AIVIS",
   subtitle: "AI Autonomous Hiring & Video Assessment Platform",
   tagline: "Fair, fast, transparent hiring — powered by AI.",
   founded: "February 2022",
@@ -113,7 +113,7 @@ export const timeline = [
   {
     id: "ivoo-founder",
     role: "Founder",
-    company: "IVOO",
+    company: "AIVIS",
     period: "Feb 2022 – Present",
     location: "Lahore, PK",
     type: "founder",
@@ -231,7 +231,7 @@ export const projects = [
   },
   {
     id: "ivoo-project",
-    title: "IVOO",
+    title: "AIVIS",
     category: ["AI", "Web"],
     size: "large",
     short: "AI autonomous hiring & video assessment platform. See CH. 02.",
@@ -242,7 +242,7 @@ export const projects = [
     outcome: "40% less hiring bias · 30% less HR screening workload (internal testing).",
     color: "from-white/[0.04] to-transparent",
     isIvoo: true,
-    image: "/projects/ivoo.webp",
+    image: "/projects/aivis.png",
     live: "",
     github: "",
   },
@@ -414,7 +414,7 @@ export const linkedinPostThemes = [
   },
   {
     icon: "Layers",
-    title: "IVOO Build-ins",
+    title: "AIVIS Build-ins",
     description:
       "Behind-the-scenes of building an AI hiring platform: architecture decisions, LLM experiments, failures and wins.",
   },
@@ -479,9 +479,9 @@ export const certifications = [
 ];
 
 export const seo = {
-  title: "Muhammad Jawad Fareed | Full Stack AI Engineer & Founder of IVOO, Lahore",
+  title: "Muhammad Jawad Fareed | Full Stack AI Engineer & Founder of AIVIS, Lahore",
   description:
-    "Portfolio of Muhammad Jawad Fareed, Full Stack AI Engineer and founder of IVOO. React, React Native, Django and AI products. Based in Lahore, Pakistan.",
+    "Portfolio of Muhammad Jawad Fareed, Full Stack AI Engineer and founder of AIVIS. React, React Native, Django and AI products. Based in Lahore, Pakistan.",
   ogImage: `${SITE_URL}/og-image.png`,
   twitterHandle: "@jawadfareed",
   canonicalUrl: SITE_URL,

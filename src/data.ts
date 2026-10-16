@@ -77,7 +77,7 @@ export const techMarquee = [
 
 export const ivoo = {
   title: "AIVIS",
-  subtitle: "AI Autonomous Hiring & Video Assessment Platform",
+  subtitle: "Artificial Intelligence Video Interview System",
   tagline: "Fair, fast, transparent hiring — powered by AI.",
   founded: "February 2022",
   linkedinLink: "https://linkedin.com/in/muhammadjawadfareed",
@@ -118,7 +118,7 @@ export const timeline = [
     location: "Lahore, PK",
     type: "founder",
     description:
-      "Building an AI autonomous hiring and video-assessment platform. See Chapter 02 for the full product story.",
+      "Building an Artificial Intelligence Video Interview System. See Chapter 02 for the full product story.",
     tags: ["React", "Django", "LLMs", "OpenAI", "Gemini"],
     badge: "See CH. 02",
   },
@@ -234,7 +234,7 @@ export const projects = [
     title: "AIVIS",
     category: ["AI", "Web"],
     size: "large",
-    short: "AI autonomous hiring & video assessment platform. See CH. 02.",
+    short: "Artificial Intelligence Video Interview System. See CH. 02.",
     problem: "Traditional hiring is biased, slow and opaque.",
     built:
       "Full AI hiring platform with semantic CV parsing, video interviews with AI avatar, real-time match scoring, facial emotion detection and role-based dashboards.",

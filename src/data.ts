@@ -208,7 +208,7 @@ export const projects = [
     outcome:
       "Featured in news: Foodnerd POS × aik by BankIslami — aikpay dynamic QR across the POS ecosystem.",
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/foodnerd-ecosystem.webp",
+    image: "/projects/foodnerd-ecosystem.png",
     live: "",
     github: "",
   },

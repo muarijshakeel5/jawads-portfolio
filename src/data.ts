@@ -295,7 +295,7 @@ export const projects = [
     built: "Native Android app for sharing and discovering music, with social features and audio streaming.",
     stack: ["Kotlin", "Android"],
     color: "from-white/[0.04] to-transparent",
-    image: "/projects/music-sharing.webp",
+    image: "/projects/music-sharing.png",
     live: "",
     github: "",
   },

@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { useEffect, useRef, lazy, Suspense } from 'react'
 
 // Components
 import Navbar from './components/Navbar'
 import Cursor from './components/Cursor'
 import ScrollProgress from './components/ScrollProgress'
-import CommandPalette from './components/CommandPalette'
 import Intro from './components/Intro'
 
 // Above-the-fold sections
@@ -127,21 +126,7 @@ function SectionPlaceholder({
 }
 
 export default function App() {
-  const [cmdOpen, setCmdOpen] = useState(false)
-
   useEasterEgg()
-
-  // Cmd/Ctrl+K shortcut
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        setCmdOpen(o => !o)
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
 
   return (
     <ThemeProvider>
@@ -157,26 +142,11 @@ export default function App() {
       {/* Scroll progress */}
       <ScrollProgress />
 
-      {/* Command palette */}
-      <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
-
       {/* Nav */}
       <Navbar />
 
       {/* Film grain overlay */}
       <div className="film-grain pointer-events-none" aria-hidden="true" />
-
-      {/* Cmd+K hint */}
-      <div
-        className="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono opacity-30 hover:opacity-60 transition-opacity cursor-pointer glass"
-        style={{ border: '1px solid var(--border-subtle)' }}
-        onClick={() => setCmdOpen(true)}
-        role="button"
-        tabIndex={0}
-        aria-label="Open command palette"
-      >
-        <kbd>⌘</kbd>K
-      </div>
 
       {/* Main content */}
       <main id="main-content">

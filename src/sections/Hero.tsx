@@ -48,14 +48,24 @@ function LahoreClock() {
   }, [])
   return (
     <span
-      className="font-mono text-xs opacity-70 flex items-center gap-1.5"
+      className="text-xs flex items-center gap-2 select-none"
       style={{
+        fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace',
         color: 'var(--text-secondary)',
-        fontVariantNumeric: 'tabular-nums',
+        letterSpacing: '0.04em',
       }}
     >
-      <Terminal size={12} className="opacity-50" />
-      <span style={{ fontVariantNumeric: 'tabular-nums' }}>{time || '18:45:00'} PKT · Lahore</span>
+      <Terminal size={12} className="opacity-60 text-emerald-400 shrink-0" />
+      <span style={{ fontVariantNumeric: 'tabular-nums', letterSpacing: '0.08em' }}>
+        {time || '18:45:00'}
+      </span>
+      <span className="opacity-70 text-[11px]" style={{ letterSpacing: '0.06em' }}>
+        PKT
+      </span>
+      <span className="opacity-40">·</span>
+      <span className="opacity-80" style={{ letterSpacing: '0.02em' }}>
+        Lahore
+      </span>
     </span>
   )
 }

@@ -57,6 +57,7 @@ function ContactForm() {
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [errors, setErrors] = useState<Partial<FormState>>({})
 
+  const web3FormsKey = (import.meta.env.VITE_WEB3FORMS_KEY || 'ccaac9b6-5ac7-4d5d-b227-5f0e318a15bd').trim()
   const formspreeId = (import.meta.env.VITE_FORMSPREE_ID || '').trim()
 
   const validate = () => {
@@ -84,43 +85,66 @@ function ContactForm() {
       return
     }
 
-    // Fallback to mailto if Formspree ID is not configured
-    if (!formspreeId) {
-      const subject = encodeURIComponent(`Portfolio Inquiry from ${form.name}`)
-      const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`)
-      window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`
-      setSubmitted(true)
-      return
-    }
-
     setIsLoading(true)
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          message: form.message,
-          _gotcha: honeypot,
-        }),
-      })
+      if (web3FormsKey) {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: web3FormsKey,
+            name: form.name,
+            email: form.email,
+            message: form.message,
+            subject: `Portfolio Inquiry from ${form.name}`,
+            from_name: `${form.name} (MJF Portfolio)`,
+            botcheck: honeypot,
+          }),
+        })
 
-      if (response.ok) {
-        setSubmitted(true)
-        setForm({ name: '', email: '', message: '' })
-      } else {
         const data = await response.json().catch(() => ({}))
-        const errorText =
-          data?.errors?.map((err: { message: string }) => err.message).join(', ') ||
-          'Failed to send message via Formspree. Please try again or email directly.'
-        setSubmitError(errorText)
+        if (response.ok && data.success) {
+          setSubmitted(true)
+          setForm({ name: '', email: '', message: '' })
+        } else {
+          setSubmitError(data.message || 'Failed to send message. Please try again or email directly.')
+        }
+      } else if (formspreeId) {
+        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            message: form.message,
+            _gotcha: honeypot,
+          }),
+        })
+
+        if (response.ok) {
+          setSubmitted(true)
+          setForm({ name: '', email: '', message: '' })
+        } else {
+          const data = await response.json().catch(() => ({}))
+          const errorText =
+            data?.errors?.map((err: { message: string }) => err.message).join(', ') ||
+            'Failed to send message via Formspree. Please try again or email directly.'
+          setSubmitError(errorText)
+        }
+      } else {
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${form.name}`)
+        const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`)
+        window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`
+        setSubmitted(true)
       }
     } catch {
-      setSubmitError('Network error connecting to Formspree. Falling back to email client...')
+      setSubmitError('Network error. Falling back to email client...')
       setTimeout(() => {
         const subject = encodeURIComponent(`Portfolio Inquiry from ${form.name}`)
         const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`)

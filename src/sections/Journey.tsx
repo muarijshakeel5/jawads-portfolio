@@ -18,6 +18,129 @@ const typeColor: Record<string, string> = {
   intern: '#D4FF3A',
 }
 
+function CardContent({
+  item,
+  color,
+  iconBg,
+  iconBorder,
+  badgeBg,
+  badgeBorder,
+  Icon,
+  isLeft,
+  inView,
+}: {
+  item: typeof timeline[number]
+  color: string
+  iconBg: string
+  iconBorder: string
+  badgeBg: string
+  badgeBorder: string
+  Icon: React.ElementType
+  isLeft: boolean
+  inView: boolean
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="w-full glass rounded-2xl p-5 sm:p-6 border relative z-10"
+      style={{ borderColor: 'var(--border-subtle)', boxSizing: 'border-box' }}
+    >
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4 mb-3">
+        <div>
+          <div className="flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color: 'rgba(242, 241, 236, 0.6)' }}>
+            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: color }} />
+            <span>{item.company}</span>
+          </div>
+          <div className="text-base sm:text-lg font-semibold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
+            {item.role}
+          </div>
+        </div>
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+          style={{ background: iconBg, border: `1px solid ${iconBorder}` }}
+        >
+          <Icon size={16} style={{ color }} />
+        </div>
+      </div>
+
+      {/* Meta */}
+      <div className="flex flex-wrap items-center gap-2.5 mb-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+        {item.period && (
+          <>
+            <span>{item.period}</span>
+            <span>·</span>
+          </>
+        )}
+        <span className="flex items-center gap-1">
+          <MapPin size={11} /> {item.location}
+        </span>
+        {item.badge && (
+          <span
+            className="text-[11px] px-2 py-0.5 rounded-full font-mono font-medium"
+            style={{ background: badgeBg, color, border: `1px solid ${badgeBorder}` }}
+          >
+            {item.badge}
+          </span>
+        )}
+      </div>
+
+      {/* Description or bullets */}
+      {item.description && (
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          {item.description}
+        </p>
+      )}
+      {item.bullets && (
+        <ul className="flex flex-col gap-2">
+          {item.bullets.map((b, i) => (
+            <li key={i} className="text-xs sm:text-sm flex items-start gap-2" style={{ color: 'var(--text-secondary)' }}>
+              <span style={{ color, marginTop: 4, fontSize: 8 }}>▶</span>
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* News chip */}
+      {item.news && (
+        <div
+          className="mt-4 flex items-start gap-2 p-3 rounded-xl text-xs font-mono"
+          style={{
+            background: 'rgba(212,255,58,0.06)',
+            border: '1px solid rgba(212,255,58,0.18)',
+            color: 'var(--text-primary)',
+          }}
+        >
+          <Newspaper size={13} style={{ color: 'var(--accent-lime)', marginTop: 2, flexShrink: 0 }} />
+          <span>{item.news}</span>
+        </div>
+      )}
+
+      {/* Tech tags */}
+      {item.tags && item.tags.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {item.tags.map(t => (
+            <span
+              key={t}
+              className="text-[11px] px-2 py-0.5 rounded-lg font-mono"
+              style={{
+                background: 'var(--border-subtle)',
+                color: 'var(--text-secondary)',
+                border: '1px solid var(--border-subtle)',
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
 function TimelineCard({ item, index }: { item: typeof timeline[number]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
@@ -33,110 +156,80 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
   return (
     <div
       ref={ref}
-      className={`relative flex gap-6 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'} flex-col md:items-start`}
+      className="relative pl-[36px] md:pl-0 md:grid md:grid-cols-[1fr_56px_1fr] md:items-start"
+      style={{ boxSizing: 'border-box' }}
     >
-      {/* Card */}
-      <motion.div
-        initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="flex-1 glass rounded-2xl p-5 sm:p-6 border"
-        style={{ borderColor: 'var(--border-subtle)' }}
-      >
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <div>
-            <div className="flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color: 'rgba(242, 241, 236, 0.6)' }}>
-              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: color }} />
-              <span>{item.company}</span>
-            </div>
-            <div className="text-base sm:text-lg font-semibold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
-              {item.role}
-            </div>
-          </div>
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: iconBg, border: `1px solid ${iconBorder}` }}
-          >
-            <Icon size={16} style={{ color }} />
-          </div>
+      {/* Mobile Node & Connector (< 768px) */}
+      <div
+        className="md:hidden absolute top-[28px] left-[12px] w-[24px] h-px transition-colors duration-500 pointer-events-none z-0"
+        style={{ background: inView ? '#D4FF3A' : 'rgba(255, 255, 255, 0.15)' }}
+      />
+      <div
+        className="md:hidden absolute top-[28px] left-[12px] -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full pointer-events-none z-10 transition-all duration-500"
+        style={{
+          background: '#161618',
+          border: '2px solid #D4FF3A',
+          boxShadow: inView ? '0 0 10px rgba(212, 255, 58, 0.5)' : 'none',
+        }}
+      />
+
+      {/* Desktop Column 1 (Left Card) */}
+      {isLeft ? (
+        <div className="w-full flex justify-end">
+          <CardContent
+            item={item}
+            color={color}
+            iconBg={iconBg}
+            iconBorder={iconBorder}
+            badgeBg={badgeBg}
+            badgeBorder={badgeBorder}
+            Icon={Icon}
+            isLeft={isLeft}
+            inView={inView}
+          />
         </div>
+      ) : (
+        <div className="hidden md:block w-full" aria-hidden="true" />
+      )}
 
-        {/* Meta */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-4 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
-          {item.period && (
-            <>
-              <span>{item.period}</span>
-              <span>·</span>
-            </>
-          )}
-          <span className="flex items-center gap-1">
-            <MapPin size={11} /> {item.location}
-          </span>
-          {item.badge && (
-            <span
-              className="text-[11px] px-2 py-0.5 rounded-full font-mono font-medium"
-              style={{ background: badgeBg, color, border: `1px solid ${badgeBorder}` }}
-            >
-              {item.badge}
-            </span>
-          )}
+      {/* Desktop Center Gutter (56px) */}
+      <div className="hidden md:block relative w-[56px] h-full min-h-[60px] pointer-events-none z-10">
+        {/* Connector from node to card's inner edge */}
+        <div
+          className={`absolute top-[28px] h-px transition-colors duration-500 ${
+            isLeft ? 'left-0 w-[28px]' : 'left-[28px] w-[28px]'
+          }`}
+          style={{ background: inView ? '#D4FF3A' : 'rgba(255, 255, 255, 0.15)' }}
+        />
+        {/* 12px circular node centered on line */}
+        <div
+          className="absolute top-[28px] left-[28px] -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-all duration-500"
+          style={{
+            background: '#161618',
+            border: '2px solid #D4FF3A',
+            boxShadow: inView ? '0 0 10px rgba(212, 255, 58, 0.5)' : 'none',
+          }}
+        />
+      </div>
+
+      {/* Desktop Column 3 (Right Card) */}
+      {!isLeft ? (
+        <div className="w-full flex justify-start">
+          <CardContent
+            item={item}
+            color={color}
+            iconBg={iconBg}
+            iconBorder={iconBorder}
+            badgeBg={badgeBg}
+            badgeBorder={badgeBorder}
+            Icon={Icon}
+            isLeft={isLeft}
+            inView={inView}
+          />
         </div>
-
-        {/* Description or bullets */}
-        {item.description && (
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            {item.description}
-          </p>
-        )}
-        {item.bullets && (
-          <ul className="flex flex-col gap-2">
-            {item.bullets.map((b, i) => (
-              <li key={i} className="text-xs sm:text-sm flex items-start gap-2" style={{ color: 'var(--text-secondary)' }}>
-                <span style={{ color, marginTop: 4, fontSize: 8 }}>▶</span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* News chip */}
-        {item.news && (
-          <div
-            className="mt-4 flex items-start gap-2 p-3 rounded-xl text-xs font-mono"
-            style={{
-              background: 'rgba(212,255,58,0.06)',
-              border: '1px solid rgba(212,255,58,0.18)',
-              color: 'var(--text-primary)',
-            }}
-          >
-            <Newspaper size={13} style={{ color: 'var(--accent-lime)', marginTop: 2, flexShrink: 0 }} />
-            <span>{item.news}</span>
-          </div>
-        )}
-
-        {/* Tech tags */}
-        {item.tags && item.tags.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {item.tags.map(t => (
-              <span
-                key={t}
-                className="text-[11px] px-2 py-0.5 rounded-lg font-mono"
-                style={{
-                  background: 'var(--border-subtle)',
-                  color: 'var(--text-secondary)',
-                  border: '1px solid var(--border-subtle)',
-                }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
-      </motion.div>
-
-      {/* Spacer for opposite side on desktop */}
-      <div className="flex-1 hidden md:block" />
+      ) : (
+        <div className="hidden md:block w-full" aria-hidden="true" />
+      )}
     </div>
   )
 }
@@ -179,9 +272,9 @@ export default function Journey() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
+          {/* Vertical line running through the full height */}
           <div
-            className="absolute left-2 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-1/2"
+            className="absolute left-[12px] md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2 pointer-events-none z-0"
             style={{ background: 'var(--border-subtle)' }}
           >
             <motion.div
@@ -194,8 +287,8 @@ export default function Journey() {
             />
           </div>
 
-          {/* Cards */}
-          <div className="flex flex-col gap-10 pl-6 md:pl-0">
+          {/* Cards container: 40px vertical spacing */}
+          <div className="flex flex-col gap-10">
             {timeline.map((item, i) => (
               <TimelineCard key={item.id} item={item} index={i} />
             ))}

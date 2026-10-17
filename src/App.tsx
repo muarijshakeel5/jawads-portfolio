@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 
 // Components
 import Navbar from './components/Navbar'
@@ -8,18 +7,20 @@ import ScrollProgress from './components/ScrollProgress'
 import CommandPalette from './components/CommandPalette'
 import Intro from './components/Intro'
 
-// Sections (lazy for performance)
+// Above-the-fold sections
 import Hero from './sections/Hero'
 import TechMarquee from './sections/TechMarquee'
-import About from './sections/About'
-import IVOO from './sections/IVOO'
-import Journey from './sections/Journey'
-import Work from './sections/Work'
-import Services from './sections/Services'
-import Skills from './sections/Skills'
-import BuildingInPublic from './sections/BuildingInPublic'
-import Education from './sections/Education'
-import Contact from './sections/Contact'
+
+// Below-the-fold sections lazy loaded for performance
+const About = lazy(() => import('./sections/About'))
+const IVOO = lazy(() => import('./sections/IVOO'))
+const Journey = lazy(() => import('./sections/Journey'))
+const Work = lazy(() => import('./sections/Work'))
+const Services = lazy(() => import('./sections/Services'))
+const Skills = lazy(() => import('./sections/Skills'))
+const BuildingInPublic = lazy(() => import('./sections/BuildingInPublic'))
+const Education = lazy(() => import('./sections/Education'))
+const Contact = lazy(() => import('./sections/Contact'))
 
 // Confetti
 import confetti from 'canvas-confetti'
@@ -48,8 +49,6 @@ function SEO() {
     setMeta('og:url', seo.canonicalUrl, true)
     setMeta('og:image', seo.ogImage, true)
     setMeta('twitter:card', 'summary_large_image')
-    setMeta('twitter:site', seo.twitterHandle)
-    setMeta('twitter:creator', seo.twitterHandle)
     setMeta('twitter:title', seo.title)
     setMeta('twitter:description', seo.description)
     setMeta('twitter:image', seo.ogImage)
@@ -105,6 +104,27 @@ function useEasterEgg() {
 // Theme & Intro
 import { ThemeProvider } from './context/ThemeContext'
 import { IntroProvider } from './context/IntroContext'
+
+function SectionPlaceholder({
+  id,
+  minHeight = '500px',
+  extraId,
+}: {
+  id: string
+  minHeight?: string
+  extraId?: string
+}) {
+  return (
+    <section
+      id={id}
+      className="py-24 md:py-32 relative overflow-hidden"
+      style={{ minHeight }}
+      aria-hidden="true"
+    >
+      {extraId && <span id={extraId} className="sr-only" />}
+    </section>
+  )
+}
 
 export default function App() {
   const [cmdOpen, setCmdOpen] = useState(false)
@@ -162,15 +182,33 @@ export default function App() {
       <main id="main-content">
         <Hero />
         <TechMarquee />
-        <About />
-        <IVOO />
-        <Journey />
-        <Work />
-        <Services />
-        <Skills />
-        <BuildingInPublic />
-        <Education />
-        <Contact />
+        <Suspense fallback={<SectionPlaceholder id="story" minHeight="480px" />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="aivis" extraId="ivoo" minHeight="750px" />}>
+          <IVOO />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="journey" minHeight="600px" />}>
+          <Journey />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="work" minHeight="800px" />}>
+          <Work />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="services" minHeight="600px" />}>
+          <Services />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="arsenal" minHeight="500px" />}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="public" minHeight="480px" />}>
+          <BuildingInPublic />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="learning" minHeight="500px" />}>
+          <Education />
+        </Suspense>
+        <Suspense fallback={<SectionPlaceholder id="contact" minHeight="650px" />}>
+          <Contact />
+        </Suspense>
       </main>
       </IntroProvider>
     </ThemeProvider>

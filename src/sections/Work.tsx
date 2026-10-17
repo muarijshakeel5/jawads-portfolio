@@ -14,9 +14,13 @@ function getDeviceType(categories: string[]): 'phone' | 'browser' | 'laptop' {
   return 'laptop'
 }
 
-function ProjectPreview({ project, inDrawer = false }: { project: typeof projects[number]; inDrawer?: boolean }) {
+function ProjectPreview({ project, inDrawer = false }: { project: typeof projects[number] & { drawerImage?: string }; inDrawer?: boolean }) {
   const [imgError, setImgError] = useState(false)
   const deviceType = getDeviceType(project.category)
+  const imgSrc = inDrawer ? (project.drawerImage || project.image) : project.image
+  const altText = project.id === 'fruitful'
+    ? 'Fruitful onboarding platform preview'
+    : `${project.title} — project preview screenshot`
 
   return (
     <div
@@ -24,13 +28,15 @@ function ProjectPreview({ project, inDrawer = false }: { project: typeof project
         inDrawer ? 'rounded-2xl border border-white/[0.08]' : 'rounded-t-2xl border-b border-white/[0.08]'
       }`}
     >
-      {project.image && !imgError ? (
+      {imgSrc && !imgError ? (
         <img
-          src={project.image}
-          alt={`${project.title} — project preview screenshot`}
+          src={imgSrc}
+          alt={altText}
+          width={inDrawer ? 1600 : 900}
+          height={inDrawer ? 1000 : 562}
           loading="lazy"
           onError={() => setImgError(true)}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
         <div
@@ -121,6 +127,210 @@ function ProjectPreview({ project, inDrawer = false }: { project: typeof project
   )
 }
 
+function FeaturedProjectCard({
+  project,
+  onClick,
+  colSpanClass,
+}: {
+  project: typeof projects[number]
+  onClick: () => void
+  colSpanClass: string
+}) {
+  const [imgError, setImgError] = useState(false)
+  const imgSrc = project.image
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.98 }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClick}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick()
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View project details for ${project.title}`}
+      className={`group relative cursor-pointer rounded-2xl overflow-hidden glass border flex flex-col transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0C] ${colSpanClass}`}
+      style={{
+        borderColor: 'var(--border-subtle)',
+        background: 'var(--bg-surface)',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = 'var(--border-subtle)'
+      }}
+    >
+      {/* Lime top border highlight on hover */}
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-[#D4FF3A] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
+
+      {/* 16:8 Wide Preview Area */}
+      <div className="relative w-full aspect-[16/8] overflow-hidden rounded-t-2xl border-b border-white/[0.08]">
+        {imgSrc && !imgError ? (
+          <img
+            src={imgSrc}
+            alt="Fruitful onboarding platform preview"
+            width={1600}
+            height={800}
+            loading="lazy"
+            onError={() => setImgError(true)}
+            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div
+            className="w-full h-full relative flex items-center justify-center overflow-hidden select-none"
+            style={{
+              backgroundColor: '#111113',
+              backgroundImage: `
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)
+              `,
+              backgroundSize: '20px 20px',
+            }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center p-4 text-center pointer-events-none">
+              <span
+                className="text-3xl sm:text-4xl font-semibold opacity-[0.06] uppercase tracking-wider text-[#F2F1EC] select-none"
+                style={{ fontFamily: 'Clash Grotesk, sans-serif' }}
+              >
+                {project.title}
+              </span>
+            </div>
+            <div className="relative z-10 flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105">
+              <div className="w-48 sm:w-60 h-28 sm:h-34 rounded-xl border border-white/20 bg-[#0B0B0C]/85 shadow-2xl flex flex-col overflow-hidden">
+                <div className="h-5 px-2 bg-white/[0.04] border-b border-white/10 flex items-center gap-1.5 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/25" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                  <div className="flex-1 ml-1.5 h-2.5 rounded bg-white/[0.06] border border-white/[0.05] flex items-center px-1.5">
+                    <span className="text-[7px] font-mono text-[#F2F1EC]/40 truncate">https://app.fruitful.com</span>
+                  </div>
+                </div>
+                <div className="flex-1 flex flex-col items-center justify-center p-2 text-center">
+                  <span className="text-xs sm:text-sm font-semibold text-[#F2F1EC]/90 leading-tight">
+                    {project.title}
+                  </span>
+                  <span className="text-[8px] sm:text-[9px] font-mono text-[#D4FF3A] mt-0.5">Onboarding SaaS Platform</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Large details panel in 2-column grid (7/5) on desktop, single column on tablet/mobile */}
+      <div className="p-6 sm:p-8 flex flex-col gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column (7/12) */}
+          <div className="lg:col-span-7 flex flex-col">
+            <div className="flex items-start justify-between gap-4 mb-2">
+              <div>
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <span
+                    className="text-[11px] px-2.5 py-0.5 rounded-full font-mono"
+                    style={{ background: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
+                  >
+                    Web
+                  </span>
+                  <span
+                    className="text-[11px] px-2.5 py-0.5 rounded-full font-mono font-semibold"
+                    style={{
+                      background: 'rgba(212,255,58,0.12)',
+                      color: 'var(--accent-lime)',
+                      border: '1px solid rgba(212,255,58,0.25)',
+                    }}
+                  >
+                    Client project
+                  </span>
+                </div>
+                <h3
+                  className="text-2xl sm:text-3xl font-semibold"
+                  style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
+                >
+                  {project.title}
+                </h3>
+              </div>
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 shrink-0 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                style={{
+                  background: 'var(--accent-lime)',
+                  color: 'var(--accent-lime-contrast)',
+                }}
+              >
+                <ArrowUpRight size={16} />
+              </div>
+            </div>
+
+            <div className="text-xs font-mono uppercase tracking-[0.12em] mb-4" style={{ color: 'var(--text-muted)' }}>
+              {project.role} · {project.period}
+            </div>
+
+            <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
+              {project.overview}
+            </p>
+
+            <div className="text-[11px] font-mono font-semibold uppercase tracking-[0.12em] mb-2" style={{ color: 'var(--text-muted)' }}>
+              THE PROBLEM IT FIXES
+            </div>
+            <p className="text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              {project.problem}
+            </p>
+          </div>
+
+          {/* Right Column (5/12) */}
+          <div className="lg:col-span-5 flex flex-col">
+            <div className="text-[11px] font-mono font-semibold uppercase tracking-[0.12em] mb-4" style={{ color: 'var(--text-muted)' }}>
+              KEY HIGHLIGHTS
+            </div>
+            <div className="flex flex-col gap-3.5">
+              {project.highlights?.map((h, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3A] shrink-0 mt-2" />
+                  <div className="text-xs sm:text-sm leading-relaxed">
+                    <span className="font-semibold" style={{ color: 'rgba(242, 241, 236, 0.95)' }}>
+                      {h.title}:{' '}
+                    </span>
+                    <span style={{ color: 'var(--text-secondary)' }}>
+                      {h.desc}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Full-Width Divider & All 12 Skills */}
+        <div className="pt-6 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+          <div className="flex flex-wrap gap-2">
+            {project.skills?.map(s => (
+              <span
+                key={s}
+                className="text-xs px-2.5 py-1 rounded-lg font-mono font-medium border"
+                style={{
+                  background: 'var(--bg-surface-elevated)',
+                  color: 'var(--text-secondary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 function ProjectCard({
   project,
   onClick,
@@ -130,7 +340,7 @@ function ProjectCard({
   onClick: () => void
   colSpanClass: string
 }) {
-  const liveUrl = project.live || project.liveLink
+  const liveUrl = project.live
   const githubUrl = project.github
 
   return (
@@ -142,7 +352,16 @@ function ProjectCard({
       whileHover={{ y: -6 }}
       transition={{ duration: 0.25 }}
       onClick={onClick}
-      className={`group relative cursor-pointer rounded-2xl overflow-hidden glass border flex flex-col transition-all duration-300 ${colSpanClass}`}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick()
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View project details for ${project.title}`}
+      className={`group relative cursor-pointer rounded-2xl overflow-hidden glass border flex flex-col transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0C] ${colSpanClass}`}
       style={{
         borderColor: 'var(--border-subtle)',
         background: 'var(--bg-surface)',
@@ -289,8 +508,9 @@ function ProjectCard({
 }
 
 function SlideOver({ project, onClose }: { project: typeof projects[number]; onClose: () => void }) {
-  const liveUrl = project.live || project.liveLink
+  const liveUrl = project.live
   const githubUrl = project.github
+  const skillsList = project.skills || project.stack
 
   return (
     <motion.div
@@ -332,7 +552,7 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors glass border"
+            className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors glass border cursor-pointer hover:bg-white/10"
             style={{
               borderColor: 'var(--border-subtle)',
               color: 'var(--text-primary)',
@@ -346,12 +566,28 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
         {/* Slide-over Header: 16:10 Preview */}
         <ProjectPreview project={project} inDrawer />
 
-        <h2
-          className="text-3xl sm:text-4xl font-semibold"
-          style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
-        >
-          {project.title}
-        </h2>
+        <div>
+          <h2
+            className="text-3xl sm:text-4xl font-semibold mb-2"
+            style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0 }}
+          >
+            {project.title}
+          </h2>
+          {project.role && project.period && (
+            <div className="text-xs font-mono uppercase tracking-[0.12em]" style={{ color: 'var(--accent-lime)' }}>
+              {project.role} · {project.period}
+            </div>
+          )}
+        </div>
+
+        {project.overview && (
+          <div>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-2 opacity-50">Overview</div>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
+              {project.overview}
+            </p>
+          </div>
+        )}
 
         {project.problem && (
           <div>
@@ -359,6 +595,23 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
             <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', letterSpacing: 0, wordSpacing: 'normal' }}>
               {project.problem}
             </p>
+          </div>
+        )}
+
+        {project.highlights && project.highlights.length > 0 && (
+          <div>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3 opacity-50">Key Highlights</div>
+            <div className="flex flex-col gap-2.5">
+              {project.highlights.map((h, i) => (
+                <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3A] shrink-0 mt-1.5" />
+                  <div>
+                    <span className="font-semibold text-[#F2F1EC]">{h.title}: </span>
+                    <span style={{ color: 'var(--text-secondary)' }}>{h.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -371,11 +624,11 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
           </div>
         )}
 
-        {project.stack && (
+        {skillsList && skillsList.length > 0 && (
           <div>
-            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3 opacity-50">Tech Stack</div>
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3 opacity-50">Skills &amp; Technologies</div>
             <div className="flex flex-wrap gap-2">
-              {project.stack.map(s => (
+              {skillsList.map(s => (
                 <span
                   key={s}
                   className="text-xs px-3 py-1 rounded-full font-mono"
@@ -392,7 +645,7 @@ function SlideOver({ project, onClose }: { project: typeof projects[number]; onC
           </div>
         )}
 
-        {project.outcome && (
+        {project.outcome && project.outcome.trim() !== '' && (
           <div
             className="p-4 rounded-xl border"
             style={{
@@ -461,15 +714,43 @@ export default function Work() {
     ? projects
     : projects.filter(p => p.category.includes(filter))
 
-  const getColSpan = (projectId: string, totalFiltered: number) => {
+  const getColSpan = (project: typeof projects[number], filteredProjects: typeof projects) => {
     if (filter === 'All') {
-      return projectId === 'perfect-pairing' || projectId === 'foodnerd-ecosystem'
+      if (project.size === 'featured') {
+        return 'col-span-1 md:col-span-2 lg:col-span-12'
+      }
+      if (project.size === 'large') {
+        return 'col-span-1 md:col-span-1 lg:col-span-6'
+      }
+      return 'col-span-1 md:col-span-1 lg:col-span-4'
+    }
+
+    // Category filter other than 'All':
+    if (project.id === 'fruitful') {
+      return 'col-span-1 md:col-span-2 lg:col-span-12'
+    }
+
+    const nonFruitful = filteredProjects.filter(p => p.id !== 'fruitful')
+    const N = nonFruitful.length
+    const idx = nonFruitful.findIndex(p => p.id === project.id)
+
+    if (N === 1) {
+      return 'col-span-1 md:col-span-2 lg:col-span-6 lg:col-start-4'
+    }
+
+    const remainder = N % 3
+    if (remainder === 0) {
+      return 'col-span-1 md:col-span-1 lg:col-span-4'
+    }
+    if (remainder === 2) {
+      return idx >= N - 2
         ? 'col-span-1 md:col-span-1 lg:col-span-6'
         : 'col-span-1 md:col-span-1 lg:col-span-4'
     }
-    if (totalFiltered === 1) return 'col-span-1 md:col-span-2 lg:col-span-12'
-    if (totalFiltered === 2) return 'col-span-1 md:col-span-1 lg:col-span-6'
-    return 'col-span-1 md:col-span-1 lg:col-span-4'
+    // remainder === 1 and N > 1 (e.g. AI filter with 4 cards: 2x2 layout)
+    return idx >= N - 4
+      ? 'col-span-1 md:col-span-1 lg:col-span-6'
+      : 'col-span-1 md:col-span-1 lg:col-span-4'
   }
 
   return (
@@ -513,7 +794,7 @@ export default function Work() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className="px-4 py-2 rounded-full text-xs font-semibold transition-all"
+                  className="px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer"
                   style={{
                     background: isSelected ? 'var(--accent-lime)' : 'var(--border-subtle)',
                     color: isSelected ? 'var(--accent-lime-contrast)' : 'var(--text-secondary)',
@@ -534,14 +815,23 @@ export default function Work() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6"
         >
           <AnimatePresence>
-            {filtered.map(p => (
-              <ProjectCard
-                key={p.id}
-                project={p}
-                colSpanClass={getColSpan(p.id, filtered.length)}
-                onClick={() => setSelected(p)}
-              />
-            ))}
+            {filtered.map(p =>
+              p.size === 'featured' ? (
+                <FeaturedProjectCard
+                  key={p.id}
+                  project={p}
+                  colSpanClass={getColSpan(p, filtered)}
+                  onClick={() => setSelected(p)}
+                />
+              ) : (
+                <ProjectCard
+                  key={p.id}
+                  project={p}
+                  colSpanClass={getColSpan(p, filtered)}
+                  onClick={() => setSelected(p)}
+                />
+              )
+            )}
           </AnimatePresence>
         </motion.div>
       </div>

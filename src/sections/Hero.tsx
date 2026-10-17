@@ -1,8 +1,29 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { personal, rotatingLines } from '../data'
+import { personal, rotatingLines, CV_URL, CV_FILENAME } from '../data'
 import { ArrowUpRight, Terminal, Download } from 'lucide-react'
 import { useIntro } from '../context/IntroContext'
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Unified media query hook for Stacked Layout (narrower than 1024px OR portrait)
+// ─────────────────────────────────────────────────────────────────────────────
+function useIsStacked() {
+  const [isStacked, setIsStacked] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(max-width: 1023px), (orientation: portrait)').matches
+  })
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mq = window.matchMedia('(max-width: 1023px), (orientation: portrait)')
+    const update = () => setIsStacked(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  return isStacked
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Small utility components
@@ -39,7 +60,7 @@ function LahoreClock() {
   )
 }
 
-function RotatingLine() {
+function RotatingLine({ isStacked = false }: { isStacked?: boolean }) {
   const [index, setIndex] = useState(0)
   useEffect(() => {
     const id = setInterval(() => setIndex(i => (i + 1) % rotatingLines.length), 2600)
@@ -47,7 +68,7 @@ function RotatingLine() {
   }, [])
 
   return (
-    <div className="relative min-h-[36px] sm:min-h-[40px] flex items-center">
+    <div className={`relative min-h-[36px] sm:min-h-[40px] flex items-center ${isStacked ? 'justify-center text-center' : ''}`}>
       <AnimatePresence mode="wait">
         <motion.span
           key={index}
@@ -65,9 +86,9 @@ function RotatingLine() {
             y: -3,
             transition: { duration: 0.15, ease: 'easeIn' },
           }}
-          className="font-semibold inline-flex items-center flex-wrap"
+          className={`font-semibold inline-flex items-center flex-wrap ${isStacked ? 'justify-center text-center' : ''}`}
           style={{
-            fontSize: 'clamp(1.5rem, 2.4vw, 2.25rem)',
+            fontSize: isStacked ? 'clamp(1.05rem, 4.2vw, 2rem)' : 'clamp(1.5rem, 2.4vw, 2.25rem)',
             lineHeight: 1.15,
             letterSpacing: '-0.01em',
             wordSpacing: 'normal',
@@ -91,16 +112,23 @@ function RotatingLine() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Rotating "AVAILABLE FOR WORK" badge (96px) — links to #contact
+// Rotating "AVAILABLE FOR WORK" badge — links to #contact
 // ─────────────────────────────────────────────────────────────────────────────
-function RotatingBadge({ isMobile }: { isMobile?: boolean }) {
+function RotatingBadge({ isStacked }: { isStacked?: boolean }) {
   return (
     <div
       onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
       className="cursor-pointer group select-none"
       style={
-        isMobile
-          ? { position: 'absolute', top: '16px', right: '16px', zIndex: 20, transform: 'scale(0.85)', transformOrigin: 'top right' }
+        isStacked
+          ? {
+              position: 'absolute',
+              top: '4%',
+              right: '4%',
+              width: 'clamp(60px, 11vw, 96px)',
+              height: 'clamp(60px, 11vw, 96px)',
+              zIndex: 20,
+            }
           : {}
       }
       title="Click to hire Jawad"
@@ -108,7 +136,7 @@ function RotatingBadge({ isMobile }: { isMobile?: boolean }) {
       role="button"
       tabIndex={0}
     >
-      <div className="relative w-[96px] h-[96px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+      <div className={`relative ${isStacked ? 'w-full h-full' : 'w-[96px] h-[96px]'} flex items-center justify-center transition-transform duration-300 group-hover:scale-105`}>
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
@@ -124,10 +152,10 @@ function RotatingBadge({ isMobile }: { isMobile?: boolean }) {
           </svg>
         </motion.div>
         <div
-          className="absolute w-9 h-9 rounded-full flex items-center justify-center glass border transition-colors shadow-lg"
+          className="absolute w-[38%] h-[38%] rounded-full flex items-center justify-center glass border transition-colors shadow-lg"
           style={{ borderColor: 'rgba(212, 255, 58, 0.4)', background: 'rgba(17, 19, 26, 0.9)' }}
         >
-          <ArrowUpRight size={16} className="text-lime-300 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <ArrowUpRight className="text-lime-300 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 w-[45%] h-[45%]" />
         </div>
       </div>
     </div>
@@ -137,22 +165,19 @@ function RotatingBadge({ isMobile }: { isMobile?: boolean }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // CTAs: Primary Magnetic + Secondary Download
 // ─────────────────────────────────────────────────────────────────────────────
-function PrimaryMagneticCTA() {
+function PrimaryMagneticCTA({ isStacked }: { isStacked?: boolean }) {
   const ref = useRef<HTMLAnchorElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const springX = useSpring(x, { stiffness: 220, damping: 18, mass: 0.2 })
   const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.2 })
-  const [isTouch, setIsTouch] = useState(false)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouch(true)
-    }
-  }, [])
+  const [isTouch] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(pointer: coarse)').matches
+  })
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isTouch || !ref.current) return
+    if (isTouch || !ref.current || isStacked) return
     const rect = ref.current.getBoundingClientRect()
     const centerX = rect.left + rect.width / 2
     const centerY = rect.top + rect.height / 2
@@ -174,15 +199,21 @@ function PrimaryMagneticCTA() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        x: springX,
-        y: springY,
+        x: isStacked ? 0 : springX,
+        y: isStacked ? 0 : springY,
         background: 'var(--accent-lime)',
         color: 'var(--accent-lime-contrast)',
+        height: isStacked ? 'clamp(42px, 6vw, 56px)' : '56px',
+        fontSize: isStacked ? 'clamp(0.78rem, 2vw, 1rem)' : '0.875rem',
+        paddingLeft: isStacked ? 'clamp(14px, 2.8vw, 28px)' : '28px',
+        paddingRight: isStacked ? 'clamp(14px, 2.8vw, 28px)' : '28px',
       }}
-      className="group relative inline-flex items-center justify-center gap-3 h-[56px] px-7 rounded-full font-semibold text-sm select-none transition-shadow shadow-lg hover:shadow-[0_0_24px_rgba(212,255,58,0.3)] cursor-pointer w-full sm:w-auto"
+      className={`group relative inline-flex items-center justify-center gap-2.5 rounded-full font-semibold select-none transition-shadow shadow-lg hover:shadow-[0_0_24px_rgba(212,255,58,0.3)] cursor-pointer ${
+        isStacked ? 'hero-cta-btn w-auto' : 'h-[56px] px-7 w-full sm:w-auto'
+      }`}
     >
       <span style={{ letterSpacing: 0, wordSpacing: 'normal' }}>Explore Selected Work</span>
-      <div className="w-6 h-6 rounded-full bg-[#0B0B0C] flex items-center justify-center shrink-0">
+      <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#0B0B0C] flex items-center justify-center shrink-0">
         <ArrowUpRight
           size={14}
           className="text-[#D4FF3A] transition-transform duration-300 group-hover:translate-x-1"
@@ -192,20 +223,24 @@ function PrimaryMagneticCTA() {
   )
 }
 
-function SecondaryCTA() {
+function SecondaryCTA({ isStacked }: { isStacked?: boolean }) {
   return (
     <a
-      href={personal.cvLink}
-      download="Muhammad_Jawad_Fareed_Resume.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group inline-flex items-center justify-center gap-2.5 h-[56px] px-7 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer w-full sm:w-auto"
+      href={CV_URL}
+      download={CV_FILENAME}
+      className={`group inline-flex items-center justify-center gap-2.5 rounded-full font-semibold transition-all duration-300 cursor-pointer ${
+        isStacked ? 'hero-cta-btn w-auto' : 'h-[56px] px-7 w-full sm:w-auto text-sm'
+      }`}
       style={{
         border: '1px solid rgba(255, 255, 255, 0.12)',
         background: 'rgba(255, 255, 255, 0.04)',
         color: 'var(--text-primary)',
         letterSpacing: 0,
         wordSpacing: 'normal',
+        height: isStacked ? 'clamp(42px, 6vw, 56px)' : '56px',
+        fontSize: isStacked ? 'clamp(0.78rem, 2vw, 1rem)' : '0.875rem',
+        paddingLeft: isStacked ? 'clamp(14px, 2.8vw, 28px)' : '28px',
+        paddingRight: isStacked ? 'clamp(14px, 2.8vw, 28px)' : '28px',
       }}
       onMouseEnter={e => {
         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)'
@@ -216,7 +251,7 @@ function SecondaryCTA() {
         e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
       }}
     >
-      <Download size={16} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+      <Download size={15} className="opacity-70 group-hover:opacity-100 transition-opacity" />
       <span>Download Resume (CV)</span>
     </a>
   )
@@ -225,30 +260,33 @@ function SecondaryCTA() {
 // ─────────────────────────────────────────────────────────────────────────────
 // Portrait — video + still + cursor spotlight
 // ─────────────────────────────────────────────────────────────────────────────
-function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boolean; isMobile?: boolean }) {
+function PortraitMedia({
+  startTrigger,
+  isStacked = false,
+}: {
+  startTrigger: boolean
+  isStacked?: boolean
+}) {
   const [portraitVisible, setPortraitVisible] = useState(false)
-  const [showStill, setShowStill] = useState(false)
-  const [isTouch, setIsTouch] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [showStill, setShowStill] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
+  const [isTouch] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(pointer: coarse)').matches
+  })
+
   const containerRef = useRef<HTMLDivElement>(null)
-  // Cursor spotlight state (lerped via rAF)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const spotlightRef = useRef<HTMLDivElement>(null)
-  const spotTarget = useRef({ x: 0.5, y: 0.3 })
-  const spotCurrent = useRef({ x: 0.5, y: 0.3 })
-  const rafId = useRef<number>(0)
+  const spotTarget = useRef({ x: 0.5, y: 0.5 })
+  const spotCurrent = useRef({ x: 0.5, y: 0.5 })
+  const rafId = useRef<number | null>(null)
 
+  // Cursor spotlight rAF loop (disabled in stacked layout)
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouch(true)
-    }
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShowStill(true)
-    }
-  }, [])
-
-  // Cursor spotlight rAF loop
-  useEffect(() => {
-    if (isTouch) return
+    if (isTouch || isStacked) return
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t
     const tick = () => {
       spotCurrent.current.x = lerp(spotCurrent.current.x, spotTarget.current.x, 0.06)
@@ -259,9 +297,10 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
       }
       rafId.current = requestAnimationFrame(tick)
     }
-    rafId.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafId.current)
-  }, [isTouch])
+    const id = requestAnimationFrame(tick)
+    rafId.current = id
+    return () => cancelAnimationFrame(id)
+  }, [isTouch, isStacked])
 
   // Timeline: 500ms after introDone, fade in portrait and play video (PRESERVED)
   useEffect(() => {
@@ -272,11 +311,7 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
 
   // Play video with 1.5s fallback safeguard (PRESERVED)
   useEffect(() => {
-    if (!portraitVisible) return
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShowStill(true)
-      return
-    }
+    if (!portraitVisible || showStill) return
     let started = false
     if (videoRef.current) {
       const playPromise = videoRef.current.play()
@@ -288,20 +323,28 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
       if (!started && (!videoRef.current || videoRef.current.paused)) setShowStill(true)
     }, 1500)
     return () => clearTimeout(fallbackTimer)
-  }, [portraitVisible])
+  }, [portraitVisible, showStill])
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return
+    if (!containerRef.current || isTouch || isStacked) return
     const rect = containerRef.current.getBoundingClientRect()
     const nx = (e.clientX - rect.left) / rect.width
     const ny = (e.clientY - rect.top) / rect.height
-    if (!isTouch) {
-      spotTarget.current = { x: Math.max(0, Math.min(1, nx)), y: Math.max(0, Math.min(1, ny)) }
-    }
-  }, [isTouch])
+    spotTarget.current = { x: Math.max(0, Math.min(1, nx)), y: Math.max(0, Math.min(1, ny)) }
+  }, [isTouch, isStacked])
 
   const handleVideoEnded = () => setShowStill(true)
   const handleVideoError = () => setShowStill(true)
+
+  const desktopMask = [
+    'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
+    'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
+  ].join(', ')
+
+  const stackedMask = [
+    'linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)',
+    'linear-gradient(to bottom, transparent 0%, black 18%, black 60%, transparent 100%)',
+  ].join(', ')
 
   return (
     <div
@@ -310,24 +353,14 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
       className="relative w-full h-full select-none"
       style={{ opacity: portraitVisible ? 1 : 0, transition: 'opacity 0.5s ease-out' }}
     >
-      {/* Media wrapper — strong asymmetric mask with bottom 10% fade */}
+      {/* Media wrapper — asymmetric mask for desktop, dual-axis intersecting mask for stacked */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{
-          WebkitMaskImage: isMobile
-            ? 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)'
-            : [
-                'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
-                'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
-              ].join(', '),
+          WebkitMaskImage: isStacked ? stackedMask : desktopMask,
+          maskImage: isStacked ? stackedMask : desktopMask,
           WebkitMaskComposite: 'source-in',
-          maskImage: isMobile
-            ? 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)'
-            : [
-                'linear-gradient(to right, transparent 0%, black 28%, black 94%, transparent 100%)',
-                'linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%)',
-              ].join(', '),
-          maskComposite: isMobile ? 'add' : 'intersect',
+          maskComposite: 'intersect',
         }}
       >
         <video
@@ -335,7 +368,7 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
           muted
           playsInline
           preload="auto"
-          poster="/hero/hero-last-frame.png"
+          poster="/hero/hero-last-frame.webp"
           onEnded={handleVideoEnded}
           onError={handleVideoError}
           className="absolute inset-0 w-full h-full"
@@ -347,24 +380,26 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
 
         {/* Crossfade still — identical filter + position so crossfade is seamless */}
         <img
-          src="/hero/hero-last-frame.png"
+          src="/hero/hero-last-frame.webp"
           alt="Muhammad Jawad Fareed — Full Stack AI Engineer portrait"
           aria-hidden="true"
           className={`absolute inset-0 w-full h-full transition-opacity duration-[400ms] ease-in-out ${showStill ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
           style={{ objectFit: 'cover', objectPosition: '50% 10%', filter: 'contrast(1.05) brightness(1.0) saturate(1.0)' }}
         />
 
-        {/* Neutral dark overlay melting portrait into graphite background */}
+        {/* Neutral dark vignette overlay on the portrait box */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none z-10"
           style={{
-            background: 'linear-gradient(to right, rgba(11,11,12,0.35) 0%, transparent 45%)',
+            background: isStacked
+              ? 'radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(11,11,12,0.85) 100%)'
+              : 'linear-gradient(to right, rgba(11,11,12,0.35) 0%, transparent 45%)',
           }}
         />
       </div>
 
-      {/* Cursor spotlight overlay — mix-blend-mode screen, follows lerped mouse position */}
-      {!isTouch && (
+      {/* Cursor spotlight overlay (desktop only, disabled in stacked layout) */}
+      {!isTouch && !isStacked && (
         <div
           ref={spotlightRef}
           className="absolute inset-0 pointer-events-none z-[2]"
@@ -376,9 +411,6 @@ function PortraitMedia({ startTrigger, isMobile = false }: { startTrigger: boole
           } as React.CSSProperties}
         />
       )}
-
-      {/* Mobile rotating badge — anchored to mobile portrait only */}
-      {isMobile && <RotatingBadge isMobile={true} />}
     </div>
   )
 }
@@ -431,10 +463,11 @@ const textVariants = {
 // ─────────────────────────────────────────────────────────────────────────────
 export default function Hero() {
   const { introDone, introAlreadySeen } = useIntro()
-  const [timelineStarted, setTimelineStarted] = useState(false)
+  const [timelineStarted, setTimelineStarted] = useState(() => introDone)
   const sectionRef = useRef<HTMLElement>(null)
+  const isStacked = useIsStacked()
 
-  // Scroll parallax
+  // Scroll parallax (desktop only)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
   const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 1.05])
   const portraitOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.55])
@@ -442,14 +475,18 @@ export default function Hero() {
 
   // Timeline coordinator (PRESERVED: 8s safeguard, introAlreadySeen fast-path)
   useEffect(() => {
+    if (timelineStarted) return
     if (introAlreadySeen) {
       const t = setTimeout(() => setTimelineStarted(true), 300)
       return () => clearTimeout(t)
     }
-    if (introDone) { setTimelineStarted(true); return }
+    if (introDone) {
+      setTimelineStarted(true)
+      return
+    }
     const fallback = setTimeout(() => setTimelineStarted(true), 8000)
     return () => clearTimeout(fallback)
-  }, [introDone, introAlreadySeen])
+  }, [introDone, introAlreadySeen, timelineStarted])
 
   const nameBaseDelay = 0.1
 
@@ -457,9 +494,9 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative overflow-hidden grid-pattern lg:h-[100svh]"
+      className={`relative overflow-hidden grid-pattern ${isStacked ? '' : 'lg:h-[100svh]'}`}
       style={{
-        background: '#0B0B0C',
+        backgroundColor: '#0B0B0C',
       }}
     >
       {/* ── Scoped grain & animation keyframes ───────────────────────── */}
@@ -521,6 +558,38 @@ export default function Hero() {
         .hero-scroll-cue-line {
           animation: hero-scroll-line 2s ease-in-out infinite;
         }
+        .hero-status-row {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+        @media (min-width: 480px) {
+          .hero-status-row {
+            flex-direction: row;
+            gap: 0.75rem;
+          }
+        }
+        .hero-cta-group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          width: 100%;
+        }
+        @media (min-width: 420px) {
+          .hero-cta-group {
+            flex-direction: row;
+          }
+        }
+        @media (max-width: 419px) {
+          .hero-cta-btn {
+            width: min(100%, 300px) !important;
+            height: 46px !important;
+          }
+        }
       `}</style>
 
       {/* ── Background layer 1: warm neutral spotlight behind head ───── */}
@@ -541,96 +610,82 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Bottom fade-out to site background (no seam with next section) */}
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{
-          height: '12%',
-          background: 'linear-gradient(to bottom, transparent 0%, #08090C 100%)',
-          zIndex: 6,
-        }}
-      />
+      {/* ── Bottom fade-out to site background for desktop ───── */}
+      {!isStacked && (
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: '12%',
+            background: 'linear-gradient(to bottom, transparent 0%, #0B0B0C 100%)',
+            zIndex: 6,
+          }}
+        />
+      )}
 
       {/* ── Film grain ────────────────────────────────────────────────── */}
       <div className="hero-grain-overlay absolute inset-0 pointer-events-none" style={{ zIndex: 5 }} />
 
-      {/* ── PORTRAIT — desktop right anchor (bottom: 0, height: min(100svh, 900px), aspect-ratio 17/25) ── */}
-      <motion.div
-        className="hidden lg:block absolute bottom-0 z-10 pointer-events-auto"
-        style={{
-          right: '3vw',
-          height: 'min(100svh, 900px)',
-          width: 'auto',
-          aspectRatio: '17 / 25',
-          scale: portraitScale,
-          opacity: portraitOpacity,
-          transformOrigin: 'bottom right',
-        }}
-      >
-        <PortraitMedia startTrigger={timelineStarted} />
-      </motion.div>
-
-      {/* ── MAIN CONTAINER (Exact container match to navbar: max-w-7xl mx-auto px-4 sm:px-6) ── */}
-      <div className="relative z-20 w-full lg:h-[100svh]">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full lg:h-[100svh]">
-          {/* Rotating badge (Desktop) — sitting INSIDE container at top-[10%], right edge matching Hire Me button */}
-          <div className="hidden lg:block absolute top-[10%] right-4 sm:right-6 z-30 pointer-events-auto">
-            <RotatingBadge />
-          </div>
-
-          {/* Scroll cue (Desktop) — 1px x 48px lime line, 24px from bottom, centered */}
-          <div
-            className="hidden lg:block absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none z-20"
-            aria-hidden="true"
+      {isStacked ? (
+        /* ── STACKED LAYOUT (width < 1024px OR portrait orientation) ── */
+        <div className="relative z-20 w-full min-h-screen flex flex-col items-center text-center pt-20 sm:pt-24 pb-12 overflow-x-hidden">
+          {/* 1. Status pill and Lahore clock, centered at top, overlaying faded top of portrait */}
+          <motion.div
+            custom={0}
+            variants={textVariants}
+            initial="hidden"
+            animate={timelineStarted ? 'visible' : 'hidden'}
+            className="hero-status-row relative z-20 px-4 mb-[-0.75rem] sm:mb-[-1.25rem]"
           >
             <div
-              className="hero-scroll-cue-line"
+              className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full border glass max-w-full backdrop-blur-md"
               style={{
-                width: '1px',
-                height: '48px',
-                backgroundColor: 'var(--accent-lime)',
+                borderColor: 'var(--border-subtle)',
+                background: 'rgba(17, 19, 26, 0.75)',
+                fontSize: 'clamp(0.65rem, 1.8vw, 0.85rem)',
+                letterSpacing: 0,
+                wordSpacing: 'normal',
               }}
-            />
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block shrink-0" />
+              <span className="text-emerald-400 font-semibold" style={{ letterSpacing: 0, wordSpacing: 'normal' }}>
+                Available for Work &amp; AI Freelance
+              </span>
+            </div>
+            <LahoreClock />
+          </motion.div>
+
+          {/* 2. Portrait: width min(100vw, 760px, 62svh), aspect-ratio 4/5, centered */}
+          <div
+            className="relative z-10 mx-auto select-none overflow-hidden"
+            style={{
+              width: 'min(100vw, 760px, 62svh)',
+              maxWidth: '100%',
+              aspectRatio: '4 / 5',
+            }}
+          >
+            <PortraitMedia startTrigger={timelineStarted} isStacked={true} />
+            <RotatingBadge isStacked={true} />
           </div>
 
-          {/* Left text block: vertically centered on eye line (~47% of hero height) on desktop */}
-          <div className="w-full pt-20 sm:pt-24 pb-0 lg:py-0 lg:absolute lg:top-[47%] lg:-translate-y-1/2 lg:left-4 sm:lg:left-6 lg:max-w-[50vw] xl:max-w-[48vw] pointer-events-auto">
+          {/* 3. Text block, centered, overlapping bottom of portrait: margin-top = calc(portrait width * -0.3) */}
+          <div
+            className="relative z-20 flex flex-col items-center text-center w-full px-4"
+            style={{
+              marginTop: 'calc(min(100vw, 760px, 62svh) * -0.24)',
+            }}
+          >
             <motion.div
-              className="flex flex-col"
-              style={{ y: leftColY }}
+              className="flex flex-col items-center text-center w-full"
             >
-              {/* Status pill + clock */}
-              <motion.div
-                custom={0}
-                variants={textVariants}
-                initial="hidden"
-                animate={timelineStarted ? 'visible' : 'hidden'}
-                className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3 px-0.5 sm:px-0"
-                style={{ marginBottom: '28px' }}
-              >
-                <div
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs border glass max-w-full"
-                  style={{ borderColor: 'var(--border-subtle)', letterSpacing: 0, wordSpacing: 'normal' }}
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block shrink-0" />
-                  <span className="text-emerald-400 font-semibold" style={{ letterSpacing: 0, wordSpacing: 'normal' }}>
-                    Available for Work &amp; AI Freelance
-                  </span>
-                </div>
-                <div className="pl-1 sm:pl-0">
-                  <LahoreClock />
-                </div>
-              </motion.div>
-
-              {/* Headline — masked slide-up per line with optical alignment */}
-              <h1 className="m-0 p-0 flex flex-col" style={{ gap: '4px', marginBottom: '24px' }}>
+              {/* Name: two lines, centered, clamp(1.9rem, 8.4vw, 5.25rem) */}
+              <h1 className="m-0 p-0 flex flex-col items-center text-center w-full" style={{ gap: '4px', marginBottom: '18px' }}>
                 <NameLine
                   delay={nameBaseDelay}
                   trigger={timelineStarted}
                   className="whitespace-nowrap"
                   style={{
-                    fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
-                    lineHeight: 0.95,
+                    fontSize: 'clamp(1.9rem, 8.4vw, 5.25rem)',
+                    lineHeight: 1.0,
                     letterSpacing: '-0.02em',
                     fontWeight: 300,
                     color: '#F2F1EC',
@@ -643,10 +698,10 @@ export default function Hero() {
                 <NameLine
                   delay={nameBaseDelay + 0.16}
                   trigger={timelineStarted}
-                  className="whitespace-normal lg:whitespace-nowrap"
+                  className="whitespace-nowrap max-w-[88vw] mx-auto overflow-hidden text-ellipsis"
                   style={{
-                    fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
-                    lineHeight: 0.95,
+                    fontSize: 'clamp(1.9rem, 8.4vw, 5.25rem)',
+                    lineHeight: 1.0,
                     letterSpacing: '-0.02em',
                     wordSpacing: 'normal',
                     fontWeight: 600,
@@ -657,66 +712,206 @@ export default function Hero() {
                 </NameLine>
               </h1>
 
-              {/* Rotating line in lime with caret & blur-and-fade */}
+              {/* Rotating line with its caret, centered */}
               <motion.div
+                custom={1}
+                variants={textVariants}
+                initial="hidden"
+                animate={timelineStarted ? 'visible' : 'hidden'}
+                style={{ marginBottom: '18px' }}
+                className="w-full flex justify-center text-center"
+              >
+                <RotatingLine isStacked={true} />
+              </motion.div>
+
+              {/* Pitch: centered, max-width 34rem, text-wrap balance */}
+              <motion.p
                 custom={2}
                 variants={textVariants}
                 initial="hidden"
                 animate={timelineStarted ? 'visible' : 'hidden'}
-                style={{ marginBottom: '20px' }}
-              >
-                <RotatingLine />
-              </motion.div>
-
-              {/* Short sentence (max 2 lines, max-width 30rem, text-wrap: balance) */}
-              <motion.p
-                custom={3}
-                variants={textVariants}
-                initial="hidden"
-                animate={timelineStarted ? 'visible' : 'hidden'}
-                className="leading-[1.6]"
+                className="leading-[1.6] text-center mx-auto"
                 style={{
-                  fontSize: 'clamp(1.05rem, 1.15vw, 1.25rem)',
+                  fontSize: 'clamp(0.85rem, 2.4vw, 1.125rem)',
                   fontWeight: 400,
                   letterSpacing: '0',
                   color: 'rgba(242, 241, 236, 0.72)',
-                  maxWidth: '30rem',
+                  maxWidth: '34rem',
                   textWrap: 'balance',
-                  marginBottom: '36px',
+                  marginBottom: '28px',
                 }}
               >
                 Founder of AIVIS. I turn ideas into scalable AI, mobile and web products.
               </motion.p>
 
-              {/* Two CTAs: 56px rounded-full with magnetic pull & download */}
+              {/* CTAs */}
               <motion.div
-                custom={4}
+                custom={3}
                 variants={textVariants}
                 initial="hidden"
                 animate={timelineStarted ? 'visible' : 'hidden'}
-                className="flex items-center gap-3 sm:gap-4 flex-wrap"
+                className="hero-cta-group w-full"
               >
-                <PrimaryMagneticCTA />
-                <SecondaryCTA />
+                <PrimaryMagneticCTA isStacked={true} />
+                <SecondaryCTA isStacked={true} />
               </motion.div>
-
-              {/* Mobile portrait: full-width, 4/5, anchored directly under CTAs */}
-              <div className="lg:hidden relative -mx-4 sm:-mx-6 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] aspect-[4/5] mt-8 overflow-hidden">
-                <PortraitMedia startTrigger={timelineStarted} isMobile={true} />
-                {/* Bottom 12% fade so it flows into the marquee with no gap */}
-                <div
-                  className="absolute bottom-0 inset-x-0 pointer-events-none z-10"
-                  style={{
-                    height: '12%',
-                    background: 'linear-gradient(to bottom, transparent 0%, #0B0B0C 100%)',
-                  }}
-                />
-              </div>
             </motion.div>
           </div>
         </div>
-      </div>
+      ) : (
+        /* ── DESKTOP LAYOUT (width >= 1024px in landscape) ── */
+        <div className="relative w-full h-[100svh] max-w-[1680px] mx-auto">
+          {/* Portrait — desktop anchor (height: min(100svh, 900px), aspect-ratio 17/25) */}
+          <motion.div
+            className="absolute bottom-0 z-10 pointer-events-auto"
+            style={{
+              right: '3vw',
+              height: 'min(100svh, 900px)',
+              width: 'auto',
+              aspectRatio: '17 / 25',
+              scale: portraitScale,
+              opacity: portraitOpacity,
+              transformOrigin: 'bottom right',
+            }}
+          >
+            <PortraitMedia startTrigger={timelineStarted} isStacked={false} />
+          </motion.div>
+
+          {/* MAIN CONTAINER */}
+          <div className="relative z-20 w-full h-full">
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full h-full">
+              {/* Rotating badge (Desktop) — sitting INSIDE container at top-[10%], right edge matching Hire Me button */}
+              <div className="absolute top-[10%] right-4 sm:right-6 z-30 pointer-events-auto">
+                <RotatingBadge />
+              </div>
+
+              {/* Scroll cue (Desktop) — 1px x 48px lime line, 24px from bottom, centered */}
+              <div
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none z-20"
+                aria-hidden="true"
+              >
+                <div
+                  className="hero-scroll-cue-line"
+                  style={{
+                    width: '1px',
+                    height: '48px',
+                    backgroundColor: 'var(--accent-lime)',
+                  }}
+                />
+              </div>
+
+              {/* Left text block: vertically centered on eye line (~47% of hero height) on desktop */}
+              <div className="w-full absolute top-[47%] -translate-y-1/2 left-4 sm:left-6 max-w-[50vw] xl:max-w-[48vw] pointer-events-auto">
+                <motion.div
+                  className="flex flex-col"
+                  style={{ y: leftColY }}
+                >
+                  {/* Status pill + clock */}
+                  <motion.div
+                    custom={0}
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={timelineStarted ? 'visible' : 'hidden'}
+                    className="flex flex-row items-center gap-3 px-0"
+                    style={{ marginBottom: '28px' }}
+                  >
+                    <div
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs border glass max-w-full"
+                      style={{ borderColor: 'var(--border-subtle)', letterSpacing: 0, wordSpacing: 'normal' }}
+                    >
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block shrink-0" />
+                      <span className="text-emerald-400 font-semibold" style={{ letterSpacing: 0, wordSpacing: 'normal' }}>
+                        Available for Work &amp; AI Freelance
+                      </span>
+                    </div>
+                    <div className="pl-1 sm:pl-0">
+                      <LahoreClock />
+                    </div>
+                  </motion.div>
+
+                  {/* Headline — masked slide-up per line with optical alignment */}
+                  <h1 className="m-0 p-0 flex flex-col" style={{ gap: '4px', marginBottom: '24px' }}>
+                    <NameLine
+                      delay={nameBaseDelay}
+                      trigger={timelineStarted}
+                      className="whitespace-nowrap"
+                      style={{
+                        fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
+                        lineHeight: 0.95,
+                        letterSpacing: '-0.02em',
+                        fontWeight: 300,
+                        color: '#F2F1EC',
+                        opacity: 0.9,
+                      }}
+                    >
+                      Muhammad
+                    </NameLine>
+
+                    <NameLine
+                      delay={nameBaseDelay + 0.16}
+                      trigger={timelineStarted}
+                      className="whitespace-normal lg:whitespace-nowrap"
+                      style={{
+                        fontSize: 'clamp(3.25rem, 7.2vw, 6.75rem)',
+                        lineHeight: 0.95,
+                        letterSpacing: '-0.02em',
+                        wordSpacing: 'normal',
+                        fontWeight: 600,
+                        color: '#F2F1EC',
+                      }}
+                    >
+                      Jawad Fareed
+                    </NameLine>
+                  </h1>
+
+                  {/* Rotating line in lime with caret & blur-and-fade */}
+                  <motion.div
+                    custom={2}
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={timelineStarted ? 'visible' : 'hidden'}
+                    style={{ marginBottom: '20px' }}
+                  >
+                    <RotatingLine />
+                  </motion.div>
+
+                  {/* Short sentence (max 2 lines, max-width 30rem, text-wrap: balance) */}
+                  <motion.p
+                    custom={3}
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={timelineStarted ? 'visible' : 'hidden'}
+                    className="leading-[1.6]"
+                    style={{
+                      fontSize: 'clamp(1.05rem, 1.15vw, 1.25rem)',
+                      fontWeight: 400,
+                      letterSpacing: '0',
+                      color: 'rgba(242, 241, 236, 0.72)',
+                      maxWidth: '30rem',
+                      textWrap: 'balance',
+                      marginBottom: '36px',
+                    }}
+                  >
+                    Founder of AIVIS. I turn ideas into scalable AI, mobile and web products.
+                  </motion.p>
+
+                  {/* Two CTAs: 56px rounded-full with magnetic pull & download */}
+                  <motion.div
+                    custom={4}
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={timelineStarted ? 'visible' : 'hidden'}
+                    className="flex items-center gap-3 sm:gap-4 flex-wrap"
+                  >
+                    <PrimaryMagneticCTA />
+                    <SecondaryCTA />
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
-

@@ -40,7 +40,6 @@ function AnimatedRadialGauge({
   const circumference = 2 * Math.PI * radius
 
   useEffect(() => {
-    let start = 0
     const duration = 1400
     const startTime = performance.now()
 
@@ -152,7 +151,7 @@ function CVMatchTab() {
           <div className="p-2.5 rounded-xl bg-white/[0.02] border" style={{ borderColor: 'var(--border-subtle)' }}>
             <span className="text-[10px] uppercase opacity-40 block mb-1">Education & GPA</span>
             <div className="text-[11px] text-lime-400 font-semibold">
-              BS CS (UCP Lahore) · {GPA} GPA
+              BS CS (Honors) (UCP Lahore) · {GPA} GPA
             </div>
           </div>
         </div>
@@ -554,6 +553,7 @@ function RecruiterViewTab() {
                 className="w-7 h-7 rounded-lg glass flex items-center justify-center transition-colors"
                 style={{ border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
                 title="Play 20s AI Interview Snippet"
+                aria-label={playing === i ? "Pause AI interview snippet" : "Play 20s AI interview snippet"}
               >
                 {playing === i ? <Pause size={11} className="text-lime-400" /> : <Play size={11} />}
               </button>

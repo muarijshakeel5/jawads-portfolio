@@ -8,9 +8,10 @@ const typeIcon = {
   founder: Building2,
   fulltime: Briefcase,
   intern: Code2,
+  contract: Briefcase,
 }
 
-const typeColor = {
+const typeColor: Record<string, string> = {
   freelance: '#D4FF3A',
   founder: '#D4FF3A',
   fulltime: '#D4FF3A',
@@ -21,7 +22,12 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const Icon = typeIcon[item.type as keyof typeof typeIcon] || Briefcase
-  const color = typeColor[item.type as keyof typeof typeColor] || '#D4FF3A'
+  const isContract = item.type === 'contract'
+  const color = isContract ? 'rgba(255, 255, 255, 0.6)' : (typeColor[item.type as keyof typeof typeColor] || '#D4FF3A')
+  const iconBg = isContract ? 'rgba(255, 255, 255, 0.06)' : `${color}18`
+  const iconBorder = isContract ? 'rgba(255, 255, 255, 0.15)' : `${color}30`
+  const badgeBg = isContract ? 'rgba(255, 255, 255, 0.08)' : `${color}15`
+  const badgeBorder = isContract ? 'rgba(255, 255, 255, 0.20)' : `${color}30`
   const isLeft = index % 2 === 0
 
   return (
@@ -41,7 +47,7 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
             <div className="flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-[0.12em] mb-1 font-semibold" style={{ color: 'rgba(242, 241, 236, 0.6)' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3A] shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: color }} />
               <span>{item.company}</span>
             </div>
             <div className="text-base sm:text-lg font-semibold" style={{ fontFamily: 'Clash Grotesk, sans-serif', color: 'var(--text-primary)', letterSpacing: 0, wordSpacing: 'normal' }}>
@@ -50,7 +56,7 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
           </div>
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: `${color}18`, border: `1px solid ${color}30` }}
+            style={{ background: iconBg, border: `1px solid ${iconBorder}` }}
           >
             <Icon size={16} style={{ color }} />
           </div>
@@ -70,7 +76,7 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
           {item.badge && (
             <span
               className="text-[11px] px-2 py-0.5 rounded-full font-mono font-medium"
-              style={{ background: `${color}15`, color, border: `1px solid ${color}30` }}
+              style={{ background: badgeBg, color, border: `1px solid ${badgeBorder}` }}
             >
               {item.badge}
             </span>
@@ -110,21 +116,23 @@ function TimelineCard({ item, index }: { item: typeof timeline[number]; index: n
         )}
 
         {/* Tech tags */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {item.tags.map(t => (
-            <span
-              key={t}
-              className="text-[11px] px-2 py-0.5 rounded-lg font-mono"
-              style={{
-                background: 'var(--border-subtle)',
-                color: 'var(--text-secondary)',
-                border: '1px solid var(--border-subtle)',
-              }}
-            >
-              {t}
-            </span>
-          ))}
-        </div>
+        {item.tags && item.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {item.tags.map(t => (
+              <span
+                key={t}
+                className="text-[11px] px-2 py-0.5 rounded-lg font-mono"
+                style={{
+                  background: 'var(--border-subtle)',
+                  color: 'var(--text-secondary)',
+                  border: '1px solid var(--border-subtle)',
+                }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
       </motion.div>
 
       {/* Spacer for opposite side on desktop */}

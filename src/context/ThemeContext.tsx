@@ -1,18 +1,12 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-
-type Theme = 'dark' | 'light'
+import React, { createContext, useContext, useEffect } from 'react'
 
 interface ThemeContextType {
-  theme: Theme
-  toggleTheme: () => void
-  setTheme: (t: Theme) => void
+  theme: 'dark'
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+const ThemeContext = createContext<ThemeContextType>({ theme: 'dark' })
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const theme: Theme = 'dark'
-
   useEffect(() => {
     const root = document.documentElement
     root.classList.remove('light')
@@ -21,18 +15,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('mjf-theme', 'dark')
   }, [])
 
-  const toggleTheme = () => {}
-  const setTheme = () => {}
-
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: 'dark' }}>
       {children}
     </ThemeContext.Provider>
   )
 }
 
 export function useTheme() {
-  const ctx = useContext(ThemeContext)
-  if (!ctx) throw new Error('useTheme must be used within ThemeProvider')
-  return ctx
+  return useContext(ThemeContext)
 }
+

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { personal, linkedinPostThemes } from '../data'
 import { Bot, Layers, Users } from 'lucide-react'
@@ -10,19 +10,24 @@ function AnimatedCounter({ target }: { target: number }) {
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true })
 
-  if (inView && ref.current) {
+  useEffect(() => {
+    if (!inView) return
     const duration = 2000
     const start = performance.now()
+    let rafId: number
     const animate = (now: number) => {
       const elapsed = Math.min((now - start) / duration, 1)
       const eased = 1 - Math.pow(1 - elapsed, 3)
       if (ref.current) {
         ref.current.textContent = (target * eased / 1000).toFixed(1)
       }
-      if (elapsed < 1) requestAnimationFrame(animate)
+      if (elapsed < 1) {
+        rafId = requestAnimationFrame(animate)
+      }
     }
-    requestAnimationFrame(animate)
-  }
+    rafId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(rafId)
+  }, [inView, target])
 
   return <span ref={ref}>0.0</span>
 }

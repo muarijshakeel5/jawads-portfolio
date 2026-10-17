@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { personal } from '../data'
 import { Command, Hash, Copy, Download } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from './Icons'
+import { downloadCV } from '../lib/downloadCV'
 
 const sections = [
   { id: 'hero', label: 'Jump to Hero' },
@@ -47,14 +48,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
       label: 'Download Curriculum Vitae',
       icon: Download,
       action: () => {
-        const link = document.createElement('a')
-        link.href = personal.cvLink
-        link.download = 'Muhammad_Jawad_Fareed_Resume.pdf'
-        link.target = '_blank'
-        link.rel = 'noopener noreferrer'
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+        downloadCV()
       },
     },
   ]

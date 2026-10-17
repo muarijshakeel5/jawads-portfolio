@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { personal } from '../data'
 import { Mail, Copy, Check, ArrowUp } from 'lucide-react'
@@ -20,6 +20,7 @@ function CopyEmailButton() {
   return (
     <button
       onClick={copy}
+      aria-label={`Copy email address ${personal.email}`}
       className="group inline-flex items-center gap-3 transition-all cursor-pointer"
       title="Click to copy email address"
     >
@@ -340,7 +341,7 @@ export default function Contact() {
 
             <div className="flex flex-col gap-4">
               {[
-                { icon: GithubIcon, href: personal.github, label: 'GitHub', handle: '@jawadfareed' },
+                { icon: GithubIcon, href: personal.github, label: 'GitHub', handle: 'jawadfareed' },
                 { icon: LinkedinIcon, href: personal.linkedin, label: 'LinkedIn', handle: 'muhammadjawadfareed' },
                 { icon: Mail, href: `mailto:${personal.email}`, label: 'Email', handle: personal.email },
               ].map(({ icon: Icon, href, label, handle }) => (

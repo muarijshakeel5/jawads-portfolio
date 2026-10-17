@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { education, certifications } from '../data'
 import { GraduationCap, Award } from 'lucide-react'
 
 export default function Education() {
+  const [showAllMobile, setShowAllMobile] = useState(false)
+
   return (
     <section id="learning" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -49,12 +52,39 @@ export default function Education() {
 
             <div className="text-[11px] font-medium uppercase tracking-[0.12em] mb-3" style={{ color: 'var(--text-muted)' }}>Relevant Courses</div>
             <div className="flex flex-wrap gap-2">
-              {education.courses.map(c => (
-                <span key={c} className="text-xs px-2.5 py-1 rounded-lg font-medium border"
-                  style={{ background: 'var(--bg-surface-elevated)', color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)', letterSpacing: 0, wordSpacing: 'normal' }}>
+              {education.courses.map((c, i) => (
+                <span
+                  key={c}
+                  className={`text-xs px-2.5 py-1 rounded-lg font-medium border ${
+                    i >= 9 && !showAllMobile ? 'hidden sm:inline-flex' : 'inline-flex'
+                  }`}
+                  style={{
+                    background: 'var(--bg-surface-elevated)',
+                    color: 'var(--text-secondary)',
+                    borderColor: 'var(--border-subtle)',
+                    letterSpacing: 0,
+                    wordSpacing: 'normal',
+                  }}
+                >
                   {c}
                 </span>
               ))}
+              <button
+                type="button"
+                onClick={() => setShowAllMobile(prev => !prev)}
+                className="sm:hidden text-xs px-2.5 py-1 rounded-lg font-medium border transition-colors cursor-pointer"
+                style={{
+                  background: 'rgba(212,255,58,0.08)',
+                  color: 'var(--accent-lime)',
+                  borderColor: 'var(--border-active)',
+                  letterSpacing: 0,
+                  wordSpacing: 'normal',
+                }}
+                aria-expanded={showAllMobile}
+                aria-label={showAllMobile ? 'Show fewer courses' : `Show ${education.courses.length - 9} more courses`}
+              >
+                {showAllMobile ? 'Show less' : `+${education.courses.length - 9} more`}
+              </button>
             </div>
           </motion.div>
 

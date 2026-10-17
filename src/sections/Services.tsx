@@ -109,7 +109,7 @@ export default function Services() {
             How I Build &amp; Ship
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {processSteps.map((step, i) => (
+            {processSteps.map(step => (
               <div key={step.step} className="flex flex-col gap-2 relative">
                 <div
                   className="text-3xl font-semibold"

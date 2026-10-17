@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { about } from '../data'
 
@@ -17,10 +17,12 @@ function Counter({
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const displayRef = useRef<HTMLSpanElement>(null)
 
-  if (inView && displayRef.current) {
+  useEffect(() => {
+    if (!inView) return
     const target = value
     const duration = 1600
     const start = performance.now()
+    let rafId: number
     const animate = (now: number) => {
       const elapsed = Math.min((now - start) / duration, 1)
       const eased = 1 - Math.pow(1 - elapsed, 3)
@@ -30,10 +32,13 @@ function Counter({
           ? current.toFixed(decimal)
           : Math.floor(current).toString()
       }
-      if (elapsed < 1) requestAnimationFrame(animate)
+      if (elapsed < 1) {
+        rafId = requestAnimationFrame(animate)
+      }
     }
-    requestAnimationFrame(animate)
-  }
+    rafId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(rafId)
+  }, [inView, value, decimal])
 
   return (
     <div ref={ref} className="flex flex-col gap-1.5 p-4 rounded-2xl glass border" style={{ borderColor: 'var(--border-subtle)' }}>
